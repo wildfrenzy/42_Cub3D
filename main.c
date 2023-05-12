@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/12 19:24:55 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/12 19:32:49 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@ int		ft_init_cub(t_cub *cub)
 	cub->player->x_pos = 50;
 	cub->player->y_pos = 50;
 	cub->player->colour = ft_pixel(255,0,0,255);
+	if (!(cub->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	{
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (!(cub->img = mlx_new_image(cub->mlx, 8, 8)))
+	{
+		mlx_close_window(cub->mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(cub->mlx, cub->img, cub->player->x_pos, cub->player->y_pos) == -1)
+	{
+		mlx_close_window(cub->mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
 	return (0);
 }
 
@@ -64,23 +81,6 @@ int32_t main(int32_t argc, const char* argv[])
 
 	if (ft_init_cub(&cub))
 		return (1);
-	if (!(cub.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(cub.img = mlx_new_image(cub.mlx, 8, 8)))
-	{
-		mlx_close_window(cub.mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(cub.mlx, cub.img, cub.player->x_pos, cub.player->y_pos) == -1)
-	{
-		mlx_close_window(cub.mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
 
 	mlx_loop_hook(cub.mlx, ft_draw_player, &cub);
 	mlx_loop_hook(cub.mlx, ft_hook, &cub);
