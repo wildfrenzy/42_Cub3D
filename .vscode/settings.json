@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "filesystem": "c",
-        "cstdio": "c",
-        "*.txt": "c"
-    }
-}
