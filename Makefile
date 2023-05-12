@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
+#    By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/04/02 19:46:10 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/05/12 19:02:38 by barramacmah      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = cube3d
 
 #HEADER =
 
-SRC = example.c
+SRC = main.c
 
 OBJ = $(SRC:.c=.o)
 
