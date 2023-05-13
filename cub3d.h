@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/12 23:53:28 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/13 10:23:13 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ typedef struct s_player
 
 typedef struct s_cub {
 	t_player			*player;
-	struct mlx_image	*img;
 	mlx_t				*mlx;
+	struct mlx_image	*img;
+	// struct mlx_image	*mapimg;
 	// t_map				*map;
 }				t_cub;
 

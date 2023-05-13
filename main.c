@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/13 00:53:44 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/13 10:19:52 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 // 	float	delta_x;
 // 	float	delta_y;
 // 	int		colour = a.colour;
-	
 // 	delta_x = b.x - a.x;
 // 	delta_y = b.y - a.y;
 // 	while((int) (a.x - b.x) || (int) (a.y - b.y))
@@ -49,12 +48,10 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 // 			break ;
 // 	}
 // }
-
 // void	ft_draw_box(t_pixel xyo, int32_t colour, t_cub *cub)
 // {
 // 	t_pixel corners[4];
 // 	int i;
-
 // 	corners[0].x = xyo.x;
 // 	corners[0].y = xyo.y;
 // 	corners[1].x = xyo.x;
@@ -70,14 +67,11 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 // 	ft_draw_line(corners[0], corners[2], cub);
 // 	ft_draw_line(corners[1], corners[3], cub);
 // 	ft_draw_line(corners[2], corners[3], cub);
-	
 // }
-
 // void	ft_draw_map(void *param)
 // {
 // 	t_cub *cub;
 // 	t_pixel xyo;
-
 // 	cub = param;
 // 	for (int y= 0; y <mapY; y++)
 // 	{
@@ -96,20 +90,13 @@ void	ft_draw_player(void *param)
 	int	x;
 	int	y;
 
-	x = 0;
-	y = 0;
+	x = -1;
 	cub = (t_cub*)param;
-	printf("%d\n", cub->img->width);
-	printf("%d\n", cub->img->height);
-	while (x < (int) cub->img->width)
+	while (++x < (int) cub->img->width)
 	{
-		while (y < (int) cub->img->height)
-		{
+		y = -1;
+		while (++y < (int) cub->img->height)
 			mlx_put_pixel(cub->img, x, y, cub->player->colour);
-			printf("x:%d y:%d\n", x, y);
-			y++;
-		}
-		x++;
 	}
 }
 
@@ -144,7 +131,7 @@ int	ft_init_cub(t_cub *cub)
 		puts(mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	cub->img = mlx_new_image(cub->mlx, 80, 8);
+	cub->img = mlx_new_image(cub->mlx, 8, 8);
 	if (!(cub->img))
 	{
 		mlx_close_window(cub->mlx);
