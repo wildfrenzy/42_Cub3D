@@ -6,30 +6,110 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/12 19:56:27 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/13 00:53:44 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// int	map[] = {
+// 	1,1,1,1,1,1,1,1,
+// 	1,0,1,0,0,0,0,1,
+// 	1,0,1,0,0,0,0,1,
+// 	1,0,0,0,0,0,0,1,
+// 	1,0,0,0,0,0,0,1,
+// 	1,0,1,0,0,0,0,1,
+// 	1,0,1,0,0,0,0,1,
+// 	1,1,1,1,1,1,1,1,
+// };
+// int	mapX;
+// int mapY;
+// int mapS;
 
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+// void	ft_draw_line(t_pixel a, t_pixel b, t_cub *cub)
+// {
+// 	float	delta_x;
+// 	float	delta_y;
+// 	int		colour = a.colour;
+	
+// 	delta_x = b.x - a.x;
+// 	delta_y = b.y - a.y;
+// 	while((int) (a.x - b.x) || (int) (a.y - b.y))
+// 	{
+// 		mlx_put_pixel(cub->img, a.x, a.y, a.colour);
+// 		a.x += delta_x;
+// 		a.y += delta_y;
+// 		if (a.x > cub->img->width || a.y > cub->img->height ||\
+// 			a.x < 0 || a.y < 0)
+// 			break ;
+// 	}
+// }
+
+// void	ft_draw_box(t_pixel xyo, int32_t colour, t_cub *cub)
+// {
+// 	t_pixel corners[4];
+// 	int i;
+
+// 	corners[0].x = xyo.x;
+// 	corners[0].y = xyo.y;
+// 	corners[1].x = xyo.x;
+// 	corners[1].y = xyo.y + mapS;
+// 	corners[2].x = xyo.x + mapS;
+// 	corners[2].y = xyo.y + mapS;
+// 	corners[3].x = xyo.x + mapS;
+// 	corners[3].y = xyo.y;
+// 	i = -1;
+// 	while(++i < 4)
+// 		corners[i].colour = colour;
+// 	ft_draw_line(corners[0], corners[1], cub);
+// 	ft_draw_line(corners[0], corners[2], cub);
+// 	ft_draw_line(corners[1], corners[3], cub);
+// 	ft_draw_line(corners[2], corners[3], cub);
+	
+// }
+
+// void	ft_draw_map(void *param)
+// {
+// 	t_cub *cub;
+// 	t_pixel xyo;
+
+// 	cub = param;
+// 	for (int y= 0; y <mapY; y++)
+// 	{
+// 		for (int x = 0; x< mapX; x++)
+// 		{
+// 			xyo.x = x*mapS;
+// 			xyo.y = y*mapS;
+// 			ft_draw_box(xyo, ft_pixel(255,255,255,255), cub);
+// 		}
+// 	}
+// }
+
 void	ft_draw_player(void *param)
 {
 	t_cub	*cub;
-	int32_t	i;
-	int32_t	y;
+	int	x;
+	int	y;
 
-	i = -1;
-	y = -1;
-	cub = param;
-	while (++i < (int)cub->img->width)
+	x = 0;
+	y = 0;
+	cub = (t_cub*)param;
+	printf("%d\n", cub->img->width);
+	printf("%d\n", cub->img->height);
+	while (x < (int) cub->img->width)
 	{
-		while (++y < (int)cub->img->height)
-			mlx_put_pixel(cub->img, i, y, cub->player->colour);
+		while (y < (int) cub->img->height)
+		{
+			mlx_put_pixel(cub->img, x, y, cub->player->colour);
+			printf("x:%d y:%d\n", x, y);
+			y++;
+		}
+		x++;
 	}
 }
 
@@ -64,7 +144,7 @@ int	ft_init_cub(t_cub *cub)
 		puts(mlx_strerror(mlx_errno));
 		return (EXIT_FAILURE);
 	}
-	cub->img = mlx_new_image(cub->mlx, 8, 8);
+	cub->img = mlx_new_image(cub->mlx, 80, 8);
 	if (!(cub->img))
 	{
 		mlx_close_window(cub->mlx);
@@ -88,7 +168,9 @@ int32_t	main(int32_t argc, const char *argv[])
 	(void)argv;
 	if (ft_init_cub(&cub))
 		return (1);
-	mlx_loop_hook(cub.mlx, ft_draw_player, &cub);
+	// mlx_loop_hook(cub.mlx, ft_draw_map, &cub);
+	// mlx_loop_hook(cub.mlx, ft_draw_player, &cub);
+	ft_draw_player(&cub);
 	mlx_loop_hook(cub.mlx, ft_hook, &cub);
 	mlx_loop(cub.mlx);
 	mlx_terminate(cub.mlx);

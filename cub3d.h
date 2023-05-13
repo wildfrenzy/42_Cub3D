@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/12 19:58:25 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/12 23:53:28 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,22 @@
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 512
-# define HEIGHT 512 
+# define HEIGHT 512
+
+typedef struct s_pixel
+{
+	int32_t	x;
+	int32_t y;
+	int32_t colour;
+}				t_pixel;
+
+// typedef struct s_map
+// {
+// 	int	*map;
+// 	int	mapX;
+// 	int mapY;
+// 	int mapS;
+// }				t_map;
 
 typedef struct s_player
 {
@@ -32,6 +47,7 @@ typedef struct s_cub {
 	t_player			*player;
 	struct mlx_image	*img;
 	mlx_t				*mlx;
+	// t_map				*map;
 }				t_cub;
 
 #endif
