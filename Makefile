@@ -6,7 +6,7 @@
 #    By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/05/12 19:02:38 by barramacmah      ###   ########.fr        #
+#    Updated: 2023/05/14 14:56:35 by barramacmah      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,5 +72,9 @@ fclean: clean
 #@make fclean -sC $(LIBFT_DIR)
 
 re: fclean all
+
+exec: all
+	make clean
+	./$(NAME)
 
 .PHONY:	all clean fclean re
