@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/15 15:10:38 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 18:47:39 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdbool.h>
 # include <math.h>
 # define PI 3.1415926535
+# define P2 PI/2
+# define P3 3*PI/2
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 1280
@@ -37,6 +39,20 @@ typedef struct s_pixel
 // 	int mapY;
 // 	int mapS;
 // }				t_map;
+
+typedef struct s_rays
+{
+	int	r;
+	int	mx;
+	int	my;
+	int	mp;
+	int	dof;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+}				t_rays;
 
 typedef struct s_player
 {
