@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/15 14:46:10 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 14:48:22 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_draw_background(void *param)
 	{
 		y = -1;
 		while (++y < (int) cub->img->height)
-			mlx_put_pixel(cub->img, x, y, ft_pixel(0,0,0,255));
+			mlx_put_pixel(cub->img, x, y, ft_pixel(100,100,100,255));
 	}
 }
 
