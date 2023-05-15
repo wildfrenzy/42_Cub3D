@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/15 19:20:38 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 23:00:19 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	ft_draw_box(t_pixel xyo, int32_t colour, t_cub *cub)
+void	ft_draw_box(t_pixel xyo, int32_t colour, t_cub *cub, int32_t height, int32_t width)
 {
 	t_pixel corners[4];
 	int i;
@@ -40,10 +40,10 @@ void	ft_draw_box(t_pixel xyo, int32_t colour, t_cub *cub)
 	corners[0].x = xyo.x + 1;
 	corners[0].y = xyo.y + 1;
 	corners[1].x = xyo.x + 1;
-	corners[1].y = xyo.y + mapS - 1;
-	corners[2].x = xyo.x + mapS - 1;
-	corners[2].y = xyo.y + mapS - 1;
-	corners[3].x = xyo.x + mapS - 1;
+	corners[1].y = xyo.y + height - 1;
+	corners[2].x = xyo.x + width - 1;
+	corners[2].y = xyo.y + height - 1;
+	corners[3].x = xyo.x + width - 1;
 	corners[3].y = xyo.y + 1;
 	i = -1;
 	while(corners[0].y <= corners[1].y)
@@ -71,7 +71,7 @@ void	ft_draw_walls(void *param)
 				col = ft_pixel(0,0,0,255);
 			xyo.x = x * mapS;
 			xyo.y = y * mapS;
-			ft_draw_box(xyo, col, cub);
+			ft_draw_box(xyo, col, cub, mapS, mapS);
 		}
 	}
 }
@@ -81,6 +81,7 @@ void	ft_draw_background(void *param)
 	t_cub	*cub;
 	int	x;
 	int	y;
+	int colour;
 
 	x = -1;
 	cub = (t_cub*)param;
@@ -88,7 +89,13 @@ void	ft_draw_background(void *param)
 	{
 		y = -1;
 		while (++y < (int) cub->img->height)
-			mlx_put_pixel(cub->img, x, y, ft_pixel(100,100,100,255));
+		{
+			if (y > 160)
+				colour = ft_pixel(255,255,255,255);
+			else	
+				colour = ft_pixel(100,100,100,255);
+			mlx_put_pixel(cub->img, x, y, colour);
+		}
 	}
 }
 
@@ -148,119 +155,147 @@ void ft_preline(t_cub *cub, t_rays *ray)
 	ft_line(cub->img, &one, &two, cub->player->colour);
 }
 
+void	ft_draw_3d(void *param)
+{
+	t_cub *cub;
+	float lineH;
+	float lineO;
+	t_pixel line_r_corner;
+	
+	cub = param;
+	lineH = (mapS * 320) / cub->rays->disT;
+	if (lineH > 320)
+		lineH = 320;
+	lineO = 160 - lineH / 2;
+	line_r_corner.x = cub->rays->r*8 + 530;
+	line_r_corner.y = 160 - lineH / 2; 
+	ft_draw_box(line_r_corner, cub->rays->colour, cub, (int) lineH, 12);
+}
+
 void ft_draw_rays(void *param)
 {
 	t_cub	*cub;
-	cub = param;
-	t_rays	rays;
-	float	aTan;
-	float	nTan;
-	float	disH = 1000000;
-	float	disV = 1000000;
-	float	hx = cub->player->x_pos;
-	float	hy = cub->player->y_pos;
-	float	vx = cub->player->x_pos;
-	float	vy = cub->player->y_pos;
-	int r;
+	cub = (t_cub*) param;
+	t_rays	*rays;
 
-	rays.ra = cub->player->angle;
-	r = -1;
-	while (++r < 1)
+	rays = cub->rays;
+	rays->disH = 1000000;
+	rays->disV = 1000000;
+	rays->hx = cub->player->x_pos;
+	rays->hy = cub->player->y_pos;
+	rays->vx = cub->player->x_pos;
+	rays->vy = cub->player->y_pos;
+	rays->ra = cub->player->angle - DR * 30;
+	if (rays->ra < 0)
+		rays->ra += 2 * PI;
+	if (rays->ra > 2 * PI)
+		rays->ra -= 2 * PI;
+	rays->r = -1;
+	while (++rays->r < 60)
 	{
-		rays.dof = 0;
-		aTan = -1/tan(rays.ra);
-		if(rays.ra > PI)
+		rays->dof = 0;
+		rays->aTan = -1/tan(rays->ra);
+		if(rays->ra > PI)
 		{
-			rays.ry = (((int)cub->player->y_pos>>6)<<6)-0.0001;
-			rays.rx = (cub->player->y_pos - rays.ry) * aTan + cub->player->x_pos;
-			rays.yo = -mapS;
-			rays.xo = -rays.yo * aTan;
+			rays->ry = (((int)cub->player->y_pos>>6)<<6)-0.0001;
+			rays->rx = (cub->player->y_pos - rays->ry) * rays->aTan + cub->player->x_pos;
+			rays->yo = -mapS;
+			rays->xo = -rays->yo * rays->aTan;
 		}	
-		if(rays.ra < PI)
+		if(rays->ra < PI)
 		{
-			rays.ry = (((int)cub->player->y_pos>>6)<<6)+mapS;
-			rays.rx = (cub->player->y_pos - rays.ry) * aTan + cub->player->x_pos;
-			rays.yo = mapS;
-			rays.xo = -rays.yo * aTan;
+			rays->ry = (((int)cub->player->y_pos>>6)<<6)+mapS;
+			rays->rx = (cub->player->y_pos - rays->ry) * rays->aTan + cub->player->x_pos;
+			rays->yo = mapS;
+			rays->xo = -rays->yo * rays->aTan;
 		}
-		if (rays.ra == 0 || rays.ra == PI)
+		if (rays->ra == 0 || rays->ra == PI)
 		{
-			rays.rx = cub->player->x_pos;
-			rays.ry = cub->player->y_pos;
-			rays.dof = 8;
+			rays->rx = cub->player->x_pos;
+			rays->ry = cub->player->y_pos;
+			rays->dof = 8;
 		}
-		while (rays.dof < 8)
+		while (rays->dof < 8)
 		{
-			rays.mx = (int) (rays.rx) >> 6; 
-			rays.my = (int) (rays.ry) >> 6;
-			rays.mp = rays.my *mapX + rays.mx;
-			if (rays.mp > 0 && rays.mp < mapX * mapY && map[rays.mp] == 1)
+			rays->mx = (int) (rays->rx) >> 6; 
+			rays->my = (int) (rays->ry) >> 6;
+			rays->mp = rays->my * mapX + rays->mx;
+			if (rays->mp > 0 && rays->mp < mapX * mapY && map[rays->mp] == 1)
 			{
-				hx = rays.rx;
-				hy = rays.ry;
-				disH = ft_dist(cub->player->x_pos, cub->player->y_pos, hx, hy);
-				rays.dof = 8;
+				rays->hx = rays->rx;
+				rays->hy = rays->ry;
+				rays->disH = ft_dist(cub->player->x_pos, cub->player->y_pos, rays->hx, rays->hy);
+				rays->dof = 8;
 			}
 			else
 			{
-				rays.rx += rays.xo;
-				rays.ry += rays.yo;
-				rays.dof += 1;
+				rays->rx += rays->xo;
+				rays->ry += rays->yo;
+				rays->dof += 1;
 			}
 		}
-		rays.dof = 0;
-		nTan = -tan(rays.ra);
-		if(rays.ra > P2 && rays.ra < P3)
+		rays->dof = 0;
+		rays->nTan = -tan(rays->ra);
+		if(rays->ra > P2 && rays->ra < P3)
 		{
-			rays.rx = (((int)cub->player->x_pos>>6)<<6)-0.0001;
-			rays.ry = (cub->player->x_pos - rays.rx) * nTan + cub->player->y_pos;
-			rays.xo = -mapS;
-			rays.yo = -rays.xo * nTan;
+			rays->rx = (((int)cub->player->x_pos>>6)<<6)-0.0001;
+			rays->ry = (cub->player->x_pos - rays->rx) * rays->nTan + cub->player->y_pos;
+			rays->xo = -mapS;
+			rays->yo = -rays->xo * rays->nTan;
 		}	
-		if(rays.ra < P2 || rays.ra > P3)
+		if(rays->ra < P2 || rays->ra > P3)
 		{
-			rays.rx = (((int)cub->player->x_pos>>6)<<6)+mapS;
-			rays.ry = (cub->player->x_pos - rays.rx) * nTan + cub->player->y_pos;
-			rays.xo = mapS;
-			rays.yo = -rays.xo * nTan;
+			rays->rx = (((int)cub->player->x_pos>>6)<<6)+mapS;
+			rays->ry = (cub->player->x_pos - rays->rx) * rays->nTan + cub->player->y_pos;
+			rays->xo = mapS;
+			rays->yo = -rays->xo *rays-> nTan;
 		}
-		if (rays.ra == 0 || rays.ra == PI)
+		if (rays->ra == 0 || rays->ra == PI)
 		{
-			rays.rx = cub->player->x_pos;
-			rays.ry = cub->player->y_pos;
-			rays.dof = 8;
+			rays->rx = cub->player->x_pos;
+			rays->ry = cub->player->y_pos;
+			rays->dof = 8;
 		}
-		while (rays.dof < 8)
+		while (rays->dof < 8)
 		{
-			rays.mx = (int) (rays.rx) >> 6; 
-			rays.my = (int) (rays.ry) >> 6;
-			rays.mp = rays.my *mapX + rays.mx;
-			if (rays.mp > 0 && rays.mp < mapX * mapY && map[rays.mp] == 1)
+			rays->mx = (int) (rays->rx) >> 6; 
+			rays->my = (int) (rays->ry) >> 6;
+			rays->mp = rays->my *mapX + rays->mx;
+			if (rays->mp > 0 && rays->mp < mapX * mapY && map[rays->mp] == 1)
 			{
-				vx = rays.rx;
-				vy = rays.ry;
-				disV = ft_dist(cub->player->x_pos, cub->player->y_pos, vx, vy);
-				rays.dof = 8;
+				rays->vx = rays->rx;
+				rays->vy = rays->ry;
+				rays->disV = ft_dist(cub->player->x_pos, cub->player->y_pos, rays->vx, rays->vy);
+				rays->dof = 8;
 			}
 			else
 			{
-				rays.rx += rays.xo;
-				rays.ry += rays.yo;
-				rays.dof += 1;
+				rays->rx += rays->xo;
+				rays->ry += rays->yo;
+				rays->dof += 1;
 			}
 		}
-		if(disV < disH)
+		if(rays->disV <= rays->disH)
 		{
-			rays.rx = vx;
-			rays.ry = vy;
+			rays->rx = rays->vx;
+			rays->ry = rays->vy;
+			rays->disT = rays->disV;
+			rays->colour = ft_pixel(200, 0, 0, 255);
 		}
-		if(disV > disH)
+		if(rays->disV > rays->disH)
 		{
-			rays.rx = hx;
-			rays.ry = hy;
+			rays->rx = rays->hx;
+			rays->ry = rays->hy;
+			rays->disT = rays->disH;
+			rays->colour = ft_pixel(255,0,0,255);
 		}
-		if(ft_onscreen(rays.rx, rays.ry))
-			ft_preline(cub, &rays);
+		ft_preline(cub, rays);
+		ft_draw_3d(cub);
+		rays->ra += DR;
+		if (rays->ra < 0)
+			rays->ra += 2 * PI;
+		if (rays->ra > 2 * PI)
+			rays->ra -= 2 * PI;
 	}
 }
 
@@ -319,6 +354,12 @@ int	ft_init_cub(t_cub *cub)
 {
 	if (ft_init_player(cub))
 		return (1);
+	cub->rays = malloc(sizeof(t_rays));
+	if (!cub->rays)
+	{
+		free(cub->player);
+		return (1);
+	}
 	cub->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!cub->mlx)
 	{
@@ -341,19 +382,20 @@ int	ft_init_cub(t_cub *cub)
 	return (0);
 }
 
+
 int32_t	main(int32_t argc, const char *argv[])
 {
 	t_cub	cub;
 
 	(void)argc;
 	(void)argv;
-	printf("yo");
 	if (ft_init_cub(&cub))
 		return (1);
 	mlx_loop_hook(cub.mlx, ft_draw_background, &cub);
 	mlx_loop_hook(cub.mlx, ft_draw_walls, &cub);
 	mlx_loop_hook(cub.mlx, ft_draw_player, &cub);
 	mlx_loop_hook(cub.mlx, ft_draw_rays, &cub);
+	// mlx_loop_hook(cub.mlx, ft_draw_3d, &cub);
 	mlx_loop_hook(cub.mlx, ft_hook, &cub);
 	mlx_loop(cub.mlx);
 	mlx_terminate(cub.mlx);

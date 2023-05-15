@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/15 18:47:39 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 22:53:15 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define PI 3.1415926535
 # define P2 PI/2
 # define P3 3*PI/2
+# define DR 0.0174533
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 1280
@@ -52,6 +53,16 @@ typedef struct s_rays
 	float	ra;
 	float	xo;
 	float	yo;
+	float	aTan;
+	float	nTan;
+	float	disH;
+	float	disV;
+	float	disT;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	int		colour;
 }				t_rays;
 
 typedef struct s_player
@@ -70,6 +81,7 @@ typedef struct s_cub {
 	t_player			*player;
 	mlx_t				*mlx;
 	struct mlx_image	*img;
+	t_rays				*rays;
 	// t_map				*map;
 }				t_cub;
 
