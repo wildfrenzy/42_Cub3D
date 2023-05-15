@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/15 14:48:22 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 16:14:52 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	ft_draw_walls(void *param)
 			xyo.x = x * mapS;
 			xyo.y = y * mapS;
 			ft_draw_box(xyo, col, cub);
-			// break ;
 		}
 	}
 }
@@ -92,9 +91,18 @@ void	ft_draw_background(void *param)
 	}
 }
 
+// int	ft_player_off_screen(t_player *player)
+// {
+// 	if(player->x_pos <= 0)
+// 		return (0)
+// 	if (player->x_)
+// }
+
 void	ft_draw_player(void *param)
 {
 	t_cub	*cub;
+	t_pixel	p_loc;
+	t_pixel line_end;
 	int	x;
 	int	y;
 
@@ -106,6 +114,13 @@ void	ft_draw_player(void *param)
 		while (++y <= (int) cub->player->height)
 			mlx_put_pixel(cub->img, x + cub->player->x_pos, y + cub->player->y_pos, cub->player->colour);
 	}
+	p_loc.x = cub->player->x_pos + (cub->player->width / 2);
+	p_loc.y = cub->player->y_pos + (cub->player->height / 2);
+	p_loc.colour = cub->player->colour;
+	line_end.x = p_loc.x + cub->player->delta_x * 5;
+	line_end.y = p_loc.y + cub->player->delta_y * 5;
+	line_end.colour = cub->player->colour;
+	ft_line(cub->img, &p_loc, &line_end, cub->player->colour);
 }
 
 void	ft_hook(void *param)
@@ -116,13 +131,31 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(cub->mlx);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_UP))
-		cub->player->y_pos -= 5;
+	{
+		cub->player->y_pos += cub->player->delta_y;
+		cub->player->x_pos += cub->player->delta_x;
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN))
-		cub->player->y_pos += 5;
+	{
+		cub->player->y_pos -= cub->player->delta_y;
+		cub->player->x_pos -= cub->player->delta_x;
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-		cub->player->x_pos -= 5;
+	{
+		cub->player->angle -= 0.1;
+		if (cub->player->angle < 0)
+			cub->player->angle += 2 * PI;
+		cub->player->delta_x = cos(cub->player->angle) * 5;
+		cub->player->delta_y = sin(cub->player->angle) * 5;
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-		cub->player->x_pos += 5;
+	{
+		cub->player->angle += 0.1;
+		if (cub->player->angle > 2 * PI)
+			cub->player->angle -= 2 * PI;
+		cub->player->delta_x = cos(cub->player->angle) * 5;
+		cub->player->delta_y = sin(cub->player->angle) * 5;
+	}
 }
 
 int ft_init_player(t_cub *cub)
@@ -132,6 +165,9 @@ int ft_init_player(t_cub *cub)
 		return (1);
 	cub->player->x_pos = 50;
 	cub->player->y_pos = 50;
+	cub->player->angle = 0;
+	cub->player->delta_x = cos(cub->player->angle) * 5;
+	cub->player->delta_y = sin(cub->player->angle) * 5;
 	cub->player->width = 8;
 	cub->player->height = 8;
 	cub->player->colour = ft_pixel(255, 0, 0, 255);

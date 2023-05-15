@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/15 13:53:43 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 15:10:38 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <math.h>
+# define PI 3.1415926535
 # include "MLX42/include/MLX42/MLX42.h"
 
 # define WIDTH 1280
@@ -38,8 +40,11 @@ typedef struct s_pixel
 
 typedef struct s_player
 {
-	int32_t				x_pos;
-	int32_t				y_pos;
+	float				x_pos;
+	float				y_pos;
+	float				delta_x;
+	float				delta_y;
+	float				angle;
 	int32_t				width;
 	int32_t 			height;
 	int32_t				colour;
