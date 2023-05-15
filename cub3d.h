@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:50:15 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/14 15:18:47 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/15 13:53:43 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ typedef struct s_player
 	int32_t				width;
 	int32_t 			height;
 	int32_t				colour;
-	struct mlx_image	*img;
 }				t_player;
 
 typedef struct s_cub {
 	t_player			*player;
 	mlx_t				*mlx;
-	struct mlx_image	*background_img;
+	struct mlx_image	*img;
 	// t_map				*map;
 }				t_cub;
+
+
+void	ft_line(mlx_image_t *img, t_pixel *p1, t_pixel *p2, int colour);
 
 #endif
