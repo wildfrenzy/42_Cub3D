@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/16 22:09:22 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/05/18 16:27:18 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	map[] = {
 	1,1,1,1,1,1,1,1,
-	1,0,1,0,0,0,0,1,
-	1,0,1,0,0,0,0,1,
 	1,0,0,0,0,0,0,1,
 	1,0,0,0,0,0,0,1,
-	1,0,1,0,0,0,0,1,
-	1,0,1,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
 	1,1,1,1,1,1,1,1,
 };
 int	mapX = 8;
@@ -125,11 +125,11 @@ void	ft_draw_player(void *param)
 	{
 		y = -1;
 		while (++y <= (int) cub->player->height)
-		if (ft_onscreen(x + cub->player->x_pos - cub->player->width/2, y + cub->player->y_pos - cub->player->height/2))
-			mlx_put_pixel(cub->img, x + cub->player->x_pos, y + cub->player->y_pos, cub->player->colour);
+		if (ft_onscreen(x + cub->player->x_pos - (cub->player->width/2), y + cub->player->y_pos - (cub->player->height/2)))
+			mlx_put_pixel(cub->img, x + cub->player->x_pos - (cub->player->width/2), y + cub->player->y_pos - (cub->player->height/2), cub->player->colour);
 	}
-	p_loc.x = cub->player->x_pos + (cub->player->width / 2);
-	p_loc.y = cub->player->y_pos + (cub->player->height / 2);
+	p_loc.x = cub->player->x_pos;
+	p_loc.y = cub->player->y_pos;
 	p_loc.colour = cub->player->colour;
 	line_end.x = p_loc.x + cub->player->delta_x * 5;
 	line_end.y = p_loc.y + cub->player->delta_y * 5;
@@ -142,8 +142,8 @@ void ft_preline(t_cub *cub, t_rays *ray)
 	t_pixel	one;
 	t_pixel two;
 
-	one.x = cub->player->x_pos + cub->player->width/ 2;
-	one.y = cub->player->y_pos + cub->player->height / 2;
+	one.x = cub->player->x_pos;
+	one.y = cub->player->y_pos;
 	two.x = ray->rx;
 	two.y = ray->ry;
 	ft_line(cub->img, &one, &two, cub->player->colour);
@@ -152,15 +152,15 @@ void ft_preline(t_cub *cub, t_rays *ray)
 void	ft_draw_3d(void *param)
 {
 	t_cub *cub;
-	float lineH;
-	float lineO;
+	int lineH;
+	int lineO;
 	t_pixel line_r_corner;
 	
 	cub = param;
 	lineH = (mapS * 320) / cub->rays->disT;
 	if (lineH > 320)
 		lineH = 320;
-	lineO = 160 - lineH / 2;
+	lineO = 160 - (lineH >> 1);
 	line_r_corner.x = cub->rays->r*8 + 530;
 	line_r_corner.y = 160 - lineH / 2; 
 	ft_draw_box(line_r_corner, cub->rays->colour, cub, (int) lineH, 12);
@@ -177,7 +177,7 @@ int fix_angle(int a)
 
 float	degrees_to_radians(int a)
 {
-	return (a * M_PI/180.0);
+	return ((float)a * M_PI/180.000);
 }
 
 void ft_draw_rays(void *param)
@@ -228,7 +228,7 @@ void ft_draw_rays(void *param)
 			{
 				rays->vx = rays->rx;
 				rays->vy = rays->ry;
-				rays->disV = cos(degrees_to_radians(rays->ra)) * (rays->rx-cub->player->x_pos)- sin(degrees_to_radians(rays->ra)) * (rays->ry - cub->player->y_pos);
+				rays->disV = fabs(cos(degrees_to_radians(rays->ra)) * (rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra)) * (rays->ry - cub->player->y_pos));
 				rays->dof = 8;
 			}
 			else
@@ -269,7 +269,7 @@ void ft_draw_rays(void *param)
 			{
 				rays->hx = rays->rx;
 				rays->hy = rays->ry;
-				rays->disH = cos(degrees_to_radians(rays->ra))*(rays->rx-cub->player->x_pos)-sin(degrees_to_radians(rays->ra))*(rays->ry-cub->player->y_pos);
+				rays->disH = fabs(cos(degrees_to_radians(rays->ra))*(rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra))*(rays->ry-cub->player->y_pos));
 				rays->dof = 8;
 			}
 			else
@@ -280,7 +280,7 @@ void ft_draw_rays(void *param)
 			}
 		}
 		
-		if(rays->disV <= rays->disH)
+		if(rays->disV < rays->disH)
 		{
 			rays->rx = rays->vx;
 			rays->ry = rays->vy;
@@ -297,9 +297,9 @@ void ft_draw_rays(void *param)
 		ft_preline(cub, rays);
 		ft_draw_3d(cub);
 		rays->ra = fix_angle(rays->ra - 1);
-		printf("ID: %d dt: %3.3f dv: %3.3f dh: %3.3f, \n", rays->r, rays->disT, rays->disV, rays->disH);
 	}
 }
+// printf("ID: %d dt: %3.3f dv: %3.3f dh: %3.3f, \n", rays->r, rays->disT, rays->disV, rays->disH);
 
 void	ft_hook(void *param)
 {
