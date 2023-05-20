@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 20:50:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/05/18 16:27:18 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:14:41 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,13 @@ float	degrees_to_radians(int a)
 	return ((float)a * M_PI/180.000);
 }
 
+void ft_debug(t_cub *cub)
+{
+	printf("Ray ID : %d\n", cub->rays->r);
+	printf("Ray angle: %3.3f\n", degrees_to_radians(cub->rays->ra));
+	
+}
+
 void ft_draw_rays(void *param)
 {
 	t_cub	*cub;
@@ -199,14 +206,14 @@ void ft_draw_rays(void *param)
 	{
 		rays->dof = 0;
 		rays->Tan = tan(degrees_to_radians(rays->ra));
-		if(cos(degrees_to_radians(rays->ra)) > 0.001)
+		if(cos(degrees_to_radians(rays->ra)) > 0)
 		{
 			rays->rx = (((int)cub->player->x_pos>>6)<<6) + mapS;
 			rays->ry = (cub->player->x_pos - rays->rx) * rays->Tan + cub->player->y_pos;
 			rays->xo = mapS;
 			rays->yo = -rays->xo * rays->Tan;
 		}	
-		else if(cos(degrees_to_radians(rays->ra)) < -0.001)
+		else if(cos(degrees_to_radians(rays->ra)) < -0)
 		{
 			rays->rx = (((int)cub->player->x_pos>>6)<<6) - 0.001;
 			rays->ry = (cub->player->x_pos - rays->rx) * rays->Tan + cub->player->y_pos;
@@ -228,7 +235,7 @@ void ft_draw_rays(void *param)
 			{
 				rays->vx = rays->rx;
 				rays->vy = rays->ry;
-				rays->disV = fabs(cos(degrees_to_radians(rays->ra)) * (rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra)) * (rays->ry - cub->player->y_pos));
+				rays->disV = cos(degrees_to_radians(rays->ra)) * (rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra)) * (rays->ry - cub->player->y_pos);
 				rays->dof = 8;
 			}
 			else
@@ -242,7 +249,7 @@ void ft_draw_rays(void *param)
 		rays->Tan = 1.0/rays->Tan;
 		if(sin(degrees_to_radians(rays->ra)) > 0.001)
 		{
-			rays->ry = (((int)cub->player->y_pos>>6)<<6)-0.0001;
+			rays->ry = (((int)cub->player->y_pos>>6)<<6)-0.001;
 			rays->rx = (cub->player->y_pos - rays->ry) * rays->Tan + cub->player->x_pos;
 			rays->yo = -mapS;
 			rays->xo = -rays->yo * rays->Tan;
@@ -269,7 +276,7 @@ void ft_draw_rays(void *param)
 			{
 				rays->hx = rays->rx;
 				rays->hy = rays->ry;
-				rays->disH = fabs(cos(degrees_to_radians(rays->ra))*(rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra))*(rays->ry-cub->player->y_pos));
+				rays->disH = cos(degrees_to_radians(rays->ra))*(rays->rx-cub->player->x_pos) - sin(degrees_to_radians(rays->ra))*(rays->ry-cub->player->y_pos);
 				rays->dof = 8;
 			}
 			else
@@ -297,9 +304,10 @@ void ft_draw_rays(void *param)
 		ft_preline(cub, rays);
 		ft_draw_3d(cub);
 		rays->ra = fix_angle(rays->ra - 1);
+		// ft_debug(cub);
 	}
+	// exit(0);
 }
-// printf("ID: %d dt: %3.3f dv: %3.3f dh: %3.3f, \n", rays->r, rays->disT, rays->disV, rays->disH);
 
 void	ft_hook(void *param)
 {
@@ -339,8 +347,8 @@ int ft_init_player(t_cub *cub)
 	cub->player = malloc(sizeof(t_player));
 	if (!cub->player)
 		return (1);
-	cub->player->x_pos = 100;
-	cub->player->y_pos = 100;
+	cub->player->x_pos = 300;
+	cub->player->y_pos = 300;
 	cub->player->angle = 90;
 	cub->player->delta_x = cos(degrees_to_radians(cub->player->angle));
 	cub->player->delta_y = -sin(degrees_to_radians(cub->player->angle));
