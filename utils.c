@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 23:15:52 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 16:50:28 by bmacmaho         ###   ########.fr       */
+/*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
+/*   Updated: 2023/05/20 16:18:29 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_print_error(int stat)
+void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour)
 {
-	write(2, "Error\n", 7);
-	if (stat)
-		write(2, ":)\n", 7);
-	return (1);
+	if (x < WIDTH && y < HEIGHT)
+		mlx_put_pixel(img, x, y, colour);
 }
 
-int	ft_clean_exit(int stat, t_cub *cub)
+int	ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a)
 {
-	if (stat > 1)
-		mlx_close_window(cub->mlx);
-	if (stat > 2)
-		free(cub->img);
-	return (stat);
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+float	ft_deg_to_rad(float degrees)
+{
+	return ((degrees * M_PI) / 180.0);
 }
