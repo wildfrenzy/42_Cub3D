@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 18:32:21 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:22:00 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);
+	// mlx_loop_hook(cub->mlx, ft_raycast, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);

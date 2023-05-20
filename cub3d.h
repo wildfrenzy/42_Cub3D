@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 18:40:40 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 01:12:14 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,41 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
+typedef struct s_vect
+{
+	float	delta_x;
+	float	delta_y;
+	int		angle;
+}				t_vect;
+
 typedef struct s_point
 {
 	int	x;
 	int	y;
 }				t_point;
 
+typedef struct s_rays
+{
+	int 	ray;
+	int		ray_angle;
+	int		h_dist;
+	int		v_dist;
+	int		dist;
+	int		colour;
+	t_point	ray_end;
+}				t_rays;
+
 typedef struct s_player
 {
-	t_point	position;
-	float	delta_x;
-	float 	delta_y;
-	int		direction;
+	t_point	pos;
+	t_vect	dir;
 }				t_player;
 
 typedef struct s_cub {
 	t_player			*player;
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	// t_rays				*rays;
+	t_rays				*rays;
 	// t_map				*map;
 }				t_cub;
 
@@ -60,6 +76,12 @@ void	ft_empty_square(mlx_image_t *img, t_point nw, t_point se, int colour);
 void	ft_filled_square(mlx_image_t *img, t_point nw, t_point se, int colour);
 void	ft_2d_grid(void *v_cub);
 void	ft_draw_player(void *v_cub);
+
+//raycasting
+void	ft_raycast(void *v_cub);
+int		ft_is_wall(t_cub *cub);
+int		ft_dist_to_next_v_gridline(t_cub *cub);
+int		ft_dist_to_next_h_gridline(t_cub *cub);
 
 //utils
 float	ft_deg_to_rad(int degrees);

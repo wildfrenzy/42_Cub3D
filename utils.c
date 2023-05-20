@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/20 20:54:58 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:37:41 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_fix_angle(int deg)
 {
 	if (deg < 0)
 		deg += 360;
-	if(deg > 359)
+	if (deg > 359)
 		deg -= 360;
 	return (deg);
 }
