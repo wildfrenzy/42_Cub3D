@@ -6,13 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 16:52:36 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:56:33 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_init_map(t_cub *cub, int argc, char **argv)
+int	ft_init_map(t_cub *cub, int argc, char **argv)
 {
 	(void) argc;
 	(void) argv;

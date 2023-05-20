@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 16:52:08 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:54:53 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
 
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1280
+# define HEIGHT 720
 
 typedef struct s_point
 {
@@ -54,6 +54,8 @@ int		ft_init_player(t_cub *cub);
 void	ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour);
 void	ft_empty_square(mlx_image_t *img, t_point nw, t_point se, int colour);
 void	ft_filled_square(mlx_image_t *img, t_point nw, t_point se, int colour);
+void	ft_2d_grid(void *v_cub);
+void	ft_draw_player(void *v_cub);
 
 //utils
 float	ft_deg_to_rad(float degrees);
