@@ -6,11 +6,20 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/20 16:18:29 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:40:10 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	ft_fix_angle(int deg)
+{
+	if (deg < 0)
+		deg += 360;
+	if(deg > 359)
+		deg -= 360;
+	return (deg);
+}
 
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour)
 {
@@ -23,7 +32,7 @@ int	ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-float	ft_deg_to_rad(float degrees)
+float	ft_deg_to_rad(int degrees)
 {
-	return ((degrees * M_PI) / 180.0);
+	return ((degrees * PI) / 180.0);
 }

@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/20 17:56:33 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:09:57 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_init_player(t_cub *cub)
 	cub->player->position.x = 100;
 	cub->player->position.y = 100;
 	cub->player->direction = 90;
+	cub->player->delta_x = cos(ft_deg_to_rad(cub->player->direction));
+	cub->player->delta_y = -sin(ft_deg_to_rad(cub->player->direction));
 	return (0);
 }
 

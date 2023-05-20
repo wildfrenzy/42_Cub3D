@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:49:36 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/20 17:58:59 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:43:18 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,9 @@ void	ft_draw_player(void *v_cub)
 	player[1].y = cub->player->position.y + 4;
 	ft_filled_square(cub->img, player[0], player[1], \
 			ft_rgba_to_int(255, 0, 0, 255));
-	
+	player[0].x = (cub->player->position.x + (int) (cub->player->delta_x * 10.0));
+	player[0].y = (cub->player->position.y + (int) (cub->player->delta_y * 10.0));
+	printf("delta x, y: %3.3f %3.3f\n", cub->player->delta_x, cub->player->delta_y);
+	ft_line(cub->img, cub->player->position, player[0], \
+			ft_rgba_to_int(255, 0, 0, 255));
 }
