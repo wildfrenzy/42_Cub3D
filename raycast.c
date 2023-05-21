@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 21:09:09 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/21 01:15:57 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:12:55 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ extern int	mapX;
 extern int	mapY;
 extern int	blockS;
 
-int	ft_is_wall(t_cub *cub)
+int	ft_is_wall(t_cub *cub, t_point *ray_end)
 {
-	t_point	*ray_end;
 	t_point	cell;
 	int		index;
 
-	ray_end = &cub->rays->ray_end;
 	cell.x = ray_end->x / blockS;
 	cell.y = ray_end->y / blockS;
 	index = cell.y * mapX + cell.x;
@@ -33,84 +31,86 @@ int	ft_is_wall(t_cub *cub)
 		return (0);
 }
 
-int	ft_dist_to_next_v_gridline(t_cub *cub)
+int	ft_check_horizontal(t_cub *cub)
 {
-	int	dist;
-	int	a;
-	int	angle;
+	int		dist;
+	int		o;
+	int		angle;
+	t_point	*rayend;
 
-	angle = cub->rays->ray_angle;
-	if (angle < 90)
-		a = blockS - (cub->player->pos.x % blockS);
-	else if (angle < 180)
+	o = ft_h_delta_y(cub, cub->player->pos.y);
+	angle = ft_h_angle(cub->rays->ray_angle);
+	dist = o / sin(ft_deg_to_rad(angle));
+	rayend = &cub->rays->horizontal.end;
+	rayend->y = cub->player->pos.y;
+	rayend->y += o * cub->rays->up;
+	rayend->x = cub->player->pos.x;
+	rayend->x = o / tan(ft_deg_to_rad(angle)) * cub->rays->up;
+	while (!(ft_is_wall(cub, rayend)) && ft_onscreen(rayend))
 	{
-		a = cub->player->pos.x % blockS;
-		angle = 180 - angle;
+		dist += blockS / sin(ft_deg_to_rad(angle));
+		rayend->y += blockS * cub->rays->up;
+		rayend->x += blockS / tan(ft_deg_to_rad(angle));
 	}
-	else if (cub->rays->ray_angle < 270)
-	{
-		a = cub->player->pos.x % blockS;
-		angle = angle - 180;
-	}
-	else
-	{
-		a = blockS - (cub->player->pos.x % blockS);
-		angle = 360 - angle;
-	}
-	dist = a / cos(ft_deg_to_rad(angle));
 	return (dist);
 }
 
-int	ft_dist_to_next_h_gridline(t_cub *cub)
+int	ft_check_vertical(t_cub *cub)
 {
-	int	a;
-	int	angle;
+	int		dist;
+	int		a;
+	int		angle;
+	t_point	*rayend;
 
-	angle = cub->rays->ray_angle;
-	if (angle < 90)
+	a = ft_v_delta_x(cub, cub->player->pos.x);
+	angle = ft_v_angle(cub->rays->ray_angle);
+	dist = a / cos(ft_deg_to_rad(angle));
+	rayend = &cub->rays->vertical.end;
+	rayend->x = cub->player->pos.x;
+	rayend->x += a * cub->rays->left;
+	rayend->y = cub->player->pos.y;
+	rayend->y += a * tan(ft_deg_to_rad(angle)) * cub->rays->up;
+	while (!(ft_is_wall(cub, rayend)) && ft_onscreen(rayend))
 	{
-		angle = 90 - angle;
-		a = cub->player->pos.y % blockS;
+		dist += blockS / (cos(angle));
+		rayend->x += blockS * cub->rays->left;
+		rayend->y += blockS * tan(angle) * cub->rays->up;
 	}
-	else if (angle < 180)
-	{
-		angle = angle - 90;
-		a = cub->player->pos.y % blockS;
-	}
-	else if (cub->rays->ray_angle < 270)
-	{
-		angle = 270 - angle;
-		a = blockS - (cub->player->pos.y % blockS);
-	}
-	else
-	{
-		a = blockS - (cub->player->pos.y % blockS);
-		angle = angle - 270;
-	}
-	return (a / cos(ft_deg_to_rad(angle)));
+	return (dist);
 }
 
-// void	ft_raycast(void* v_cub)
-// {
-// 	t_cub	*cub;
-// 	t_rays	*rays;
+void	ft_ray_quadrant(t_rays *ray)
+{
+	if (ray->ray_angle > 0 && ray->ray_angle < 180)
+		ray->up = -1;
+	else
+		ray->up = 1;
+	if (ray->ray_angle > 90 && ray->ray_angle < 270)
+		ray->left = -1;
+	else
+		ray->left = 1;
+}
 
-// 	cub = v_cub;
-// 	cub->rays->ray = -1;
-// 	rays = cub->rays;
-// 	rays->ray_angle = cub->player->dir.angle - 30;
-// 	while (++rays->ray < 60)
-// 	{
-// 		rays->colour = ft_rgba_to_int(200, 0, 0, 255);
-// 		rays->v_dist = ft_check_vertical(cub);
-// 		rays->h_dist = ft_check_horizontal(cub);
-// 		if (rays->h_dist < rays->v_dist)
-// 		{
-// 			rays->colour = ft_rgba_to_int(255, 0, 0, 255);
-// 			rays->dist = rays->h_dist;
-// 		}
-// 		else
-// 			rays->dist = rays->v_dist;
-// 	}
-// 	exit (0);
-// }
+void	ft_raycast(void *v_cub)
+{
+	t_cub	*cub;
+	t_rays	*rays;
+
+	cub = v_cub;
+	rays = cub->rays;
+	rays->ray = -1;
+	rays->ray_angle = cub->player->dir.angle - 30;
+	while (++rays->ray < 60)
+	{
+		ft_ray_quadrant(rays);
+		rays->vertical.dist = ft_check_vertical(cub);
+		rays->horizontal.dist = ft_check_horizontal(cub);
+		if (rays->horizontal.dist < rays->vertical.dist)
+			rays->shortest = &rays->horizontal;
+		else
+			rays->shortest = &rays->vertical;
+		ft_draw_ray(cub);
+		rays->ray_angle++;
+	}
+	exit (0);
+}

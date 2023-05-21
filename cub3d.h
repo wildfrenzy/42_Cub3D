@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/21 01:12:14 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:16:04 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@
 
 typedef struct s_vect
 {
+	int		angle;
 	float	delta_x;
 	float	delta_y;
-	int		angle;
 }				t_vect;
+
+typedef struct s_delta
+{
+	float	x;
+	float	y;
+}				t_delta;
 
 typedef struct s_point
 {
@@ -38,15 +44,23 @@ typedef struct s_point
 	int	y;
 }				t_point;
 
-typedef struct s_rays
+typedef struct s_hv
 {
-	int 	ray;
-	int		ray_angle;
-	int		h_dist;
-	int		v_dist;
 	int		dist;
 	int		colour;
-	t_point	ray_end;
+	t_point	end;
+	t_delta	delta;
+}				t_hv;
+
+typedef struct s_rays
+{
+	int		ray;
+	int		ray_angle;
+	int		left;
+	int		up;
+	t_hv	horizontal;
+	t_hv	vertical;
+	t_hv	*shortest;
 }				t_rays;
 
 typedef struct s_player
@@ -79,9 +93,11 @@ void	ft_draw_player(void *v_cub);
 
 //raycasting
 void	ft_raycast(void *v_cub);
-int		ft_is_wall(t_cub *cub);
+int		ft_is_wall(t_cub *cub, t_point *ray_end);
 int		ft_dist_to_next_v_gridline(t_cub *cub);
 int		ft_dist_to_next_h_gridline(t_cub *cub);
+int		ft_h_angle(int angle);
+int		ft_v_angle(int angle);
 
 //utils
 float	ft_deg_to_rad(int degrees);

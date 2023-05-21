@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/21 00:37:41 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:13:19 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int	ft_fix_angle(int deg)
 	if (deg > 359)
 		deg -= 360;
 	return (deg);
+}
+
+int	ft_onscreen(t_point	*pixel)
+{
+	if (pixel->x < 0 || pixel->x >= WIDTH)
+		return (0);
+	if (pixel->y < 0 || pixel->y >= HEIGHT)
+		return (0);
+	return (1);
 }
 
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour)
