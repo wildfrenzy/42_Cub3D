@@ -6,7 +6,7 @@
 #    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/05/20 21:18:00 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/05/21 23:18:34 by bmacmaho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = cube3d
 
 #HEADER =
 
-SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c
+SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 21:09:09 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/21 21:12:55 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:24:01 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_is_wall(t_cub *cub, t_point *ray_end)
 	cell.x = ray_end->x / blockS;
 	cell.y = ray_end->y / blockS;
 	index = cell.y * mapX + cell.x;
+	printf("%d\n", index);
 	if (map[index] == 1)
 		return (1);
 	else
@@ -46,7 +47,7 @@ int	ft_check_horizontal(t_cub *cub)
 	rayend->y += o * cub->rays->up;
 	rayend->x = cub->player->pos.x;
 	rayend->x = o / tan(ft_deg_to_rad(angle)) * cub->rays->up;
-	while (!(ft_is_wall(cub, rayend)) && ft_onscreen(rayend))
+	while (ft_onscreen(rayend) && !(ft_is_wall(cub, rayend)))
 	{
 		dist += blockS / sin(ft_deg_to_rad(angle));
 		rayend->y += blockS * cub->rays->up;
@@ -70,7 +71,7 @@ int	ft_check_vertical(t_cub *cub)
 	rayend->x += a * cub->rays->left;
 	rayend->y = cub->player->pos.y;
 	rayend->y += a * tan(ft_deg_to_rad(angle)) * cub->rays->up;
-	while (!(ft_is_wall(cub, rayend)) && ft_onscreen(rayend))
+	while (ft_onscreen(rayend) && !(ft_is_wall(cub, rayend)))
 	{
 		dist += blockS / (cos(angle));
 		rayend->x += blockS * cub->rays->left;
@@ -112,5 +113,4 @@ void	ft_raycast(void *v_cub)
 		ft_draw_ray(cub);
 		rays->ray_angle++;
 	}
-	exit (0);
 }

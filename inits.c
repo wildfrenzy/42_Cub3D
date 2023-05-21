@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/21 18:21:02 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:25:41 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_init_rays(t_cub *cub)
 	if (!cub->rays)
 		return (1);
 	cub->rays->ray = 0;
+	cub->rays->horizontal.colour = ft_rgba_to_int(255, 0, 0, 255);
+	cub->rays->vertical.colour = ft_rgba_to_int(200, 0, 0, 255);
 	return (0);
 }
 

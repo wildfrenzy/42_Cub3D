@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/21 21:16:04 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:17:51 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_cub {
 void	ft_hook(void *param);
 
 // inits
+int		ft_init_map(t_cub *cub, int argc, char **argv);
+int		ft_init_rays(t_cub *cub);
 int		ft_init_cub(t_cub *cub, int argc, char **argv);
 int		ft_init_player(t_cub *cub);
 
@@ -93,19 +95,29 @@ void	ft_draw_player(void *v_cub);
 
 //raycasting
 void	ft_raycast(void *v_cub);
+void	ft_ray_quadrant(t_rays *ray);
+int		ft_check_vertical(t_cub *cub);
+int		ft_check_horizontal(t_cub *cub);
 int		ft_is_wall(t_cub *cub, t_point *ray_end);
 int		ft_dist_to_next_v_gridline(t_cub *cub);
 int		ft_dist_to_next_h_gridline(t_cub *cub);
 int		ft_h_angle(int angle);
 int		ft_v_angle(int angle);
+int		ft_v_delta_x(t_cub *cub, int x);
+int		ft_h_delta_y(t_cub *cub, int y);
+
+//screen
+void	ft_draw_ray(t_cub *cub);
 
 //utils
 float	ft_deg_to_rad(int degrees);
 int		ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a);
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour);
 int		ft_fix_angle(int deg);
+int		ft_onscreen(t_point	*pixel);
 
 //errors & exit
 int		ft_clean_exit(int stat, t_cub *cub);
+int		ft_print_error(int stat);
 
 #endif
