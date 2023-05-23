@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/21 23:25:41 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:35:02 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_init_rays(t_cub *cub)
 	if (!cub->rays)
 		return (1);
 	cub->rays->ray = 0;
-	cub->rays->horizontal.colour = ft_rgba_to_int(255, 0, 0, 255);
-	cub->rays->vertical.colour = ft_rgba_to_int(200, 0, 0, 255);
+	cub->rays->horizontal.colour = ft_rgba_to_int(222, 184, 65, 255);
+	cub->rays->vertical.colour = ft_rgba_to_int(222, 158, 54, 255);
 	return (0);
 }
 
@@ -36,9 +36,9 @@ int	ft_init_player(t_cub *cub)
 	cub->player = malloc(sizeof(t_player));
 	if (!cub->player)
 		return (1);
-	cub->player->pos.x = 447;
-	cub->player->pos.y = 447;
-	cub->player->dir.angle = 90;
+	cub->player->pos.x = 410;
+	cub->player->pos.y = 410;
+	cub->player->dir.angle = 89;
 	cub->player->dir.delta_x = cos(ft_deg_to_rad(cub->player->dir.angle));
 	cub->player->dir.delta_y = -sin(ft_deg_to_rad(cub->player->dir.angle));
 	return (0);

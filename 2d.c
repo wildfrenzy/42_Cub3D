@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:49:36 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/21 01:13:53 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:35:33 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int map[] = {
 	1,1,1,1,1,1,1,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,0,0,1,
+	1,0,1,0,0,0,1,1,
+	1,0,1,0,1,0,0,1,
+	1,0,1,0,1,0,0,1,
+	1,0,1,0,1,0,0,1,
+	1,0,1,0,1,1,0,1,
+	1,0,0,0,1,1,0,1,
 	1,1,1,1,1,1,1,1,
 };
 int mapX = 8;
@@ -67,8 +67,8 @@ void	ft_draw_player(void *v_cub)
 	player[1].y = cub->player->pos.y + 4;
 	ft_filled_square(cub->img, player[0], player[1], \
 			ft_rgba_to_int(255, 0, 0, 255));
-	player[0].x = cub->player->pos.x + cub->player->dir.delta_x * 10;
-	player[0].y = cub->player->pos.y + cub->player->dir.delta_y * 10;
+	player[0].x = cub->player->pos.x + cub->player->dir.delta_x * 100;
+	player[0].y = cub->player->pos.y + cub->player->dir.delta_y * 100;
 	ft_line(cub->img, cub->player->pos, player[0], \
 			ft_rgba_to_int(255, 0, 0, 255));
 }

@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/21 23:17:51 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:55:12 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_draw_player(void *v_cub);
 
 //raycasting
 void	ft_raycast(void *v_cub);
-void	ft_ray_quadrant(t_rays *ray);
+void	ft_ray_quadrant(t_cub *cub);
 int		ft_check_vertical(t_cub *cub);
 int		ft_check_horizontal(t_cub *cub);
 int		ft_is_wall(t_cub *cub, t_point *ray_end);
