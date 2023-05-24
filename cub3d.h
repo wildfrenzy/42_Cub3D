@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/23 22:55:12 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:08:06 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_point
 
 typedef struct s_hv
 {
-	int		dist;
+	float	dist;
 	int		colour;
 	t_point	end;
 	t_delta	delta;
@@ -92,6 +92,7 @@ void	ft_empty_square(mlx_image_t *img, t_point nw, t_point se, int colour);
 void	ft_filled_square(mlx_image_t *img, t_point nw, t_point se, int colour);
 void	ft_2d_grid(void *v_cub);
 void	ft_draw_player(void *v_cub);
+void	ft_background(void *v_cub);
 
 //raycasting
 void	ft_raycast(void *v_cub);

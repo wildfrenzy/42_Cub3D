@@ -6,11 +6,26 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:11:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/23 22:53:55 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:15:26 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_up_down(t_cub *cub, int updown)
+{
+	t_point	next_pos;
+
+	next_pos.x = cub->player->pos.x + ((int)(cub->player->dir.delta_x * 5.0) \
+		* (updown * 2));
+	next_pos.y = cub->player->pos.y + ((int)(cub->player->dir.delta_y * 5.0) \
+		* (updown * 2));
+	if (!ft_is_wall(cub, &next_pos))
+	{
+		cub->player->pos.x += ((int)(cub->player->dir.delta_x * 5.0) * updown);
+		cub->player->pos.y += ((int)(cub->player->dir.delta_y * 5.0) * updown);
+	}
+}
 
 void	ft_hook(void *param)
 {
@@ -20,15 +35,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		ft_clean_exit(10, cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_UP))
-	{
-		cub->player->pos.x += (int)(cub->player->dir.delta_x * 5.0);
-		cub->player->pos.y += (int)(cub->player->dir.delta_y * 5.0);
-	}
+		ft_up_down(cub, 1);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN))
-	{
-		cub->player->pos.x -= (int)(cub->player->dir.delta_x * 5.0);
-		cub->player->pos.y -= (int)(cub->player->dir.delta_y * 5.0);
-	}
+		ft_up_down(cub, -1);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
 		cub->player->dir.angle = ft_fix_angle(cub->player->dir.angle + 5);

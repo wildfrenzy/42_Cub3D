@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:51:49 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/20 20:54:42 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/24 00:11:58 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ void	ft_filled_square(mlx_image_t *img, t_point nw, t_point se, int colour)
 		sw.x += dir;
 	}
 	ft_line(img, nw, sw, colour);
+}
+
+void	ft_background(void *v_cub)
+{
+	t_cub	*cub;
+	t_point	top_left;
+	t_point	bottom_right;
+
+	cub = v_cub;
+	top_left.x = 0;
+	top_left.y = 0;
+	bottom_right.x = WIDTH - 1;
+	bottom_right.y = HEIGHT / 2;
+	ft_filled_square(cub->img, top_left, bottom_right, \
+		ft_rgba_to_int(191, 189, 193, 255));
+	top_left.x = 0;
+	top_left.y = HEIGHT / 2;
+	bottom_right.x = WIDTH - 1;
+	bottom_right.y = HEIGHT - 1;
+	ft_filled_square(cub->img, top_left, bottom_right, \
+		ft_rgba_to_int(55, 50, 62, 255));
 }
