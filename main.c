@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/24 15:09:57 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:54:15 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
-	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
-	mlx_loop_hook(cub->mlx, ft_draw_player, cub);
+	// mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
+	// mlx_loop_hook(cub->mlx, ft_draw_player, cub);
 	mlx_loop_hook(cub->mlx, ft_raycast, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop(cub->mlx);

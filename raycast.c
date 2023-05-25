@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 21:09:09 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/24 15:13:49 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:54:27 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ void	ft_raycast(void *v_cub)
 			rays->shortest = &rays->horizontal;
 		else
 			rays->shortest = &rays->vertical;
-		ft_line(cub->img, cub->player->pos, rays->shortest->end, \
-			rays->shortest->colour);
+		// ft_line(cub->img, cub->player->pos, rays->shortest->end, \
+		// 	rays->shortest->colour);
 		ft_draw_ray(cub);
 		rays->ray_angle = ft_fix_angle(rays->ray_angle - 1);
 	}
