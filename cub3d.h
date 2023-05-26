@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/24 15:08:06 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/26 01:10:41 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 
 # define PI 3.1415926
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_vect
 {
-	int		angle;
+	float	angle;
 	float	delta_x;
 	float	delta_y;
 }				t_vect;
@@ -55,7 +55,7 @@ typedef struct s_hv
 typedef struct s_rays
 {
 	int		ray;
-	int		ray_angle;
+	float	ray_angle;
 	int		left;
 	int		up;
 	t_hv	horizontal;
@@ -97,13 +97,10 @@ void	ft_background(void *v_cub);
 //raycasting
 void	ft_raycast(void *v_cub);
 void	ft_ray_quadrant(t_cub *cub);
-int		ft_check_vertical(t_cub *cub);
-int		ft_check_horizontal(t_cub *cub);
+float	ft_check_vertical(t_cub *cub);
+float	ft_check_horizontal(t_cub *cub);
 int		ft_is_wall(t_cub *cub, t_point *ray_end);
-int		ft_dist_to_next_v_gridline(t_cub *cub);
-int		ft_dist_to_next_h_gridline(t_cub *cub);
-int		ft_h_angle(int angle);
-int		ft_v_angle(int angle);
+float	ft_hv_angle(float angle);
 int		ft_v_delta_x(t_cub *cub, int x);
 int		ft_h_delta_y(t_cub *cub, int y);
 
@@ -111,10 +108,10 @@ int		ft_h_delta_y(t_cub *cub, int y);
 void	ft_draw_ray(t_cub *cub);
 
 //utils
-float	ft_deg_to_rad(int degrees);
+float	ft_deg_to_rad(float degrees);
 int		ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a);
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour);
-int		ft_fix_angle(int deg);
+float	ft_fix_angle(float deg);
 int		ft_onscreen(t_point	*pixel);
 
 //errors & exit
