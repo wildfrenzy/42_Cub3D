@@ -5,59 +5,98 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 13:45:04 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/18 18:39:44 by bmacmaho         ###   ########.fr       */
+/*   Created: 2023/05/20 15:51:49 by bmacmaho          #+#    #+#             */
+/*   Updated: 2023/05/24 00:11:58 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-typedef struct s_linevars
+static int	ft_dir(int a, int b)
 {
-	t_pixel	delta;
-	t_pixel	sign;
-	int		error[2];
-}				t_linevars;
-
-void	ft_init_line(t_pixel *delta, t_pixel *p1, t_pixel *p2, t_pixel *sign)
-{
-	delta->x = abs(p2->x - p1->x);
-	delta->y = abs(p2->y - p1->y);
-	if (p1->x < p2->x)
-		sign->x = 1;
-	else
-		sign->x = -1;
-	if (p1->y < p2->y)
-		sign->y = 1;
-	else
-		sign->y = -1;
+	if (a < b)
+		return (1);
+	return (-1);
 }
 
-void	ft_line(mlx_image_t *img, t_pixel *p1, t_pixel *p2, int colour)
+void	ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour)
 {
-	t_linevars	vars;
-	t_pixel		cur;
+	t_point	delta;
+	t_point	dir;
+	int		error[2];
 
-	ft_init_line(&vars.delta, p1, p2, &vars.sign);
-	vars.error[0] = vars.delta.x - vars.delta.y;
-	cur = *p1;
-	while (cur.x != p2->x || cur.y != p2->y)
+	delta.x = abs(p2.x - p1.x);
+	delta.y = abs(p2.y - p1.y);
+	dir.x = ft_dir(p1.x, p2.x);
+	dir.y = ft_dir(p1.y, p2.y);
+	error[0] = delta.x - delta.y;
+	while (!(p1.x == p2.x && p1.y == p2.y))
 	{
-		if (cur.x >= 0 && cur.x < WIDTH && cur.y >= 0 && cur.y < HEIGHT)
-			mlx_put_pixel(img, cur.x, cur.y, colour);
-		vars.error[1] = vars.error[0] * 2;
-		if (vars.error[1] > -vars.delta.y)
+		ft_safe_draw(img, p1.x, p1.y, colour);
+		error[1] = error[0] * 2;
+		if (error[1] > -delta.y)
 		{
-			vars.error[0] -= vars.delta.y;
-			cur.x += vars.sign.x;
+			error[0] -= delta.y;
+			p1.x += dir.x;
 		}
-		if (vars.error[1] < vars.delta.x)
+		if (error[1] < delta.x)
 		{
-			vars.error[0] += vars.delta.x;
-			cur.y += vars.sign.y;
+			error[0] += delta.x;
+			p1.y += dir.y;
 		}
 	}
-	if (cur.x >= 0 && cur.x < WIDTH && cur.y >= 0 && cur.y < HEIGHT)
-		if (cur.x == p2->x || cur.y == p2->y)
-			mlx_put_pixel(img, cur.x, cur.y, colour);
+	ft_safe_draw(img, p1.x, p1.y, colour);
+}
+
+void	ft_empty_square(mlx_image_t *img, t_point nw, t_point se, int colour)
+{
+	t_point	ne;
+	t_point	sw;
+
+	ne.x = se.x;
+	ne.y = nw.y;
+	sw.x = nw.x;
+	sw.y = se.y;
+	ft_line(img, nw, ne, colour);
+	ft_line(img, nw, sw, colour);
+	ft_line(img, sw, se, colour);
+	ft_line(img, ne, se, colour);
+}
+
+void	ft_filled_square(mlx_image_t *img, t_point nw, t_point se, int colour)
+{
+	int		dir;
+	t_point	sw;
+
+	sw.x = nw.x;
+	sw.y = se.y;
+	dir = ft_dir(nw.x, se.x);
+	while (nw.x != se.x)
+	{
+		ft_line(img, nw, sw, colour);
+		nw.x += dir;
+		sw.x += dir;
+	}
+	ft_line(img, nw, sw, colour);
+}
+
+void	ft_background(void *v_cub)
+{
+	t_cub	*cub;
+	t_point	top_left;
+	t_point	bottom_right;
+
+	cub = v_cub;
+	top_left.x = 0;
+	top_left.y = 0;
+	bottom_right.x = WIDTH - 1;
+	bottom_right.y = HEIGHT / 2;
+	ft_filled_square(cub->img, top_left, bottom_right, \
+		ft_rgba_to_int(191, 189, 193, 255));
+	top_left.x = 0;
+	top_left.y = HEIGHT / 2;
+	bottom_right.x = WIDTH - 1;
+	bottom_right.y = HEIGHT - 1;
+	ft_filled_square(cub->img, top_left, bottom_right, \
+		ft_rgba_to_int(55, 50, 62, 255));
 }

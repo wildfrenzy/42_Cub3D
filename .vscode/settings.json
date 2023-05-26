@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "filesystem": "c",
+        "cstdio": "c",
+        "*.txt": "c",
+        "math.h": "c"
+    }
+}
