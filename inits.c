@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/23 23:35:02 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/26 01:11:49 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_init_player(t_cub *cub)
 		return (1);
 	cub->player->pos.x = 410;
 	cub->player->pos.y = 410;
-	cub->player->dir.angle = 89;
+	cub->player->dir.angle = 90.0;
 	cub->player->dir.delta_x = cos(ft_deg_to_rad(cub->player->dir.angle));
 	cub->player->dir.delta_y = -sin(ft_deg_to_rad(cub->player->dir.angle));
 	return (0);
