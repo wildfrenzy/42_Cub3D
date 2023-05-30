@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:11:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/26 01:13:52 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:32:28 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_up_down(t_cub *cub, int updown)
 {
-	t_point	next_pos;
+	t_dpoint	next_pos;
 
-	next_pos.x = cub->player->pos.x + ((int)(cub->player->dir.delta_x * 5.0) \
+	next_pos.x = cub->player->pos.x + ((cub->player->dir.delta_x * 5.0) \
 		* (updown * 2));
-	next_pos.y = cub->player->pos.y + ((int)(cub->player->dir.delta_y * 5.0) \
+	next_pos.y = cub->player->pos.y + ((cub->player->dir.delta_y * 5.0) \
 		* (updown * 2));
 	if (!ft_is_wall(cub, &next_pos))
 	{

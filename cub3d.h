@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/26 01:10:41 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:31:25 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,22 @@
 
 typedef struct s_vect
 {
-	float	angle;
-	float	delta_x;
-	float	delta_y;
+	double	angle;
+	double	delta_x;
+	double	delta_y;
 }				t_vect;
 
 typedef struct s_delta
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }				t_delta;
+
+typedef struct s_dpoint
+{
+	double	x;
+	double	y;
+}				t_dpoint;
 
 typedef struct s_point
 {
@@ -46,16 +52,16 @@ typedef struct s_point
 
 typedef struct s_hv
 {
-	float	dist;
+	double	dist;
 	int		colour;
-	t_point	end;
+	t_dpoint	end;
 	t_delta	delta;
 }				t_hv;
 
 typedef struct s_rays
 {
 	int		ray;
-	float	ray_angle;
+	double	ray_angle;
 	int		left;
 	int		up;
 	t_hv	horizontal;
@@ -97,22 +103,22 @@ void	ft_background(void *v_cub);
 //raycasting
 void	ft_raycast(void *v_cub);
 void	ft_ray_quadrant(t_cub *cub);
-float	ft_check_vertical(t_cub *cub);
-float	ft_check_horizontal(t_cub *cub);
-int		ft_is_wall(t_cub *cub, t_point *ray_end);
-float	ft_hv_angle(float angle);
-int		ft_v_delta_x(t_cub *cub, int x);
+double	ft_check_vertical(t_cub *cub);
+double	ft_check_horizontal(t_cub *cub);
+int		ft_is_wall(t_cub *cub, t_dpoint *ray_end);
+double	ft_corresponding_angle(double angle);
+double	ft_blocksize_remainder(t_cub *cub, int xy, char hv);
 int		ft_h_delta_y(t_cub *cub, int y);
 
 //screen
 void	ft_draw_ray(t_cub *cub);
 
 //utils
-float	ft_deg_to_rad(float degrees);
+double	ft_deg_to_rad(double degrees);
 int		ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a);
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour);
-float	ft_fix_angle(float deg);
-int		ft_onscreen(t_point	*pixel);
+double	ft_fix_angle(double deg);
+int		ft_onscreen(t_dpoint	*pixel);
 
 //errors & exit
 int		ft_clean_exit(int stat, t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:28:46 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/24 15:51:58 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:14:49 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 extern int	blockS;
 
-float	ft_hv_angle(float angle)
+double	ft_corresponding_angle(double angle)
 {
-	if (angle < 90.0)
+	if (angle < 90)
 		return (angle);
-	if (angle < 180.0)
-		return (180.0 - angle);
-	if (angle < 270.0)
-		return (angle - 180.0);
-	return (360.0 - angle);
+	if (angle < 180)
+		return (180 - angle);
+	if (angle < 270)
+		return (angle - 180);
+	return (360 - angle);
 }
 
-int	ft_v_delta_x(t_cub *cub, int x)
+double	ft_blocksize_remainder(t_cub *cub, int xy, char hv)
 {
+	if (hv == 'h')
+	{
+		if (cub->rays->up == -1)
+			return (xy % blockS);
+		return (blockS - (xy % blockS));
+	}
 	if (cub->rays->left == -1)
-		return (x % blockS);
-	return (blockS - (x % blockS));
-}
-
-int	ft_h_delta_y(t_cub *cub, int y)
-{
-	if (cub->rays->up == -1)
-		return (y % blockS);
-	return (blockS - (y % blockS));
+		return (xy % blockS);
+	return (blockS - (xy % blockS));
 }

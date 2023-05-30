@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 21:09:09 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/26 21:43:06 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:41:38 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ extern int	mapX;
 extern int	mapY;
 extern int	blockS;
 
-int	ft_is_wall(t_cub *cub, t_point *ray_end)
+double	ft_distance_between_2_points(t_point p1, t_dpoint *p2)
+{
+	return (sqrt(pow(p2->x - p1.x, 2) + pow(p2->y - p1.y, 2)));
+}
+
+int	ft_is_wall(t_cub *cub, t_dpoint *ray_end)
 {
 	t_point	cell;
 	int		index;
@@ -32,71 +37,65 @@ int	ft_is_wall(t_cub *cub, t_point *ray_end)
 		return (0);
 }
 
-float	ft_check_horizontal(t_cub *cub)
+double	ft_check_horizontal(t_cub *cub)
 {
-	float		dist;
-	float		o;
-	float		a;
-	float		angle;
-	t_point		*rayend;
+	double		o;
+	double		a;
+	double		angle;
+	double		xoff;
+	double		yoff;
+	t_dpoint	*rayend;
 
 	if (cub->rays->ray_angle == 0.0 || cub->rays->ray_angle == 360.0 \
 		|| cub->rays->ray_angle == 180.0)
 		return (__FLT_MAX__);
-	o = (float) ft_h_delta_y(cub, cub->player->pos.y);
-	angle = ft_hv_angle(cub->rays->ray_angle);
-	dist = o / sin(ft_deg_to_rad(angle));
+	o = ft_blocksize_remainder(cub, cub->player->pos.y, 'h');
+	angle = ft_corresponding_angle(cub->rays->ray_angle);
 	rayend = &cub->rays->horizontal.end;
-	rayend->y = cub->player->pos.y;
-	rayend->y += o * cub->rays->up;
-	rayend->x = cub->player->pos.x;
+	rayend->y = (double)((cub->player->pos.y));
+	rayend->y += o * (double)cub->rays->up;
+	rayend->x = (double)cub->player->pos.x;
 	a = o / tan(ft_deg_to_rad(angle));
 	rayend->x += a * cub->rays->left;
 	if (cub->rays->left == -1 && a > cub->player->pos.x)
 		return (__FLT_MAX__);
 	if (cub->rays->left == 1 && a > (blockS * mapX) - cub->player->pos.x)
 		return (__FLT_MAX__);
+	yoff = blockS * cub->rays->up;
+	xoff = ((double) blockS) / tan(ft_deg_to_rad(angle)) * cub->rays->left;
 	while (ft_onscreen(rayend) && !ft_is_wall(cub, rayend))
 	{
-		dist += ((float) blockS) / sin(ft_deg_to_rad(angle));
-		rayend->y += blockS * cub->rays->up;
-		rayend->x += ((int)(((float) blockS) / tan(ft_deg_to_rad(angle)))) \
-			* cub->rays->left;
+		rayend->y += yoff;
+		rayend->x += xoff;
 	}
-	return (dist);
+	return (ft_distance_between_2_points(cub->player->pos, rayend));
 }
 
-float	ft_check_vertical(t_cub *cub)
+double	ft_check_vertical(t_cub *cub)
 {
-	float		dist;
-	float		a;
-	float		o;
-	float		angle;
-	t_point		*rayend;
+	double		a;
+	double		o;
+	double		angle;
+	double		xoff;
+	double		yoff;
+	t_dpoint	*rayend;
 
-	if (cub->rays->ray_angle == 90.0 || cub->rays->ray_angle == 270.0)
-		return (__FLT_MAX__);
-	a = (float) ft_v_delta_x(cub, cub->player->pos.x);
-	angle = ft_hv_angle(cub->rays->ray_angle);
-	dist = a / cos(ft_deg_to_rad(angle));
+	a = ft_blocksize_remainder(cub, cub->player->pos.x, 'v');
+	angle = ft_corresponding_angle(cub->rays->ray_angle);
 	rayend = &cub->rays->vertical.end;
-	rayend->x = cub->player->pos.x;
-	rayend->x += a * cub->rays->left;
-	rayend->y = cub->player->pos.y;
+	rayend->x = (double)cub->player->pos.x;
+	rayend->x += a * (double)cub->rays->left;
+	rayend->y = (double)((cub->player->pos.y));
 	o = a * tan(ft_deg_to_rad(angle));
 	rayend->y += o * cub->rays->up;
-	if (cub->rays->up == -1 && o > cub->player->pos.y)
-		return (__FLT_MAX__);
-	if (cub->rays->up == 1 && o > (blockS * mapY) - cub->player->pos.y)
-		return (__FLT_MAX__);
+	xoff = blockS * cub->rays->left;
+	yoff = ((double) blockS) * tan(ft_deg_to_rad(angle)) * cub->rays->up;
 	while (ft_onscreen(rayend) && !ft_is_wall(cub, rayend))
 	{
-		dist += ((float) blockS) / cos(ft_deg_to_rad(angle));
-		rayend->x += blockS * cub->rays->left;
-		rayend->y += (((int)((float) blockS)) * tan(ft_deg_to_rad(angle))) \
-			* cub->rays->up;
+		rayend->x += xoff;
+		rayend->y += yoff;
 	}
-	return (dist);
+	return (ft_distance_between_2_points(cub->player->pos, rayend));
 }
 
 void	ft_ray_quadrant(t_cub *cub)
@@ -133,8 +132,8 @@ void	ft_raycast(void *v_cub)
 			rays->shortest = &rays->horizontal;
 		else
 			rays->shortest = &rays->vertical;
-		ft_line(cub->img, cub->player->pos, rays->shortest->end, \
-			rays->shortest->colour);
+		// ft_line(cub->img, cub->player->pos, rays->shortest->end, \
+		// 	rays->shortest->colour);
 		ft_draw_ray(cub);
 		rays->ray_angle = ft_fix_angle(rays->ray_angle - \
 			(1.0 * (60.0 / WIDTH)));

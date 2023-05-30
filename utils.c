@@ -6,13 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/24 15:46:32 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:31:09 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	ft_fix_angle(float deg)
+double	ft_fix_angle(double deg)
 {
 	if (deg < 0.0)
 		deg += 360.0;
@@ -21,7 +21,7 @@ float	ft_fix_angle(float deg)
 	return (deg);
 }
 
-int	ft_onscreen(t_point	*pixel)
+int	ft_onscreen(t_dpoint	*pixel)
 {
 	if (pixel->x < 0 || pixel->x >= WIDTH)
 		return (0);
@@ -41,7 +41,7 @@ int	ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-float	ft_deg_to_rad(float degrees)
+double	ft_deg_to_rad(double degrees)
 {
 	return (degrees * (PI / 180.0));
 }

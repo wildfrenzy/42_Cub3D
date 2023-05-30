@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 21:29:59 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/26 21:43:23 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:03:46 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_draw_ray(t_cub *cub)
 {
 	t_point	top;
 	t_point	bottom;
-	float	line_height;
-	float	line_offset;
-	float	delta_angle;
+	double	line_height;
+	double	line_offset;
+	double	delta_angle;
 
 	delta_angle = cub->player->dir.angle - cub->rays->ray_angle;
 	if (cub->rays->shortest->dist == 0.0)
