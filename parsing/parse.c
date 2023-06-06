@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:37:26 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/07 01:02:11 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/07 01:24:45 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ int	get_width_height(char *file, t_map *map)
 	}
 	free(buf);
 	close(fd);
+	if (map->mapY < 3)
+		return 0;
 	return 1;
 }
 
@@ -233,17 +235,22 @@ int main(int ac, char *av[])
 		free(buf);
 		buf = get_next_line(fd);
 	}
+	close(fd);
+	if (map.player.dir == 127)
+		return (printf("Error\nYou cannot be without player\n") & 0);
+	
 	printf("player: x[%d], y[%d], direction[%c]\n", map.player.x, map.player.y, map.player.dir);
 
+// print map:
 	int j = -1;
 	int all = map.mapX * map.mapY;
 	printf("\nMAP:\n");
 	while (++j < all)
 	{
 		if (j % (all / map.mapY) == 0)
-			printf("\n");
+			printf("\n[%d]", map.map[j]);
 		else
-			printf("[%d]",map.map[j]);
+			printf("[%d]", map.map[j]);
 	}
 	printf("\n\nall[%d]\n", all);
 	return 0;
