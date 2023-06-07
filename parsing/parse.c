@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:37:26 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/07 01:24:45 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/08 01:47:37 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,6 @@ int	init_map(t_map *map)
 	player.y = 0;
 	player.dir = 127; // no direction
 
-	//TODO null check
-	//map = malloc(sizeof(t_map ));
-	//if (!map)
-	//	return 0;
-
 	map->player = player;
 	map->floor = floor;
 	map->ceiling = ceiling;
@@ -115,13 +110,12 @@ int	validate_map_line(char *line)
 	return 1;
 }
 
-int	get_width_height(char *file, t_map *map)
+int	get_width_height(int fd, t_map *map)
 {
 	char *buf = NULL;
 	int len;
-	int fd;
 
-	fd = open(file, O_RDONLY);
+	//fd = open(file, O_RDONLY);
 	buf = get_next_line(fd);
 
 	//printf("start mapX:%d\n", map->mapX);
@@ -145,7 +139,7 @@ int	get_width_height(char *file, t_map *map)
 	return 1;
 }
 
-int	create_int_map(t_map *map)
+int		create_int_map(t_map *map)
 {
 	int *mapp;
 
@@ -157,7 +151,7 @@ int	create_int_map(t_map *map)
 	return 1;
 }
 
-void add_player(char *buff, t_map *map, int *tmp, int i)
+void	add_player(char *buff, t_map *map, int *tmp, int i)
 {
 	map->map[*tmp + i] = 0;
 	map->player.dir = buff[i];
@@ -165,7 +159,7 @@ void add_player(char *buff, t_map *map, int *tmp, int i)
 	map->player.y = (*tmp + i) / map->mapX;
 }
 
-int	add_in_map(char *buff, t_map *map, int *tmp)
+int		add_in_map(char *buff, t_map *map, int *tmp)
 {
 	int i;
 
@@ -195,13 +189,182 @@ int	add_in_map(char *buff, t_map *map, int *tmp)
 	return (1);
 }
 
+int		get_textures(int fd, t_map *map)
+{
+	char	*buf = NULL;
+	int i = 5;
+	int len;
+
+	buf = get_next_line(fd);
+
+	// TODO ft_
+	while (buf && --i > 0)
+	{
+		len = strlen(buf);
+		if (len > 1 && buf[len - 1] == '\n')
+			buf[len - 1] = '\0';
+		if (strncmp(buf, "NO ", 3) == 0)
+			map->no = strdup(&(buf[3]));
+		else if (strncmp(buf, "SO ", 3) == 0)
+			map->so = strdup(&(buf[3]));
+		else if (strncmp(buf, "WE ", 3) == 0)
+			map->we = strdup(&(buf[3]));
+		else if (strncmp(buf, "EA ", 3) == 0)
+			map->ea = strdup(&(buf[3]));
+		else
+		{
+			free(buf);
+			return (printf("Error\nWrong textures\n") & 0);
+		}
+		free(buf);
+		buf = get_next_line(fd);
+	}
+	if (strlen(buf) != 1 && buf[0] != '\n')
+	{
+		free(buf);
+		return (printf("Error\nExtra symbols in file!\n") & 0);
+	}
+	free(buf);
+	return 1;
+}
+
+//r = 1, g = 2, b = 3
+int		check_rgb(char *rgb, int colour)
+{
+	//printf("rgb:%s:\n", rgb);
+	if (colour == 1 || colour == 2)
+	{
+		if (rgb[0] < '0' || rgb[0] > '9')
+			return (printf("Error\nWrong colours - 0\n") & 0);
+		if ((rgb[1] < '0' || rgb[1] > '9') && rgb[1] != ',' )
+			return (printf("Error\nWrong colours - 1\n") & 0);
+		if ((rgb[2] < '0' || rgb[2] > '9') && rgb[2] != ',')
+			return (printf("Error\nWrong colours - 2\n") & 0);
+		if (rgb[1] != ',' && rgb[2] != ',' && rgb[3] != ',')
+			return (printf("Error\nWrong colours - 3\n") & 0);
+	}
+	else if (colour == 3)
+	{
+		if (rgb[0] < '0' || rgb[0] > '9')
+			return (printf("Error\nWrong colours - 4\n") & 0);
+		if ((rgb[1] < '0' || rgb[1] > '9') && rgb[1] != '\0')
+			return (printf("Error\nWrong colours - 5\n") & 0);
+		if ((rgb[2] < '0' || rgb[2] > '9') && rgb[2] != '\0')
+			return (printf("Error\nWrong colours - 6\n") & 0);
+		if (rgb[1] != ',' && rgb[2] != ',' && rgb[3] != '\0')
+			return (printf("Error\nWrong colours -7\n") & 0);
+	}
+	return 1;
+}
+
+int		write_rgb(char *rgb, t_map *map, char where, int colour)
+{
+	if (colour == 4)
+		return 1;
+	if (where == 'F')
+	{
+		if (colour == 1)
+			map->floor.r = atoi(rgb);
+		else if (colour == 2)
+			map->floor.g = atoi(rgb);
+		else if (colour == 3)
+			map->floor.b = atoi(rgb);
+	}
+	else
+	{
+		if (colour == 1)
+			map->ceiling.r = atoi(rgb);
+		else if (colour == 2)
+			map->ceiling.g = atoi(rgb);
+		else if (colour == 3)
+			map->ceiling.b = atoi(rgb);
+	}
+	rgb = strchr(rgb, ',');
+	rgb += 1;
+	if (colour + 1 < 4 && !check_rgb(rgb, colour + 1))
+		return 0;
+	return write_rgb(rgb, map, where,colour + 1);
+}
+
+int		get_colours(int fd, t_map *map)
+{
+	char	*buf = NULL;
+	char	*rgb = NULL;
+	int i = 3;
+	int len;
+
+	buf = get_next_line(fd);
+
+	// TODO ft_
+	while (buf && --i > 0)
+	{
+		len = strlen(buf);
+		if (len < 7 || len > 13)
+		{
+			free(buf);
+			return (printf("Error\nWrong colours - len ?_?\n") & 0);
+		}
+		if (buf[len - 1] == '\n')
+			buf[len - 1] = '\0';
+		if (strncmp(buf, "F ", 2) == 0 || strncmp(buf, "C ", 2) == 0)
+		{
+			rgb = &(buf[2]);
+			if (!check_rgb(rgb, 1)) return 0;
+			if (buf[0] == 'F' && !write_rgb(rgb, map, 'F' ,1))
+				return 0;
+			else if (!write_rgb(rgb, map, 'C' ,1))
+				return 0;
+		}
+		else
+		{
+			free(buf);
+			return (printf("Error\nWrong colours - else\n") & 0);
+		}
+		free(buf);
+		buf = get_next_line(fd);
+	}
+	if (strlen(buf) != 1 && buf[0] != '\n')
+	{
+		free(buf);
+		return (printf("Error\nExtra symbols in file!\n") & 0);
+	}
+	free(buf);
+	return 1;
+
+}
+
+int		check_colours(t_map *map)
+{
+	if (map->floor.r > 255 || map->floor.g > 255 || map->floor.b > 255 ||
+		map->ceiling.r > 255 || map->ceiling.g > 255 || map->ceiling.b > 255)
+	{
+		return (printf("Error\nIncorrect colour value!\n") & 0);
+	}
+	return 1;
+}
+
+int		scroll_to_map(int fd)
+{
+	int i = 9;
+	char *buf = NULL;
+
+	while (--i)
+	{
+		buf = get_next_line(fd);
+		if (!buf)
+			return (printf("Error\nGNL error.\n") & 0);
+		free(buf);
+	}
+	return 1;
+}
+
 int main(int ac, char *av[])
 {
 	t_map map;
 	char *buf = NULL;
 
 	int fd;
-	int len = 0;
+	int len;
 	int tmp = 0;
 
 	if (ac != 2)
@@ -211,16 +374,44 @@ int main(int ac, char *av[])
 
 	init_map(&map);
 
-	if (!get_width_height(av[1], &map))
-		return (printf("Error\nInvalid map!\n") & 0);
-
-	printf("mapX: %d mapY: %d\n", map.mapX, map.mapY);
-
+	/***********	here parse textures and colors *************************/
 	fd = open(av[1], O_RDONLY);
-	buf = get_next_line(fd);
+
+	if (!get_textures(fd, &map) || !get_colours(fd, &map) || !check_colours(&map)) {
+		close(fd);
+		return 0;
+	}
+
+	//TODO validate texture files.
+
+	printf("\ttextures:\n NO:%s\n SO:%s\n WE:%s\n EA:%s\n",
+		   map.no, map.so, map.we, map.ea);
+
+	printf("\tcolors:\n F:%d,%d,%d C:%d,%d,%d\n",
+		   map.floor.r, map.floor.g, map.floor.b, map.ceiling.r, map.ceiling.g, map.ceiling.b);
+
+	/******************	map	*******************/
+
+	// TODO move to function
+	if (!get_width_height(fd, &map))
+	{
+		close(fd);
+		return (printf("Error\nInvalid map!\n") & 0);
+	}
+
+	printf("mapX: %d mapY: %d\n\n", map.mapX, map.mapY);
 
 	if (!create_int_map(&map))
 		return 0;
+
+	fd = open(av[1], O_RDONLY);
+	if (!scroll_to_map(fd))
+	{
+		close(fd);
+		return 0;
+	}
+
+	buf = get_next_line(fd);
 	while (buf)
 	{
 		len = strlen(buf); //ft_
@@ -231,14 +422,13 @@ int main(int ac, char *av[])
 			free(buf);
 			return (0);
 		}
-		//printf("in map written: [%d] ints\n", tmp);
 		free(buf);
 		buf = get_next_line(fd);
 	}
 	close(fd);
 	if (map.player.dir == 127)
 		return (printf("Error\nYou cannot be without player\n") & 0);
-	
+
 	printf("player: x[%d], y[%d], direction[%c]\n", map.player.x, map.player.y, map.player.dir);
 
 // print map:
