@@ -115,18 +115,13 @@ int	get_width_height(int fd, t_map *map)
 	char *buf = NULL;
 	int len;
 
-	//fd = open(file, O_RDONLY);
 	buf = get_next_line(fd);
-
-	//printf("start mapX:%d\n", map->mapX);
-
 	while (buf)
 	{
 		map->mapY += 1;
 		len = strlen(buf) - 1;
-		//printf("len: %d, mapX:%d\nbuf:%s\n", len, map->mapX, buf);
 		if (len <= 1)
-			return (0);
+			return (printf("Error\nInvalid map!\n") & 0);
 		if (len > map->mapX)
 			map->mapX = len;
 		free(buf);
@@ -135,7 +130,7 @@ int	get_width_height(int fd, t_map *map)
 	free(buf);
 	close(fd);
 	if (map->mapY < 3)
-		return 0;
+		return (printf("Error\nInvalid map!\n") & 0);
 	return 1;
 }
 
@@ -377,7 +372,8 @@ int main(int ac, char *av[])
 	/***********	here parse textures and colors *************************/
 	fd = open(av[1], O_RDONLY);
 
-	if (!get_textures(fd, &map) || !get_colours(fd, &map) || !check_colours(&map)) {
+	if (!get_textures(fd, &map) || !get_colours(fd, &map) ||
+		!check_colours(&map) || !get_width_height(fd, &map)) {
 		close(fd);
 		return 0;
 	}
@@ -393,11 +389,6 @@ int main(int ac, char *av[])
 	/******************	map	*******************/
 
 	// TODO move to function
-	if (!get_width_height(fd, &map))
-	{
-		close(fd);
-		return (printf("Error\nInvalid map!\n") & 0);
-	}
 
 	printf("mapX: %d mapY: %d\n\n", map.mapX, map.mapY);
 
