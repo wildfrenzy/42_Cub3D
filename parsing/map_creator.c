@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:46:29 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:26:30 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:54:40 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,17 @@ int	get_width_height(int fd, t_map *map, char *buf)
 		map->mapY += 1;
 		len = strlen(buf) - 1;
 		if (len <= 1)
-		{
-			free (buf);
-			return (printf("Error\nInvalid map!\n") & 0);
-		}
+			return (printf("Error\nInvalid map!>\n") & 0);
 		if (len > map->mapX)
 			map->mapX = len;
 		free(buf);
 		buf = get_next_line(fd);
 	}
 	free(buf);
+	buf = NULL;
 	close(fd);
 	if (map->mapY < 3)
-		return (printf("Error\nInvalid map!\n") & 0);
+		return (printf("Error\nInvalid map!<\n") & 0);
 	return 1;
 }
 

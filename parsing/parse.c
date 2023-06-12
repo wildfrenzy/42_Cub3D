@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:37:26 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:25:18 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:47:12 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ int		gather_data(t_map *map, char *av, int *lines)
 			buf[len - 1] = '\0';
 		if (map->all_info != 6 && !first_read_till_map(map, buf))
 			return (freebuf_closefd(buf, fd));
-		else if (map->all_info == 6 && buf[0] != '\0' && mapline(buf)) // got all info. rolling to map
+		else if (map->all_info == 6 && buf[0] != '\0') // got all info. rolling to map
 		{
-			if (!check_colours(map) || !get_width_height(fd, map, buf))
-				return (freebuf_closefd(buf, fd));
-			break ;
+			if (mapline(buf))
+			{
+				if (!check_colours(map) || !get_width_height(fd, map, buf))
+					return (freebuf_closefd(buf, fd));
+				break ;
+			}
 		}
 		free(buf);
 		*lines += 1;
@@ -97,7 +100,7 @@ int		fill_that_map(t_map *map, char *file, int how_long_till_map)
 	}
 	freebuf_closefd(buf, fd);
 	if (map->player.dir == 127)
-		return (printf("Error\nYou cannot be without player\n") & 0);
+		return (printf("Error\n") & 0);
 	return 1;
 }
 
