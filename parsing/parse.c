@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:37:26 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:47:12 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:07:35 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ int		gather_data(t_map *map, char *av, int *lines)
 		{
 			if (mapline(buf))
 			{
-				if (!check_colours(map) || !get_width_height(fd, map, buf))
+				if (!check_colours(map))
 					return (freebuf_closefd(buf, fd));
+				if (!get_width_height(fd, map, buf))
+					return (0);
 				break ;
 			}
 		}

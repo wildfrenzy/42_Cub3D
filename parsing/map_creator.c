@@ -64,16 +64,16 @@ int	get_width_height(int fd, t_map *map, char *buf)
 	{
 		map->mapY += 1;
 		len = strlen(buf) - 1;
-		if (len <= 1)
+		if (len <= 1) {
+			freebuf_closefd(buf, fd);
 			return (printf("Error\nInvalid map!>\n") & 0);
+		}
 		if (len > map->mapX)
 			map->mapX = len;
 		free(buf);
 		buf = get_next_line(fd);
 	}
-	free(buf);
-	buf = NULL;
-	close(fd);
+	freebuf_closefd(buf, fd);
 	if (map->mapY < 3)
 		return (printf("Error\nInvalid map!<\n") & 0);
 	return 1;
