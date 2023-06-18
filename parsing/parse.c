@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+//#include "parsing.h"
+#include "../cub3d.h"
 
 void	print_map(t_map *map)
 {
@@ -78,7 +79,7 @@ int		gather_data(t_map *map, char *av, int *lines)
 	return 1;
 }
 
-int		fill_that_map(t_map *map, char *file, int how_long_till_map)
+int		fill_that_map(t_cub *cub, char *file, int how_long_till_map)
 {
 	int fd;
 	int len;
@@ -95,17 +96,18 @@ int		fill_that_map(t_map *map, char *file, int how_long_till_map)
 		len = strlen(buf); //ft_
 		if(buf[len - 1] == '\n')
 			buf[len - 1] = '\0';
-		if (!validate_map_line(buf) || !add_in_map(buf, map, &tmp))
+		if (!validate_map_line(buf) || !add_in_map(buf, cub, &tmp))
 			return (freebuf_closefd(buf, fd));
 		free(buf);
 		buf = get_next_line(fd);
 	}
 	freebuf_closefd(buf, fd);
-	if (map->player.dir == 127)
+	if (cub->player.direction == 127)
 		return (printf("Error\n") & 0);
 	return 1;
 }
 
+/*
 int main(int ac, char *av[])
 {
 	t_map map;
@@ -132,5 +134,6 @@ int main(int ac, char *av[])
 	//TODO validate texture files.
 	return free_map(&map);
 }
+*/
 
 //cc parse.c parse_map.c parse_colours.c parse_textures.c map_creator.c additional_utils.c freedom.c get_next_line.c get_next_line_utils.c && ./a.out 0.cub

@@ -13,9 +13,9 @@
 #include "cub3d.h"
 #include <limits.h>
 
-extern int	map[];
-extern int	mapX;
-extern int	mapY;
+//extern int	map[];
+//extern int	mapX;
+//extern int	mapY;
 extern int	blockS;
 
 double	ft_distance_between_2_points(t_point p1, t_dpoint *p2)
@@ -30,8 +30,8 @@ int	ft_is_wall(t_cub *cub, t_dpoint *ray_end)
 
 	cell.x = (ray_end->x + cub->rays->left) / blockS;
 	cell.y = (ray_end->y + cub->rays->up) / blockS;
-	index = cell.y * mapX + cell.x;
-	if (map[index] == 1)
+	index = cell.y * cub->map.mapX + cell.x;
+	if (cub->map.map[index] == 1)
 		return (1);
 	else
 		return (0);
@@ -49,17 +49,17 @@ double	ft_check_horizontal(t_cub *cub)
 	if (cub->rays->ray_angle == 0.0 || cub->rays->ray_angle == 360.0 \
 		|| cub->rays->ray_angle == 180.0)
 		return (__FLT_MAX__);
-	o = ft_blocksize_remainder(cub, cub->player->pos.y, 'h');
+	o = ft_blocksize_remainder(cub, cub->player.pos.y, 'h');
 	angle = ft_corresponding_angle(cub->rays->ray_angle);
 	rayend = &cub->rays->horizontal.end;
-	rayend->y = (double)((cub->player->pos.y));
+	rayend->y = (double)((cub->player.pos.y));
 	rayend->y += o * (double)cub->rays->up;
-	rayend->x = (double)cub->player->pos.x;
+	rayend->x = (double)cub->player.pos.x;
 	a = o / tan(ft_deg_to_rad(angle));
 	rayend->x += a * cub->rays->left;
-	if (cub->rays->left == -1 && a > cub->player->pos.x)
+	if (cub->rays->left == -1 && a > cub->player.pos.x)
 		return (__FLT_MAX__);
-	if (cub->rays->left == 1 && a > (blockS * mapX) - cub->player->pos.x)
+	if (cub->rays->left == 1 && a > (blockS * cub->map.mapX) - cub->player.pos.x)
 		return (__FLT_MAX__);
 	yoff = blockS * cub->rays->up;
 	xoff = ((double) blockS) / tan(ft_deg_to_rad(angle)) * cub->rays->left;
@@ -68,7 +68,7 @@ double	ft_check_horizontal(t_cub *cub)
 		rayend->y += yoff;
 		rayend->x += xoff;
 	}
-	return (ft_distance_between_2_points(cub->player->pos, rayend));
+	return (ft_distance_between_2_points(cub->player.pos, rayend));
 }
 
 double	ft_check_vertical(t_cub *cub)
@@ -80,12 +80,12 @@ double	ft_check_vertical(t_cub *cub)
 	double		yoff;
 	t_dpoint	*rayend;
 
-	a = ft_blocksize_remainder(cub, cub->player->pos.x, 'v');
+	a = ft_blocksize_remainder(cub, cub->player.pos.x, 'v');
 	angle = ft_corresponding_angle(cub->rays->ray_angle);
 	rayend = &cub->rays->vertical.end;
-	rayend->x = (double)cub->player->pos.x;
+	rayend->x = (double)cub->player.pos.x;
 	rayend->x += a * (double)cub->rays->left;
-	rayend->y = (double)((cub->player->pos.y));
+	rayend->y = (double)((cub->player.pos.y));
 	o = a * tan(ft_deg_to_rad(angle));
 	rayend->y += o * cub->rays->up;
 	xoff = blockS * cub->rays->left;
@@ -95,7 +95,7 @@ double	ft_check_vertical(t_cub *cub)
 		rayend->x += xoff;
 		rayend->y += yoff;
 	}
-	return (ft_distance_between_2_points(cub->player->pos, rayend));
+	return (ft_distance_between_2_points(cub->player.pos, rayend));
 }
 
 void	ft_ray_quadrant(t_cub *cub)
@@ -121,7 +121,7 @@ void	ft_raycast(void *v_cub)
 	cub = v_cub;
 	rays = cub->rays;
 	rays->ray = -1;
-	rays->ray_angle = ft_fix_angle(cub->player->dir.angle + 30.0);
+	rays->ray_angle = ft_fix_angle(cub->player.dir.angle + 30.0);
 	while (++rays->ray < WIDTH)
 	{
 		ft_ray_quadrant(cub);
@@ -132,7 +132,7 @@ void	ft_raycast(void *v_cub)
 			rays->shortest = &rays->horizontal;
 		else
 			rays->shortest = &rays->vertical;
-		// ft_line(cub->img, cub->player->pos, rays->shortest->end, \
+		// ft_line(cub->img, cub->player.pos, rays->shortest->end, \
 		// 	rays->shortest->colour);
 		ft_draw_ray(cub);
 		rays->ray_angle = ft_fix_angle(rays->ray_angle - \
