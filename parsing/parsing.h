@@ -18,7 +18,7 @@
 
 # include "get_next_line.h"
 
-typedef struct s_cub t_cub;
+typedef struct s_cub	t_cub;
 
 //check if we need typedef for norm ?
 enum position
@@ -26,12 +26,12 @@ enum position
 	first, middle, last
 };
 
-/*typedef struct s_player
+typedef struct s_p
 {
 	int	x;
 	int	y;
 	char	dir; //N,S,E,W
-}				t_player;*/
+}				t_p;
 
 typedef struct s_colour
 {
@@ -51,9 +51,9 @@ typedef struct s_map
 	char *we;
 	char *ea;
 
-	t_colour floor;
-	t_colour ceiling;
-	//t_player player;
+	t_colour	floor;
+	t_colour	ceiling;
+	t_p		pos;
 }				t_map;
 
 /*	parse	*/

@@ -6,11 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/06/19 01:18:54 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:44:56 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+extern int blockS;
 
 int	ft_init_map(t_cub *cub)
 {
@@ -35,6 +37,9 @@ int	ft_init_map(t_cub *cub)
 	cub->map.mapX = 0;
 	cub->map.mapY = 0;
 	cub->map.all_info = 0;
+	cub->map.pos.y = 0;
+	cub->map.pos.x = 0;
+	cub->map.pos.dir = 127;
 
 	return (0);
 }
@@ -53,10 +58,16 @@ int	ft_init_rays(t_cub *cub)
 
 int	ft_init_player(t_cub *cub)
 {
-	//cub->player.direction = 127;
-	cub->player.pos.x = 410; //0
-	cub->player.pos.y = 410; //0
-	cub->player.dir.angle = 90.0;
+	cub->player.pos.x =  cub->map.pos.x * blockS + blockS/2; //410;
+	cub->player.pos.y = cub->map.pos.y * blockS + blockS/2;//410
+	if (cub->map.pos.dir == 'E')
+		cub->player.dir.angle = 0.0;
+	else if (cub->map.pos.dir == 'N')
+		cub->player.dir.angle = 90.0;
+	else if (cub->map.pos.dir == 'W')
+		cub->player.dir.angle = 180.0;
+	else if (cub->map.pos.dir == 'S')
+		cub->player.dir.angle = 270.0;
 	cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
 	cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
 	return (0);
@@ -74,10 +85,10 @@ int	ft_init_cub(t_cub *cub, int argc, char **argv)
 		return (2);
 	if (mlx_image_to_window(cub->mlx, cub->img, 0, 0) == -1)
 		return (3);
-	if (ft_init_map(cub))
-		return (4);
-	if (ft_init_player(cub))
-		return (5);
+	/*if (ft_init_map(cub))
+		return (4);*/
+	/*if (ft_init_player(cub))
+		return (5);*/
 	if (ft_init_rays(cub))
 		return (5);
 	return (0);

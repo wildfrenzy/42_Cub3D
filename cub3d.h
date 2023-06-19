@@ -73,7 +73,6 @@ typedef struct s_rays
 typedef struct s_player
 {
 	t_point	pos;
-	char	direction;
 	t_vect	dir;
 }				t_player;
 

@@ -95,9 +95,9 @@ int	add_in_map(char *buff, t_cub *cub, int *tmp)
 			cub->map.map[*tmp + i] = 0;
 		else if (buff[i] == ' ')
 			cub->map.map[*tmp + i] = -1;
-		else if (cub->player.direction != 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
+		else if (cub->map.pos.dir != 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
 			return (printf("Error\nYou cannot have more than 1 player!\n") & 0);
-		else if (cub->player.direction == 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
+		else if (cub->map.pos.dir == 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
 			add_player(buff, cub, tmp, i);
 	}
 	//printf("\ni[%d], mapX[%d]\n", i, cub->map.mapX);
@@ -113,8 +113,8 @@ int	add_in_map(char *buff, t_cub *cub, int *tmp)
 void	add_player(char *buff, t_cub *cub, int *tmp, int i)
 {
 	cub->map.map[*tmp + i] = 0;
-	cub->player.direction = buff[i];
-	cub->player.pos.x = i;
-	cub->player.pos.y = (*tmp + i) / cub->map.mapX;
+	cub->map.pos.dir = buff[i];
+	cub->map.pos.x = i;
+	cub->map.pos.y = (*tmp + i) / cub->map.mapX;
 }
 

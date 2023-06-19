@@ -102,7 +102,7 @@ int		fill_that_map(t_cub *cub, char *file, int how_long_till_map)
 		buf = get_next_line(fd);
 	}
 	freebuf_closefd(buf, fd);
-	if (cub->player.direction == 127)
+	if (cub->map.pos.dir == 127)
 		return (printf("Error\n") & 0);
 	return 1;
 }
