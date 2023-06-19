@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
+# include "parsing/parsing.h"
 
 # define PI 3.1415926
 
@@ -75,19 +76,42 @@ typedef struct s_player
 	t_vect	dir;
 }				t_player;
 
+/*typedef struct s_colour
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_colour;
+
+typedef struct s_map
+{
+	int *map;
+	int mapX;
+	int mapY;
+	int all_info;
+	char *no;
+	char *so;
+	char *we;
+	char *ea;
+
+	t_colour floor;
+	t_colour ceiling;
+	//t_player player;
+}				t_map;*/
+
 typedef struct s_cub {
-	t_player			*player;
+	t_player			player;
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_rays				*rays;
-	// t_map				*map;
+	t_map				map;
 }				t_cub;
 
 //controls
 void	ft_hook(void *param);
 
 // inits
-int		ft_init_map(t_cub *cub, int argc, char **argv);
+int		ft_init_map(t_cub *cub);
 int		ft_init_rays(t_cub *cub);
 int		ft_init_cub(t_cub *cub, int argc, char **argv);
 int		ft_init_player(t_cub *cub);

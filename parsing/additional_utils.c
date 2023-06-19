@@ -16,7 +16,7 @@ int	check_file(char *file)
 {
 	//add ft_
 	if(strncmp(file + strlen(file) - 4, ".cub", 4) != 0)
-		return (printf("Error\nInvalid file extension") && 0);
+		return (printf("Error\nInvalid file extension\n") && 0);
 	return (1);
 }
 
@@ -45,7 +45,7 @@ int	scroll_to_map(int fd, int how_long)
 int	mapline(char *buf)
 {
 	int i = -1;
-	int all_spaces = 0;
+	size_t all_spaces = 0;
 	while (buf[++i])
 	{
 		if (buf[i] == ' ')

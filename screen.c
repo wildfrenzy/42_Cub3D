@@ -22,7 +22,7 @@ void	ft_draw_ray(t_cub *cub)
 	double	line_offset;
 	double	delta_angle;
 
-	delta_angle = cub->player->dir.angle - cub->rays->ray_angle;
+	delta_angle = cub->player.dir.angle - cub->rays->ray_angle;
 	if (cub->rays->shortest->dist == 0.0)
 		cub->rays->shortest->dist = 1.0;
 	cub->rays->shortest->dist *= cos(ft_deg_to_rad(delta_angle));

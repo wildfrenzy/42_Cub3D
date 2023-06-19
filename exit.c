@@ -24,7 +24,7 @@ int	ft_clean_exit(int stat, t_cub *cub)
 {
 	if (stat > 1)
 		mlx_close_window(cub->mlx);
-	if (stat > 3)
-		free(cub->player);
+//	if (stat > 3)
+//		free(cub->player);
 	return (stat);
 }

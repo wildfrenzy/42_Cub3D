@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+//#include "parsing.h"
+#include "../cub3d.h"
 
-int	init_map(t_map *map)
+/*int	init_map(t_map *map)
 {
 	t_colour floor;
 	t_colour ceiling;
-	t_player player;
+	//t_player player;
 
 	floor.r = 0;
 	floor.g = 0;
@@ -30,7 +31,7 @@ int	init_map(t_map *map)
 	player.y = 0;
 	player.dir = 127; // no direction
 
-	map->player = player;
+	//map->player = player;
 	map->floor = floor;
 	map->ceiling = ceiling;
 	map->map = NULL;
@@ -43,7 +44,7 @@ int	init_map(t_map *map)
 	map->all_info = 0;
 
 	return 1;
-}
+}*/
 
 int	create_int_map(t_map *map)
 {
@@ -79,7 +80,7 @@ int	get_width_height(int fd, t_map *map, char *buf)
 	return 1;
 }
 
-int	add_in_map(char *buff, t_map *map, int *tmp)
+int	add_in_map(char *buff, t_cub *cub, int *tmp)
 {
 	int i;
 
@@ -89,31 +90,31 @@ int	add_in_map(char *buff, t_map *map, int *tmp)
 	while (buff[++i])
 	{
 		if (buff[i] == '1')
-			map->map[*tmp + i] = 1;
+			cub->map.map[*tmp + i] = 1;
 		else if (buff[i] == '0')
-			map->map[*tmp + i] = 0;
+			cub->map.map[*tmp + i] = 0;
 		else if (buff[i] == ' ')
-			map->map[*tmp + i] = -1;
-		else if (map->player.dir != 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
+			cub->map.map[*tmp + i] = -1;
+		else if (cub->map.pos.dir != 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
 			return (printf("Error\nYou cannot have more than 1 player!\n") & 0);
-		else if (map->player.dir == 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
-			add_player(buff, map, tmp, i);
+		else if (cub->map.pos.dir == 127 && (buff[i] == 'S' || buff[i] == 'E' || buff[i] == 'W' || buff[i] == 'N'))
+			add_player(buff, cub, tmp, i);
 	}
-	//printf("\ni[%d], mapX[%d]\n", i, map->mapX);
-	while (i < map->mapX)
+	//printf("\ni[%d], mapX[%d]\n", i, cub->map.mapX);
+	while (i < cub->map.mapX)
 	{
-		map->map[*tmp + i] = -1; // -1
+		cub->map.map[*tmp + i] = -1; // -1
 		i++;
 	}
 	*tmp += i;
 	return (1);
 }
 
-void	add_player(char *buff, t_map *map, int *tmp, int i)
+void	add_player(char *buff, t_cub *cub, int *tmp, int i)
 {
-	map->map[*tmp + i] = 0;
-	map->player.dir = buff[i];
-	map->player.x = i;
-	map->player.y = (*tmp + i) / map->mapX;
+	cub->map.map[*tmp + i] = 0;
+	cub->map.pos.dir = buff[i];
+	cub->map.pos.x = i;
+	cub->map.pos.y = (*tmp + i) / cub->map.mapX;
 }
 
