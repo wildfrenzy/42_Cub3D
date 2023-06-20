@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
+#    By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/05/23 13:40:40 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/05/30 17:55:48 by barramacmah      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra
+FLAGS = -Wall -Wextra 
 #-Werror
 
 NAME = cub3d
 
 #HEADER =
 
-SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c
+SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c audio.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -42,7 +42,7 @@ BLUE        = \033[1;34m
 all: $(NAME)
 
 $(NAME): $(OBJ) #$(HEADER)
-	@cc $(FLAGS) $(OBJ) -o $(NAME) $(MLX) $(MLX_FLAGS)
+	@cc $(FLAGS) $(OBJ) -ldl -lm -lpthread -framework CoreFoundation -framework CoreAudio -framework AudioToolbox -o $(NAME) $(MLX) $(MLX_FLAGS)
 	@printf "$(GREEN)$(NAME) successfully compiled !$(NOC)\n"
 
 $(OBJ): %.o:%.c #$(HEADER)

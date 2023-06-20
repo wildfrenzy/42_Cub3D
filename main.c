@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/26 01:18:06 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:00:13 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv)
 	exit_status = ft_init_cub(&cub, argc, argv);
 	if (exit_status)
 		return (ft_clean_exit(exit_status, &cub));
+	// ft_audio(&cub);
 	ft_main_loop(&cub);
 	return (exit_status);
 }

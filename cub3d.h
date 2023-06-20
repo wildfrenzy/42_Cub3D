@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/26 01:10:41 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:21:55 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include "MLX42/include/MLX42/MLX42.h"
+# include "miniaudio.h"
 
 # define PI 3.1415926
 
@@ -74,6 +75,7 @@ typedef struct s_cub {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_rays				*rays;
+	ma_sound			sound;
 	// t_map				*map;
 }				t_cub;
 
@@ -85,6 +87,9 @@ int		ft_init_map(t_cub *cub, int argc, char **argv);
 int		ft_init_rays(t_cub *cub);
 int		ft_init_cub(t_cub *cub, int argc, char **argv);
 int		ft_init_player(t_cub *cub);
+
+//sound
+int ft_audio();
 
 //draw
 void	ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour);
