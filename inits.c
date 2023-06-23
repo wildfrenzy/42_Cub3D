@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/06/19 18:44:56 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:36:49 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-extern int blockS;
 
 int	ft_init_map(t_cub *cub)
 {
@@ -58,8 +56,8 @@ int	ft_init_rays(t_cub *cub)
 
 int	ft_init_player(t_cub *cub)
 {
-	cub->player.pos.x =  cub->map.pos.x * blockS + blockS/2; //410;
-	cub->player.pos.y = cub->map.pos.y * blockS + blockS/2;//410
+	cub->player.pos.x =  cub->map.pos.x * cub->blockS + cub->blockS/2; //410;
+	cub->player.pos.y = cub->map.pos.y * cub->blockS + cub->blockS/2;//410
 	if (cub->map.pos.dir == 'E')
 		cub->player.dir.angle = 0.0;
 	else if (cub->map.pos.dir == 'N')
@@ -73,10 +71,8 @@ int	ft_init_player(t_cub *cub)
 	return (0);
 }
 
-int	ft_init_cub(t_cub *cub, int argc, char **argv)
+int	ft_init_cub(t_cub *cub)
 {
-	(void)argc;
-	(void)argv;
 	cub->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!cub->mlx)
 		return (1);

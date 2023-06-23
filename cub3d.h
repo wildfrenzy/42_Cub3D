@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:31:25 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:36:38 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # define PI 3.1415926
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 
 typedef struct s_vect
 {
@@ -105,6 +105,7 @@ typedef struct s_cub {
 	mlx_image_t			*img;
 	t_rays				*rays;
 	t_map				map;
+	int					blockS;
 }				t_cub;
 
 //controls
@@ -113,7 +114,7 @@ void	ft_hook(void *param);
 // inits
 int		ft_init_map(t_cub *cub);
 int		ft_init_rays(t_cub *cub);
-int		ft_init_cub(t_cub *cub, int argc, char **argv);
+int		ft_init_cub(t_cub *cub);
 int		ft_init_player(t_cub *cub);
 
 //draw

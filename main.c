@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:45:10 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/19 18:45:10 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:36:29 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 		!fill_that_map(&cub, argv[1], how_long_till_map) || !validate_walls(&(cub.map)))
 		return free_map(&(cub.map));
 
-	exit_status = ft_init_cub(&cub, argc, argv);
+	exit_status = ft_init_cub(&cub);
 	if (exit_status)
 		return (ft_clean_exit(exit_status, &cub));
 
