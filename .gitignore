@@ -1,2 +1,7 @@
 MLX42/
 .idea
+.vscode
+textures/*.jpg
+textures/*.xpm
+textures/*.webp
+textures/*.c

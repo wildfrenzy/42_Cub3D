@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSING_H
+# define PARSING_H
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -18,7 +21,8 @@
 
 # include "get_next_line.h"
 
-typedef struct s_cub	t_cub;
+typedef struct s_cub		t_cub;
+typedef struct mlx_image	mlx_image_t;
 
 //check if we need typedef for norm ?
 enum position
@@ -45,6 +49,8 @@ typedef struct s_map
 	int *map;
 	int mapX;
 	int mapY;
+	int mapsize;
+
 	int all_info;
 	char *no;
 	char *so;
@@ -54,6 +60,11 @@ typedef struct s_map
 	t_colour	floor;
 	t_colour	ceiling;
 	t_p		pos;
+
+	mlx_image_t		*north;
+	mlx_image_t		*south;
+	mlx_image_t		*east;
+	mlx_image_t		*west;
 }				t_map;
 
 /*	parse	*/
@@ -99,3 +110,5 @@ int		mapline(char *buf);
 
 int		freebuf_closefd(char *buf, int fd);
 int		free_map(t_map *map);
+
+#endif

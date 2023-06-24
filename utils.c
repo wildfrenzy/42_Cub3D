@@ -12,6 +12,9 @@
 
 #include "cub3d.h"
 
+extern int ww;
+extern int hh;
+
 double	ft_fix_angle(double deg)
 {
 	if (deg < 0.0)
@@ -23,16 +26,16 @@ double	ft_fix_angle(double deg)
 
 int	ft_onscreen(t_dpoint	*pixel)
 {
-	if (pixel->x < 0 || pixel->x >= WIDTH)
+	if (pixel->x < 0 || pixel->x >= ww)
 		return (0);
-	if (pixel->y < 0 || pixel->y >= HEIGHT)
+	if (pixel->y < 0 || pixel->y >= hh)
 		return (0);
 	return (1);
 }
 
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour)
 {
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	if (x >= 0 && x < ww && y >= 0 && y < hh)
 		mlx_put_pixel(img, x, y, colour);
 }
 

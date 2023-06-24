@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
+/*   Updated: 2023/06/24 22:02:45 by nmaliare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
@@ -147,5 +159,9 @@ int		ft_onscreen(t_dpoint	*pixel);
 //errors & exit
 int		ft_clean_exit(int stat, t_cub *cub);
 int		ft_print_error(int stat);
+
+//textures
+int		prepare_textures(t_cub *cub);
+int		load_texture(mlx_t	*mlx, mlx_image_t **img, char *file);
 
 #endif

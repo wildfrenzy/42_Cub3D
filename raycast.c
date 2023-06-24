@@ -6,16 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 21:09:09 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/30 19:41:38 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:52:07 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <limits.h>
 
-//extern int	map[];
-//extern int	mapX;
-//extern int	mapY;
 extern int	blockS;
 
 double	ft_distance_between_2_points(t_point p1, t_dpoint *p2)
@@ -28,10 +25,12 @@ int	ft_is_wall(t_cub *cub, t_dpoint *ray_end)
 	t_point	cell;
 	int		index;
 
-	cell.x = (ray_end->x + cub->rays->left) / blockS;
-	cell.y = (ray_end->y + cub->rays->up) / blockS;
+	cell.x = (int) (ray_end->x + (double) cub->rays->left) / blockS;
+	cell.y = (int) (ray_end->y + (double) cub->rays->up) / blockS;
 	index = cell.y * cub->map.mapX + cell.x;
-	if (cub->map.map[index] == 1)
+	//printf("index[%d] of %d\n", index, cub->map.mapX * cub->map.mapY);
+
+	if (index < cub->map.mapsize && cub->map.map[index] == 1)
 		return (1);
 	else
 		return (0);
@@ -122,7 +121,7 @@ void	ft_raycast(void *v_cub)
 	rays = cub->rays;
 	rays->ray = -1;
 	rays->ray_angle = ft_fix_angle(cub->player.dir.angle + 30.0);
-	while (++rays->ray < WIDTH)
+	while (++rays->ray < cub->mlx->width)
 	{
 		ft_ray_quadrant(cub);
 		rays->vertical.dist = ft_check_vertical(cub);
@@ -136,6 +135,6 @@ void	ft_raycast(void *v_cub)
 		// 	rays->shortest->colour);
 		ft_draw_ray(cub);
 		rays->ray_angle = ft_fix_angle(rays->ray_angle - \
-			(1.0 * (60.0 / WIDTH)));
+			(1.0 * (60.0 / cub->mlx->width)));
 	}
 }
