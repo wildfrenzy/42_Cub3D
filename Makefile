@@ -10,14 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra
+FLAGS = -Wall -Wextra -g3 -fsanitize=address
 #-Werror
 
 NAME = cub3d
 
 HEADER = cub3d.h parsing/parsing.h
 
-SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c \
+SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c textures.c \
 	parsing/additional_utils.c parsing/freedom.c parsing/get_next_line.c parsing/get_next_line_utils.c \
 	parsing/map_creator.c parsing/parse.c parsing/parse_colours.c parsing/parse_map.c parsing/parse_textures.c
 
@@ -75,8 +75,7 @@ fclean: clean
 
 re: fclean all
 
-exec: all
-	make clean
-	./$(NAME)
+exec: all clean
+	./$(NAME) ./parsing/0.cub
 
 .PHONY:	all clean fclean re

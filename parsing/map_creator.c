@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:46:29 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:54:40 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:00:35 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	create_int_map(t_map *map)
 {
 	int *mapp;
 
-	mapp = malloc(sizeof(int) * map->mapX * map->mapY);
+	map->mapsize = map->mapX * map->mapY;
+	mapp = malloc(sizeof(int) * map->mapsize);
 	if (!mapp)
 		return (printf("Error\nMalloc error\n") & 0);
 	map->map = mapp;

@@ -89,14 +89,15 @@ void	ft_background(void *v_cub)
 	cub = v_cub;
 	top_left.x = 0;
 	top_left.y = 0;
-	bottom_right.x = WIDTH - 1;
-	bottom_right.y = HEIGHT / 2;
+	bottom_right.x = cub->mlx->width - 1;
+	bottom_right.y = cub->mlx->height / 2;
 	ft_filled_square(cub->img, top_left, bottom_right, \
-		ft_rgba_to_int(191, 189, 193, 255));
+		ft_rgba_to_int(cub->map.ceiling.r, cub->map.ceiling.g, cub->map.ceiling.b, 255));
 	top_left.x = 0;
-	top_left.y = HEIGHT / 2;
-	bottom_right.x = WIDTH - 1;
-	bottom_right.y = HEIGHT - 1;
+	top_left.y = cub->mlx->height / 2;
+	bottom_right.x = cub->mlx->width - 1;
+	bottom_right.y = cub->mlx->height - 1;
+	//55,50,62
 	ft_filled_square(cub->img, top_left, bottom_right, \
-		ft_rgba_to_int(55, 50, 62, 255));
+		ft_rgba_to_int(cub->map.floor.r, cub->map.floor.g, cub->map.floor.b, 255));
 }

@@ -34,10 +34,17 @@ int	ft_init_map(t_cub *cub)
 	cub->map.ea = NULL;
 	cub->map.mapX = 0;
 	cub->map.mapY = 0;
+	cub->map.mapsize = 0;
 	cub->map.all_info = 0;
 	cub->map.pos.y = 0;
 	cub->map.pos.x = 0;
+
 	cub->map.pos.dir = 127;
+
+/*	cub->map.east = NULL;
+	cub->map.west = NULL;
+	cub->map.south = NULL;
+	cub->map.north = NULL;*/
 
 	return (0);
 }

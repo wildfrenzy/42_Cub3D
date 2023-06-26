@@ -24,13 +24,28 @@
 
 #include "cub3d.h"
 
+int ww = WIDTH;
+int hh = HEIGHT;
+
+void	recised(void *param)
+{
+	t_cub	*cub;
+
+	cub = param;
+	if(cub->mlx->width != ww)
+		ww = cub->mlx->width;
+	if (cub->mlx->height != hh)
+		hh = cub->mlx->height;
+}
+
 void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
-	// mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
-	// mlx_loop_hook(cub->mlx, ft_draw_player, cub);
 	mlx_loop_hook(cub->mlx, ft_raycast, cub);
+/*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
+	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
+	//mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }
@@ -43,8 +58,9 @@ void	print_map_data(t_cub *cub, int how_long_till_map)
 	printf("\tcolors:\n F:%d,%d,%d C:%d,%d,%d\n",
 		   cub->map.floor.r, cub->map.floor.g, cub->map.floor.b, cub->map.ceiling.r, cub->map.ceiling.g, cub->map.ceiling.b);
 	printf("mapX: %d mapY: %d\n\n", cub->map.mapX, cub->map.mapY);
-	printf("player: x[%d], y[%d], direction[%c]\n", cub->player.pos.x, cub->player.pos.y, cub->map.pos.dir);
+	printf("player: x[%d], y[%d], direction[%c]\n", cub->map.pos.x, cub->map.pos.y, cub->map.pos.dir);
 }
+
 
 int	main(int argc, char **argv)
 {
@@ -66,6 +82,9 @@ int	main(int argc, char **argv)
 	exit_status = ft_init_cub(&cub);
 	if (exit_status)
 		return (ft_clean_exit(exit_status, &cub));
+
+	if (!prepare_textures(&cub))
+		return free_map(&(cub.map));
 
 	ft_init_player(&cub);
 	print_map_data(&cub, how_long_till_map);

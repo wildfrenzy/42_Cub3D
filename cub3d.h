@@ -149,4 +149,8 @@ int		ft_onscreen(t_dpoint	*pixel);
 int		ft_clean_exit(int stat, t_cub *cub);
 int		ft_print_error(int stat);
 
+//textures
+int		prepare_textures(t_cub *cub);
+int		load_texture(mlx_t	*mlx, mlx_image_t **img, char *file);
+
 #endif

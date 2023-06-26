@@ -26,10 +26,10 @@ void	ft_draw_ray(t_cub *cub)
 	if (cub->rays->shortest->dist == 0.0)
 		cub->rays->shortest->dist = 1.0;
 	cub->rays->shortest->dist *= cos(ft_deg_to_rad(delta_angle));
-	line_height = (int)(HEIGHT * blockS / cub->rays->shortest->dist);
-	if (line_height > HEIGHT)
-		line_height = HEIGHT;
-	line_offset = (HEIGHT / 2) - ((int)line_height / 2);
+	line_height = (int)(cub->mlx->height * blockS / cub->rays->shortest->dist);
+	if (line_height > cub->mlx->height)
+		line_height = cub->mlx->height;
+	line_offset = (cub->mlx->height / 2) - ((int)line_height / 2);
 	top.x = cub->rays->ray;
 	top.y = line_offset;
 	bottom.x = top.x;
