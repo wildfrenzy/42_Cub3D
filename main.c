@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 21:51:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/24 22:36:37 by nmaliare         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:13:56 by bmacmaho         ###   ########.fr       */
+/*   Created: 2023/06/26 18:24:55 by barramacmah       #+#    #+#             */
+/*   Updated: 2023/06/26 21:39:56 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +15,6 @@
 int ww = WIDTH;
 int hh = HEIGHT;
 
-void	recised(void *param)
-{
-	t_cub	*cub;
-
-	cub = param;
-	if(cub->mlx->width != ww)
-		ww = cub->mlx->width;
-	if (cub->mlx->height != hh)
-		hh = cub->mlx->height;
-}
-
 void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
@@ -45,7 +22,6 @@ void	ft_main_loop(t_cub *cub)
 /*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
-	//mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }
@@ -68,11 +44,9 @@ int	main(int argc, char **argv)
 	int		exit_status;
 	int		how_long_till_map = 1;
 
-	if (argc != 2)
-		return (printf("Error\nWrong number of arguments\n") & 0);
-	if (!check_file(argv[1]))
-		return (0);
-
+	
+	if (ft_errors(argc, argv));
+		return (1);
 	ft_init_map(&cub);
 
 	if (!gather_data(&(cub.map), argv[1], &how_long_till_map) || !create_int_map(&(cub.map)) ||

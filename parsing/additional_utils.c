@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   additional_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:51:39 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:26:10 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:24:56 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int	check_file(char *file)
-{
-	//add ft_
-	if(strncmp(file + strlen(file) - 4, ".cub", 4) != 0)
-		return (printf("Error\nInvalid file extension\n") && 0);
-	return (1);
-}
 
 int	skip_spaces(char *buf, int i)
 {

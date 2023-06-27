@@ -3,21 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
+#    By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/05/23 13:40:40 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/06/26 21:36:06 by barramacmah      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -g3 -fsanitize=address
+FLAGS = -Wall -Wextra 
+#-g3 -fsanitize=address
 #-Werror
 
 NAME = cub3d
 
 HEADER = cub3d.h parsing/parsing.h
 
-SRC = main.c draw.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c textures.c \
+SRC = main.c draw.c errors.c utils.c inits.c controls.c exit.c 2d.c raycast.c raycast_utils.c screen.c textures.c \
 	parsing/additional_utils.c parsing/freedom.c parsing/get_next_line.c parsing/get_next_line_utils.c \
 	parsing/map_creator.c parsing/parse.c parsing/parse_colours.c parsing/parse_map.c parsing/parse_textures.c
 

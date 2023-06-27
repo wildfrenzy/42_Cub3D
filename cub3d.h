@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/24 22:02:45 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:04:20 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_rays
 	double	ray_angle;
 	int		left;
 	int		up;
+	double	xoffset;
+	double	yoffset;
 	t_hv	horizontal;
 	t_hv	vertical;
 	t_hv	*shortest;
@@ -157,6 +159,7 @@ double	ft_fix_angle(double deg);
 int		ft_onscreen(t_dpoint	*pixel);
 
 //errors & exit
+int		ft_errors(int argc, char **argv);
 int		ft_clean_exit(int stat, t_cub *cub);
 int		ft_print_error(int stat);
 

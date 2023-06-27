@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:54:23 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/24 18:54:23 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:37:41 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	ft_init_player(t_cub *cub)
 
 int	ft_init_cub(t_cub *cub, int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	cub->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!cub->mlx)
 		return (1);
