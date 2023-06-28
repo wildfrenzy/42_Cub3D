@@ -6,19 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/27 15:04:20 by barramacmah      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 20:37:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:31:25 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:19:00 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +26,6 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
-typedef struct s_vect
-{
-	double	angle;
-	double	delta_x;
-	double	delta_y;
-}				t_vect;
-
-typedef struct s_delta
-{
-	double	x;
-	double	y;
-}				t_delta;
-
 typedef struct s_dpoint
 {
 	double	x;
@@ -65,10 +40,10 @@ typedef struct s_point
 
 typedef struct s_hv
 {
-	double	dist;
-	int		colour;
+	double		dist;
+	int			colour;
 	t_dpoint	end;
-	t_delta	delta;
+	t_dpoint	delta;
 }				t_hv;
 
 typedef struct s_rays
@@ -86,8 +61,9 @@ typedef struct s_rays
 
 typedef struct s_player
 {
-	t_point	pos;
-	t_vect	dir;
+	t_point		pos;
+	t_dpoint	delta;
+	double		angle;
 }				t_player;
 
 /*typedef struct s_colour
@@ -152,15 +128,14 @@ int		ft_h_delta_y(t_cub *cub, int y);
 void	ft_draw_ray(t_cub *cub);
 
 //utils
-double	ft_deg_to_rad(double degrees);
 int		ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a);
 void	ft_safe_draw(mlx_image_t *img, int x, int y, int colour);
-double	ft_fix_angle(double deg);
+double	ft_fix_angle(double ang);
 int		ft_onscreen(t_dpoint	*pixel);
 
 //errors & exit
 int		ft_errors(int argc, char **argv);
-int		ft_clean_exit(int stat, t_cub *cub);
+int		ft_clean_exit(t_cub *cub);
 int		ft_print_error(int stat);
 
 //textures

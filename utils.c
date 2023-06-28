@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:26:11 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/30 19:31:09 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:30:10 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 extern int ww;
 extern int hh;
 
-double	ft_fix_angle(double deg)
+double	ft_fix_angle(double ang)
 {
-	if (deg < 0.0)
-		deg += 360.0;
-	if (deg > 359.9)
-		deg -= 360.0;
-	return (deg);
+	if (ang < 0.0)
+		ang += 2 * M_PI;
+	if (ang > 359.9)
+		ang -= 2 * M_PI;
+	return (ang);
 }
 
 int	ft_onscreen(t_dpoint	*pixel)
@@ -44,7 +44,3 @@ int	ft_rgba_to_int(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-double	ft_deg_to_rad(double degrees)
-{
-	return (degrees * (PI / 180.0));
-}

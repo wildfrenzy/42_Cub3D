@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:11:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:32:28 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:26:52 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	ft_hook(void *param)
 		ft_up_down(cub, -1);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
-		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle + 3.0);
-		cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-		cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
+		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle + 0.05);
+		cub->player.dir.delta_x = cos(cub->player.dir.angle);
+		cub->player.dir.delta_y = -sin(cub->player.dir.angle);
 	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
 	{
-		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle - 3.0);
-		cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-		cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
+		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle - 0.05);
+		cub->player.dir.delta_x = cos(cub->player.dir.angle);
+		cub->player.dir.delta_y = -sin(cub->player.dir.angle);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: barramacmahon <barramacmahon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:54:23 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/26 21:37:41 by barramacmah      ###   ########.fr       */
+/*   Updated: 2023/06/28 16:13:44 by barramacmah      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ int	ft_init_rays(t_cub *cub)
 
 int	ft_init_player(t_cub *cub)
 {
-	cub->player.pos.x =  cub->map.pos.x * blockS + blockS/2; //410;
-	cub->player.pos.y = cub->map.pos.y * blockS + blockS/2;//410
+	cub->player.pos.x =  cub->map.pos.x * blockS + blockS/2;
+	cub->player.pos.y = cub->map.pos.y * blockS + blockS/2;
 	if (cub->map.pos.dir == 'E')
-		cub->player.dir.angle = 0.0;
+		cub->player.angle = 0.0;
 	else if (cub->map.pos.dir == 'N')
-		cub->player.dir.angle = 90.0;
+		cub->player.angle = M_PI / 2.0;
 	else if (cub->map.pos.dir == 'W')
-		cub->player.dir.angle = 180.0;
+		cub->player.angle = M_PI;
 	else if (cub->map.pos.dir == 'S')
-		cub->player.dir.angle = 270.0;
-	cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-	cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
+		cub->player.angle = (3.0 * M_PI / 2.0);
+	cub->player.delta.x = cos(cub->player.angle);
+	cub->player.delta.y = -sin(cub->player.angle);
 	return (0);
 }
 
