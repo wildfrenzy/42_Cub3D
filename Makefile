@@ -31,7 +31,15 @@ OBJ = $(SRC:.c=.o)
 # MLX $(MLX)
 MLX =  ./MLX42/build/libmlx42.a
 MLX_DIR = ./MLX42/include/
+
+UNAME = $(shell uname)
+
+ifeq ($(UNAME), Darwin)
+MLX_FLAGS = -I$(MLX_DIR) -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
+else
 MLX_FLAGS = -I$(MLX_DIR) -ldl -lglfw -pthread -lm
+endif
+
 
 #HEADER_FLAGS = -I $(LIBFT_DIR)
 
@@ -48,7 +56,7 @@ $(NAME): $(OBJ) $(HEADER)
 	@printf "$(GREEN)$(NAME) successfully compiled !$(NOC)\n"
 
 $(OBJ): %.o:%.c #$(HEADER)
-	@cc $(FLAGS) -c $< -o $@ #$(HEADER_FLAGS)
+	@cc -g3 -c $< -o $@ #$(HEADER_FLAGS)
 	@printf "$(GREEN)[\342\234\205] $(notdir $@)\n";
 
 #$(LIBFT):

@@ -163,5 +163,6 @@ int		ft_print_error(int stat);
 //textures
 int		prepare_textures(t_cub *cub);
 int		load_texture(mlx_t	*mlx, mlx_image_t **img, char *file);
+void	ft_trytexture(void *param);
 
 #endif

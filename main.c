@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 21:51:27 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/24 22:36:37 by nmaliare         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:13:56 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:36:37 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +30,11 @@ void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
 	mlx_loop_hook(cub->mlx, ft_raycast, cub);
+
 /*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
+	mlx_loop_hook(cub->mlx, ft_trytexture, cub);
 	//mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
