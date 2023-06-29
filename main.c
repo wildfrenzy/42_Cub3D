@@ -20,10 +20,24 @@ void	recised(void *param)
 	t_cub	*cub;
 
 	cub = param;
-	if(cub->mlx->width != ww)
+	/*if(cub->mlx->width != ww)
 		ww = cub->mlx->width;
 	if (cub->mlx->height != hh)
-		hh = cub->mlx->height;
+		hh = cub->mlx->height;*/
+
+	//recising main image to size of a window,
+	// so it'll not try to calculate/print stuff which doesnt fit in
+
+	if (cub->mlx->width != cub->img->width && cub->mlx->height != cub->img->height)
+		mlx_resize_image(cub->img, cub->mlx->width,cub->mlx->height);
+	else
+	{
+		if(cub->mlx->width != cub->img->width)
+			mlx_resize_image(cub->img, cub->mlx->width, cub->img->height);
+		if (cub->mlx->height != cub->img->height)
+			mlx_resize_image(cub->img, cub->img->width,cub->mlx->height);
+	}
+
 }
 
 void	ft_main_loop(t_cub *cub)
@@ -35,7 +49,7 @@ void	ft_main_loop(t_cub *cub)
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop_hook(cub->mlx, ft_trytexture, cub);
-	//mlx_loop_hook(cub->mlx, recised, cub);
+	mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }

@@ -35,8 +35,8 @@
 
 # define PI 3.1415926
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 400
 
 typedef struct s_vect
 {
