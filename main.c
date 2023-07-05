@@ -37,7 +37,6 @@ void	recised(void *param)
 		if (cub->mlx->height != cub->img->height)
 			mlx_resize_image(cub->img, cub->img->width,cub->mlx->height);
 	}
-
 }
 
 void	ft_main_loop(t_cub *cub)
@@ -48,8 +47,8 @@ void	ft_main_loop(t_cub *cub)
 /*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
-	mlx_loop_hook(cub->mlx, ft_trytexture, cub);
-	mlx_loop_hook(cub->mlx, recised, cub);
+	//mlx_loop_hook(cub->mlx, ft_trytexture, cub);
+	//mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }

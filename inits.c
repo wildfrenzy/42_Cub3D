@@ -22,10 +22,12 @@ int	ft_init_map(t_cub *cub)
 	floor.r = 0;
 	floor.g = 0;
 	floor.b = 0;
+	floor.a = 0;
 
 	ceiling.r = 0;
 	ceiling.g = 0;
 	ceiling.b = 0;
+	ceiling.a = 0;
 
 	cub->map.floor = floor;
 	cub->map.ceiling = ceiling;
@@ -57,9 +59,11 @@ int	ft_init_rays(t_cub *cub)
 	if (!cub->rays)
 		return (1);
 	cub->rays->ray = 0;
-	cub->rays->horizontal.colour = ft_rgba_to_int(222, 184, 65, 255);
-	cub->rays->vertical.colour = ft_rgba_to_int(222, 158, 54, 255);
-	//change colors after parsing them
+
+	cub->rays->horizontal.colour = ft_rgba_to_int(222, 184, 65, 255); // orange
+	cub->rays->vertical.colour = ft_rgba_to_int(222, 158, 54, 255); // yellow
+
+	//cub->rays->is_vertical = false;
 	return (0);
 }
 

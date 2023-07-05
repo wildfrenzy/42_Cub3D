@@ -14,6 +14,8 @@
 
 extern int	blockS;
 
+
+
 void	ft_draw_ray(t_cub *cub)
 {
 	t_point	top;
@@ -29,10 +31,13 @@ void	ft_draw_ray(t_cub *cub)
 	line_height = (int)(cub->mlx->height * blockS / cub->rays->shortest->dist);
 	if (line_height > cub->mlx->height)
 		line_height = cub->mlx->height;
-	line_offset = (cub->mlx->height / 2) - ((int)line_height / 2);
+	line_offset = (cub->mlx->height / 2.) - (line_height / 2);
 	top.x = cub->rays->ray;
 	top.y = line_offset;
 	bottom.x = top.x;
 	bottom.y = (int)(line_height + line_offset);
-	ft_line(cub->img, top, bottom, cub->rays->shortest->colour);
+
+	//ft_safe_draw(cub->img, top.x, bottom.y, get_textel(cub));
+	new_ft_line(cub->img, top, bottom, get_textel(cub, (int)get_wall_height(cub->rays->shortest->dist)));// cub->rays->shortest->colour); // get texture color and send in ftline.
+
 }

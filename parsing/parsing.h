@@ -42,6 +42,7 @@ typedef struct s_colour
 	int	r;
 	int	g;
 	int	b;
+	int a;
 }				t_colour;
 
 typedef struct s_map
