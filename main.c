@@ -12,21 +12,11 @@
 
 #include "cub3d.h"
 
-int ww = WIDTH;
-int hh = HEIGHT;
-
 void	recised(void *param)
 {
 	t_cub	*cub;
 
 	cub = param;
-	/*if(cub->mlx->width != ww)
-		ww = cub->mlx->width;
-	if (cub->mlx->height != hh)
-		hh = cub->mlx->height;*/
-
-	//recising main image to size of a window,
-	// so it'll not try to calculate/print stuff which doesnt fit in
 
 	if (cub->mlx->width != cub->img->width && cub->mlx->height != cub->img->height)
 		mlx_resize_image(cub->img, cub->mlx->width,cub->mlx->height);
@@ -43,14 +33,8 @@ void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
 	mlx_loop_hook(cub->mlx, ft_catjam, cub);
-
-	//mlx_loop_hook(cub->mlx, ft_raycast, cub);
-
-/*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
-	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
-	//mlx_loop_hook(cub->mlx, ft_trytexture, cub);
-	//mlx_loop_hook(cub->mlx, recised, cub);
+	mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
 	mlx_terminate(cub->mlx);
 }

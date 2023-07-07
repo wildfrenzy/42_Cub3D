@@ -19,38 +19,6 @@ static int	ft_dir(int a, int b)
 	return (-1);
 }
 
-void	new_ft_line(mlx_image_t *img, t_point p1, t_point p2, int *colour)
-{
-	t_point	delta;
-	t_point	dir;
-	int		error[2];
-
-	delta.x = abs(p2.x - p1.x);
-	delta.y = abs(p2.y - p1.y);
-	dir.x = ft_dir(p1.x, p2.x);
-	dir.y = ft_dir(p1.y, p2.y);
-	error[0] = delta.x - delta.y;
-
-	int i = 0;
-	while (!(p1.x == p2.x && p1.y == p2.y))
-	{
-		ft_safe_draw(img, p1.x, p1.y, colour[i]);
-		error[1] = error[0] * 2;
-		if (error[1] > -delta.y)
-		{
-			error[0] -= delta.y;
-			p1.x += dir.x;
-		}
-		if (error[1] < delta.x)
-		{
-			error[0] += delta.x;
-			p1.y += dir.y;
-		}
-		i += 1;
-	}
-	ft_safe_draw(img, p1.x, p1.y, colour[i]);
-}
-
 void	ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour)
 {
 	t_point	delta;
@@ -130,7 +98,6 @@ void	ft_background(void *v_cub)
 	top_left.y = cub->mlx->height / 2;
 	bottom_right.x = cub->mlx->width - 1;
 	bottom_right.y = cub->mlx->height - 1;
-	//55,50,62
 	ft_filled_square(cub->img, top_left, bottom_right, \
 		ft_rgba_to_int(cub->map.floor.r, cub->map.floor.g, cub->map.floor.b, 255));
 }
