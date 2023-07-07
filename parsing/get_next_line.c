@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 00:18:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/06 22:49:36 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:56:02 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*ft_read_to_content(int fd, char *content)
 	if (!buff)
 		return (NULL);
 	rd_bytes = 1;
-	while (!ft_strchr(content, '\n') && rd_bytes != 0)
+	while (!gft_strchr(content, '\n') && rd_bytes != 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
 		if (rd_bytes == -1)
@@ -59,7 +59,7 @@ static char	*ft_read_to_content(int fd, char *content)
 			return (NULL);
 		}
 		buff[rd_bytes] = '\0';
-		content = ft_strjoin(content, buff);
+		content = gft_strjoin(content, buff);
 	}
 	free(buff);
 	return (content);
@@ -80,22 +80,3 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-int main ()
-{
-	int fd = open("test.txt", O_RDONLY);
-	char *str;
-	while (1)
-	{
-		str = get_next_line(fd);
-		printf("> %s", str);
-		if (!str) break ;
-		free(str);
-	}
-}
-*/

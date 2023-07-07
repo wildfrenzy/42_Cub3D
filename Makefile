@@ -6,7 +6,7 @@
 #    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/05/23 13:40:40 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/07/07 17:52:45 by bmacmaho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ BLUE        = \033[1;34m
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ) $(HEADER)
-	@cc $(FLAGS) $(OBJ) -o $(NAME) $(MLX) $(MLX_FLAGS)
+	@cc $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(MLX) $(MLX_FLAGS)
 	@printf "$(GREEN)$(NAME) successfully compiled !$(NOC)\n"
 
 $(OBJ): %.o:%.c #$(HEADER)

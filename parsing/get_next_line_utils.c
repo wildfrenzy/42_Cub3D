@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 00:20:35 by nmaliare          #+#    #+#             */
-/*   Updated: 2022/12/24 20:50:22 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:58:26 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+size_t	gft_strlen(char *s)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*gft_strchr(char *s, int c)
 {
 	unsigned char	a;
 
@@ -53,35 +53,6 @@ static char	*ft_salloc(size_t nelem)
 	return (arr);
 }
 
-char	*ft_strjoin(char *content, char *buff)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	if (!buff)
-		return (NULL);
-	if (!content)
-	{
-		content = ft_salloc(1);
-		if (!content)
-			return (NULL);
-	}
-	str = malloc(sizeof(char) * ((ft_strlen(content) + ft_strlen(buff)) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	if (content)
-		while (content[++i] != '\0')
-			str[i] = content[i];
-	while (buff[j] != '\0')
-		str[i++] = buff[j++];
-	str[ft_strlen(content) + ft_strlen(buff)] = '\0';
-	free(content);
-	return (str);
-}
-
 char	*ft_new_content(char *content)
 {
 	int		i;
@@ -96,7 +67,7 @@ char	*ft_new_content(char *content)
 		free(content);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(content) - i + 1));
+	str = (char *)malloc(sizeof(char) * (gft_strlen(content) - i + 1));
 	if (!str)
 		return (NULL);
 	i++;
@@ -104,6 +75,35 @@ char	*ft_new_content(char *content)
 	while (content[i])
 		str[j++] = content[i++];
 	str[j] = '\0';
+	free(content);
+	return (str);
+}
+
+char	*gft_strjoin(char *content, char *buff)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	if (!buff)
+		return (NULL);
+	if (!content)
+	{
+		content = ft_salloc(1);
+		if (!content)
+			return (NULL);
+	}
+	str = malloc(sizeof(char) * ((gft_strlen(content) + gft_strlen(buff)) + 1));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (content)
+		while (content[++i] != '\0')
+			str[i] = content[i];
+	while (buff[j] != '\0')
+		str[i++] = buff[j++];
+	str[gft_strlen(content) + gft_strlen(buff)] = '\0';
 	free(content);
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:31:50 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/18 23:12:21 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:00:13 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+# include "../Libft/libft.h"
 # include "get_next_line.h"
 
 typedef struct s_cub		t_cub;
@@ -34,7 +35,7 @@ typedef struct s_p
 {
 	int	x;
 	int	y;
-	char	dir; //N,S,E,W
+	char	dir;
 }				t_p;
 
 typedef struct s_colour

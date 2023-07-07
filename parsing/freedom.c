@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freedom.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:23:13 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/12 20:26:04 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:09:20 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	freebuf_closefd(char *buf, int fd)
 	if (buf)
 		free(buf);
 	close(fd);
-	return 0;
+	return (0);
 }
 
 int	free_map(t_map *map)
@@ -32,5 +32,5 @@ int	free_map(t_map *map)
 		free(map->we);
 	if (map->map)
 		free(map->map);
-	return 0;
+	return (0);
 }

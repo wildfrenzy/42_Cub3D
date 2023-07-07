@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 03:19:40 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:42:36 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 #include "MLX42/include/MLX42/MLX42.h"
 #include "parsing/parsing.h"
-//#include "Libft/libft.h"
+#include "Libft/libft.h"
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -69,16 +69,6 @@ typedef struct s_hv {
   t_delta delta;
 } t_hv;
 
-/*typedef struct s_rays {
-  int ray;
-  double ray_angle;
-  int left;
-  int up;
-  t_hv horizontal;
-  t_hv vertical;
-  t_hv *shortest;
-} t_rays;*/
-
 typedef struct s_player {
   t_dpoint pos;
   t_vect dir;
@@ -92,27 +82,19 @@ typedef struct s_cub {
 	  mlx_t *mlx;
 	  mlx_image_t *img;
 	t_map map;
-
 	t_dpoint ray;
 	t_dpoint side_dist;
 	t_dpoint delta_dist;
 	double perp_wall_dist;
 	t_point step;
 	int hit;
-	int side; //was a NS or a EW wall hit?
+	int side;
 	int line_h;
-
 	int draw_start;
 	int draw_end;
-
 	double wall_x;
-
 	mlx_image_t		*chosen_texture;
 	t_point tex;
-
-
- /* t_dpoint *rayend_h;
-  t_dpoint *rayend_v;*/
 } t_cub;
 
 // controls
