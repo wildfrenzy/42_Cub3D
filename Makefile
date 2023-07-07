@@ -24,9 +24,9 @@ SRC = main.c catjam.c draw.c utils.c inits.c controls.c exit.c textures.c \
 OBJ = $(SRC:.c=.o)
 
 # Libft
-#LIBFT =  $(LIBFT_DIR)libft.a
-#LIBFT_DIR = ./inc/libft/
-#LIBFT_FLAGS =  -lft -L $(LIBFT_DIR)
+LIBFT =  $(LIBFT_DIR)libft.a
+LIBFT_DIR = ./Libft/
+LIBFT_FLAGS =  -lft -L $(LIBFT_DIR)
 
 # MLX $(MLX)
 MLX =  ./MLX42/build/libmlx42.a
@@ -51,7 +51,7 @@ BLUE        = \033[1;34m
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
+$(NAME): $(LIBFT) $(OBJ) $(HEADER)
 	@cc $(FLAGS) $(OBJ) -o $(NAME) $(MLX) $(MLX_FLAGS)
 	@printf "$(GREEN)$(NAME) successfully compiled !$(NOC)\n"
 
@@ -59,10 +59,10 @@ $(OBJ): %.o:%.c #$(HEADER)
 	@cc -g3 -c $< -o $@ #$(HEADER_FLAGS)
 	@printf "$(GREEN)[\342\234\205] $(notdir $@)\n";
 
-#$(LIBFT):
-#	@printf "$(BLUE)Compiling libft files: $(NOC)"
-#	@make -sC $(LIBFT_DIR)
-#	@printf "$(GREEN)[\342\234\205]\n"
+$(LIBFT):
+	@printf "$(BLUE)Compiling libft files: $(NOC)"
+	@make -sC $(LIBFT_DIR)
+	@printf "$(GREEN)[\342\234\205]\n"
 
 clean:
 	@if [ "$(wildcard $(addprefix ./, $(OBJ)))" ]; then\
@@ -79,7 +79,7 @@ fclean: clean
 	else\
 		printf "$(YELLOW)There's no $(GREEN)$(NAME) $(YELLOW)file here \360\237\230\261\n$(NOC)";\
 	fi
-#@make fclean -sC $(LIBFT_DIR)
+	@make fclean -sC $(LIBFT_DIR)
 
 re: fclean all
 
