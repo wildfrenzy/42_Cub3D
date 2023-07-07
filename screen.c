@@ -15,7 +15,6 @@
 extern int	blockS;
 
 
-
 void	ft_draw_ray(t_cub *cub)
 {
 	t_point	top;

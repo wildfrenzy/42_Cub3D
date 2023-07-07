@@ -6,7 +6,7 @@
 /*   By: nmaliare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/06/24 22:02:45 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/07 03:19:40 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@
 
 #define PI 3.1415926
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1200
+#define HEIGHT 1000
 
 typedef struct s_vect {
   double angle;
+  double x;
+  double y;
   double delta_x;
   double delta_y;
 } t_vect;
@@ -52,8 +54,6 @@ typedef struct s_delta {
 typedef struct s_dpoint {
   double x;
   double y;
-  double relative_x;
-  double relative_y;
 } t_dpoint;
 
 typedef struct s_point {
@@ -68,7 +68,7 @@ typedef struct s_hv {
   t_delta delta;
 } t_hv;
 
-typedef struct s_rays {
+/*typedef struct s_rays {
   int ray;
   double ray_angle;
   int left;
@@ -76,44 +76,42 @@ typedef struct s_rays {
   t_hv horizontal;
   t_hv vertical;
   t_hv *shortest;
-} t_rays;
+} t_rays;*/
 
 typedef struct s_player {
-  t_point pos;
+  t_dpoint pos;
   t_vect dir;
+  t_dpoint plane; //FOV
 } t_player;
 
-/*typedef struct s_colour
-{
-        int	r;
-        int	g;
-        int	b;
-}				t_colour;
-
-typedef struct s_map
-{
-        int *map;
-        int mapX;
-        int mapY;
-        int all_info;
-        char *no;
-        char *so;
-        char *we;
-        char *ea;
-
-        t_colour floor;
-        t_colour ceiling;
-        //t_player player;
-}				t_map;*/
 
 typedef struct s_cub {
-  t_player player;
-  mlx_t *mlx;
-  mlx_image_t *img;
-  t_rays *rays;
-  t_map map;
-  t_dpoint *rayend_h;
-  t_dpoint *rayend_v;
+	int blockS;
+	  t_player player;
+	  mlx_t *mlx;
+	  mlx_image_t *img;
+	t_map map;
+
+	t_dpoint ray;
+	t_dpoint side_dist;
+	t_dpoint delta_dist;
+	double perp_wall_dist;
+	t_point step;
+	int hit;
+	int side; //was a NS or a EW wall hit?
+	int line_h;
+
+	int draw_start;
+	int draw_end;
+
+	double wall_x;
+
+	mlx_image_t		*chosen_texture;
+	t_point tex;
+
+
+ /* t_dpoint *rayend_h;
+  t_dpoint *rayend_v;*/
 } t_cub;
 
 // controls
@@ -164,5 +162,14 @@ void ft_trytexture(void *param);
 int *get_textel(t_cub *cub, int wall_height);
 void	new_ft_line(mlx_image_t *img, t_point p1, t_point p2, int *colour);
 float get_wall_height(float dist);
+
+
+
+
+//catjam
+void ft_catjam(void *param);
+//void	ft_safe_draw(t_cub *cub, int x, int y, unsigned int colour);
+
+void	rotate(t_cub *cub, double rot_speed);
 
 #endif

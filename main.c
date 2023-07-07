@@ -42,7 +42,9 @@ void	recised(void *param)
 void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
-	mlx_loop_hook(cub->mlx, ft_raycast, cub);
+	mlx_loop_hook(cub->mlx, ft_catjam, cub);
+
+	//mlx_loop_hook(cub->mlx, ft_raycast, cub);
 
 /*	mlx_loop_hook(cub->mlx, ft_2d_grid, cub);
 	mlx_loop_hook(cub->mlx, ft_draw_player, cub);*/
@@ -63,7 +65,6 @@ void	print_map_data(t_cub *cub, int how_long_till_map)
 	printf("mapX: %d mapY: %d\n\n", cub->map.mapX, cub->map.mapY);
 	printf("player: x[%d], y[%d], direction[%c]\n", cub->map.pos.x, cub->map.pos.y, cub->map.pos.dir);
 }
-
 
 int	main(int argc, char **argv)
 {

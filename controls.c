@@ -5,49 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 23:11:23 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/05/30 19:32:28 by bmacmaho         ###   ########.fr       */
+/*   Created: 2023/05/18 23:11:23 by bmacmaho          #+#    #+#             */
+/*   Updated: 2023/07/07 03:36:57 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_up_down(t_cub *cub, int updown)
-{
-	t_dpoint	next_pos;
+#define ROT 0.042
 
-	next_pos.x = cub->player.pos.x + ((cub->player.dir.delta_x * 5.0) \
-		* (updown * 2));
-	next_pos.y = cub->player.pos.y + ((cub->player.dir.delta_y * 5.0) \
-		* (updown * 2));
-	if (!ft_is_wall(cub, &next_pos))
-	{
-		cub->player.pos.x += ((int)(cub->player.dir.delta_x * 5.0) * updown);
-		cub->player.pos.y += ((int)(cub->player.dir.delta_y * 5.0) * updown);
-	}
+void	rotate(t_cub *cub, double rot_speed)
+{
+	double old_dir_x;
+	double old_plane_x;
+
+	old_dir_x = cub->player.dir.x;
+	cub->player.dir.x = cub->player.dir.x * cos(rot_speed) - cub->player.dir.y * sin(rot_speed);
+	cub->player.dir.y = old_dir_x * sin(rot_speed) + cub->player.dir.y * cos(rot_speed);
+
+	old_plane_x = cub->player.plane.x;
+	cub->player.plane.x = cub->player.plane.x * cos(rot_speed) - cub->player.plane.y * sin(rot_speed);
+	cub->player.plane.y = old_plane_x * sin(rot_speed) + cub->player.plane.y * cos(rot_speed);
 }
+
+//TODO wasd keys to move. arrows to change view
 
 void	ft_hook(void *param)
 {
 	t_cub	*cub;
+	double move_speed = 0.042;
+	int x;
+	int y;
 
 	cub = param;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		ft_clean_exit(10, cub);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_UP))
-		ft_up_down(cub, 1);
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN))
-		ft_up_down(cub, -1);
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_UP)) //moving edgy
+	{
+		t_dpoint new_up;
+
+		x = (int) (cub->player.pos.x + cub->player.dir.x * move_speed);
+		y = (int) (cub->player.pos.y + cub->player.dir.y * move_speed);
+
+		if (cub->map.map[(int)(cub->player.pos.y * cub->map.mapX + x)] == 0)
+			new_up.x = cub->player.pos.x + cub->player.dir.x * move_speed;
+		if (cub->map.map[(int)(y * cub->map.mapX + cub->player.pos.x)] == 0)
+			new_up.y = cub->player.pos.y + cub->player.dir.y * move_speed;
+		cub->player.pos = new_up;
+	}
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)) //smooth move without ifs ;c
+	{
+		t_dpoint new_down;
+		x = (int) (cub->player.pos.x - cub->player.dir.x * move_speed);
+		y = (int) (cub->player.pos.y - cub->player.dir.y * move_speed);
+		//if (cub->map.map[(int)(cub->player.pos.y * cub->map.mapX + x)] == 0)
+			new_down.x = cub->player.pos.x - cub->player.dir.x * move_speed;
+		//if (cub->map.map[(int)(y * cub->map.mapX + cub->player.pos.x)] == 0)
+			new_down.y = cub->player.pos.y - cub->player.dir.y * move_speed;
+		cub->player.pos = new_down;
+	}
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
-	{
-		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle + 3.0);
-		cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-		cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
-	}
+		rotate(cub, -ROT);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
-	{
-		cub->player.dir.angle = ft_fix_angle(cub->player.dir.angle - 3.0);
-		cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-		cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
-	}
+		rotate(cub, ROT);
 }

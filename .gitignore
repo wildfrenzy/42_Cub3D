@@ -7,3 +7,4 @@ textures/*.webp
 textures/*.c
 textures/*.jpeg
 .DS_Store
+trash/

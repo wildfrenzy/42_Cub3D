@@ -42,45 +42,42 @@ int	ft_init_map(t_cub *cub)
 	cub->map.all_info = 0;
 	cub->map.pos.y = 0;
 	cub->map.pos.x = 0;
-
 	cub->map.pos.dir = 127;
 
-/*	cub->map.east = NULL;
-	cub->map.west = NULL;
-	cub->map.south = NULL;
-	cub->map.north = NULL;*/
+	/*****/
+
+	cub->blockS = 64;
+
 
 	return (0);
 }
 
-int	ft_init_rays(t_cub *cub)
+/*int	ft_init_rays(t_cub *cub)
 {
-	cub->rays = malloc(sizeof(t_rays));
-	if (!cub->rays)
-		return (1);
-	cub->rays->ray = 0;
+	cub->ray.ray = 0;
 
-	cub->rays->horizontal.colour = ft_rgba_to_int(222, 184, 65, 255); // orange
-	cub->rays->vertical.colour = ft_rgba_to_int(222, 158, 54, 255); // yellow
-
-	//cub->rays->is_vertical = false;
+	//cub->ray.horizontal.colour = ft_rgba_to_int(222, 184, 65, 255); // orange
+	//cub->ray.vertical.colour = ft_rgba_to_int(222, 158, 54, 255); // yellow
 	return (0);
-}
+}*/
 
 int	ft_init_player(t_cub *cub)
 {
-	cub->player.pos.x =  cub->map.pos.x * blockS + blockS/2; //410;
-	cub->player.pos.y = cub->map.pos.y * blockS + blockS/2;//410
-	if (cub->map.pos.dir == 'E')
-		cub->player.dir.angle = 0.0;
-	else if (cub->map.pos.dir == 'N')
-		cub->player.dir.angle = 90.0;
+	cub->player.pos.x = cub->map.pos.x + 0.5;
+	cub->player.pos.y = cub->map.pos.y + 0.5;
+
+	cub->player.plane.x = 0.0;
+	cub->player.plane.y = 0.66;
+
+	cub->player.dir.x = 1;
+	cub->player.dir.y = 0;
+
+	if (cub->map.pos.dir == 'N')
+		rotate(cub, M_PI * 1.5);
 	else if (cub->map.pos.dir == 'W')
-		cub->player.dir.angle = 180.0;
+		rotate(cub, M_PI);
 	else if (cub->map.pos.dir == 'S')
-		cub->player.dir.angle = 270.0;
-	cub->player.dir.delta_x = cos(ft_deg_to_rad(cub->player.dir.angle));
-	cub->player.dir.delta_y = -sin(ft_deg_to_rad(cub->player.dir.angle));
+		rotate(cub, M_PI / 2);
 	return (0);
 }
 
@@ -100,7 +97,7 @@ int	ft_init_cub(t_cub *cub, int argc, char **argv)
 		return (4);*/
 	/*if (ft_init_player(cub))
 		return (5);*/
-	if (ft_init_rays(cub))
-		return (5);
+	/*if (ft_init_rays(cub))
+		return (5);*/
 	return (0);
 }
