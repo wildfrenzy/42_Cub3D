@@ -44,22 +44,10 @@ int	ft_init_map(t_cub *cub)
 	cub->map.pos.x = 0;
 	cub->map.pos.dir = 127;
 
-	/*****/
-
 	cub->blockS = 64;
-
 
 	return (0);
 }
-
-/*int	ft_init_rays(t_cub *cub)
-{
-	cub->ray.ray = 0;
-
-	//cub->ray.horizontal.colour = ft_rgba_to_int(222, 184, 65, 255); // orange
-	//cub->ray.vertical.colour = ft_rgba_to_int(222, 158, 54, 255); // yellow
-	return (0);
-}*/
 
 int	ft_init_player(t_cub *cub)
 {
@@ -93,11 +81,5 @@ int	ft_init_cub(t_cub *cub, int argc, char **argv)
 		return (2);
 	if (mlx_image_to_window(cub->mlx, cub->img, 0, 0) == -1)
 		return (3);
-	/*if (ft_init_map(cub))
-		return (4);*/
-	/*if (ft_init_player(cub))
-		return (5);*/
-	/*if (ft_init_rays(cub))
-		return (5);*/
 	return (0);
 }
