@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 11:33:52 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:19:18 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_cub {
 void			ft_hook(void *param);
 
 // inits
-int				ft_init_map(t_cub *cub);
+int				ft_map(t_cub *cub, char *file, int *hltm);
 int				ft_init_rays(t_cub *cub);
 int				ft_init_cub(t_cub *cub, int argc, char **argv);
 int				ft_init_player(t_cub *cub);
@@ -132,8 +132,9 @@ double			ft_fix_angle(double deg);
 int				ft_onscreen(t_dpoint *pixel);
 
 // errors & exit
+int				ft_checkargs(int argc, char **argv);
 int				ft_clean_exit(int stat, t_cub *cub);
-int				ft_print_error(int stat);
+int				ft_print_error(char *message);
 
 // textures
 int				prepare_textures(t_cub *cub);

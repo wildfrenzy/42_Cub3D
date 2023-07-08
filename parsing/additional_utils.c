@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:51:39 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 17:30:11 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:06:24 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ int	validate_map_line(char *line)
 		if (i > 0 && line[i] == ' ' && line[i - 1] != '1' && line[i - 1] != ' ')
 			return (printf("Error\nInvalid map!\n") & 0);
 	}
-	return (1);
-}
-
-int	check_file(char *file)
-{
-	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
-		return (printf("Error\nInvalid file extension\n") && 0);
 	return (1);
 }
 

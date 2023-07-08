@@ -6,18 +6,19 @@
 #    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/07/08 11:12:16 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/07/08 13:37:47 by bmacmaho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -g3 -fsanitize=address
+FLAGS = -Wall -Wextra 
+# -g3 -fsanitize=address
 #-Werror
 
 NAME = cub3D
 
 HEADER = cub3d.h parsing/parsing.h
 
-SRC = main.c raycast.c raycast_utils.c draw.c utils.c inits.c controls.c exit.c textures.c \
+SRC = main.c errors.c raycast.c raycast_utils.c draw.c utils.c inits.c controls.c exit.c textures.c \
 	parsing/additional_utils.c parsing/freedom.c parsing/get_next_line.c parsing/get_next_line_utils.c \
 	parsing/map_creator.c parsing/parse.c parsing/parse_colours.c parsing/parse_map.c parsing/parse_textures.c
 
