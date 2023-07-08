@@ -6,11 +6,12 @@
 #    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/07/08 13:14:55 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/07/08 13:37:47 by bmacmaho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -g3 -fsanitize=address
+FLAGS = -Wall -Wextra 
+# -g3 -fsanitize=address
 #-Werror
 
 NAME = cub3D
