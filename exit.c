@@ -35,6 +35,5 @@ int	ft_clean_exit(int stat, t_cub *cub)
 	}
 	if (stat >= 0)
 		free_map(&cub->map);
-	// if (stat > 2)
-	exit (stat);
+	exit (0);
 }

@@ -21,9 +21,9 @@
 
 # include "../Libft/libft.h"
 # include "get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_cub		t_cub;
-typedef struct mlx_image	mlx_image_t;
 
 enum e_position
 {
