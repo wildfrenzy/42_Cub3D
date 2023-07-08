@@ -77,7 +77,7 @@ void	welcome_to_the_dda(t_cub *cub)
 			cub->map.pos.y += cub->step.y;
 			cub->side = 1;
 		}
-		if (cub->map.map[cub->map.pos.y * cub->map.mapX + cub->map.pos.x] > 0)
+		if (cub->map.map[cub->map.pos.y * cub->map.map_x + cub->map.pos.x] > 0)
 			cub->hit = 1;
 	}
 }

@@ -16,7 +16,7 @@ int	create_int_map(t_map *map)
 {
 	int	*mapp;
 
-	map->mapsize = map->mapX * map->mapY;
+	map->mapsize = map->map_x * map->map_y;
 	mapp = malloc(sizeof(int) * map->mapsize);
 	if (!mapp)
 		return (printf("Error\nMalloc error\n") & 0);
@@ -30,20 +30,20 @@ int	get_width_height(int fd, t_map *map, char *buf)
 
 	while (buf)
 	{
-		map->mapY += 1;
+		map->map_y += 1;
 		len = ft_strlen(buf) - 1;
 		if (len <= 1)
 		{
 			freebuf_closefd(buf, fd);
 			return (printf("Error\nInvalid map!>\n") & 0);
 		}
-		if (len > map->mapX)
-			map->mapX = len;
+		if (len > map->map_x)
+			map->map_x = len;
 		free(buf);
 		buf = get_next_line(fd);
 	}
 	freebuf_closefd(buf, fd);
-	if (map->mapY < 3)
+	if (map->map_y < 3)
 		return (printf("Error\nInvalid map!<\n") & 0);
 	return (1);
 }
@@ -68,7 +68,7 @@ int	add_in_map(char *buff, t_cub *cub, int *tmp)
 			|| buff[i] == 'W' || buff[i] == 'N'))
 			add_player(buff, cub, tmp, i);
 	}
-	while (i < cub->map.mapX)
+	while (i < cub->map.map_x)
 	{
 		cub->map.map[*tmp + i] = -1;
 		i++;
@@ -82,5 +82,5 @@ void	add_player(char *buff, t_cub *cub, int *tmp, int i)
 	cub->map.map[*tmp + i] = 0;
 	cub->map.pos.dir = buff[i];
 	cub->map.pos.x = i;
-	cub->map.pos.y = (*tmp + i) / cub->map.mapX;
+	cub->map.pos.y = (*tmp + i) / cub->map.map_x;
 }

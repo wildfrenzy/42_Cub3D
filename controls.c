@@ -17,7 +17,6 @@
 static void	rightangle(t_delta *dir, char ad)
 {
 	double	old_dir_x;
-	double	old_plane_x;
 	double	angle;
 
 	angle = M_PI / 2.0;
@@ -48,10 +47,10 @@ static void	move(t_cub *cub, char key)
 		ws = -1.0;
 	if (key == 'a' || key == 'd')
 		rightangle(&dir, key);
-	newx = (int)(cub->player.pos.y) * cub->map.mapX + (int)(cub->player.pos.x \
+	newx = (int)(cub->player.pos.y) * cub->map.map_x + (int)(cub->player.pos.x \
 		+ (dir.x * (move_speed + 0.01)) * ws);
 	newy = (int)(cub->player.pos.y + (dir.y * \
-		(move_speed + 0.01)) * ws) * cub->map.mapX + (int)(cub->player.pos.x);
+		(move_speed + 0.01)) * ws) * cub->map.map_x + (int)(cub->player.pos.x);
 	if (cub->map.map[newx] == 0)
 		cub->player.pos.x += dir.x * move_speed * ws;
 	if (cub->map.map[newy] == 0)
