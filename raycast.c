@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   catjam.c                                           :+:      :+:    :+:   */
+/*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmaliare <nmaliare@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:07:04 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/06 21:07:56 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:14:29 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-unsigned int	get_color_textel(t_cub *cub, int x, int y)
-{
-	unsigned int	*color;
-	unsigned int	index;
-
-	index = (y * cub->chosen_texture->width + x) * 4;
-	color = (unsigned int *) &(cub->chosen_texture->pixels[index]);
-	return (*color);
-}
-
-void	put_textel(mlx_image_t *img, int x, int y, unsigned int colour)
-{
-	unsigned int	*pixel;
-
-	pixel = (unsigned int *)&img->pixels[(x + y * img->width) * 4];
-	*pixel = colour;
-}
 
 void	tape_the_wall(t_cub *cub, int x)
 {
@@ -50,22 +32,6 @@ void	tape_the_wall(t_cub *cub, int x)
 	}
 }
 
-void	choose_the_tape(t_cub *cub)
-{
-	if (cub->side == 0 && cub->step.x < 0)
-		cub->chosen_texture = cub->map.east;
-	if (cub->side == 0 && cub->step.x > 0)
-		cub->chosen_texture = cub->map.west;
-	if (cub->side == 1 && cub->step.y < 0)
-		cub->chosen_texture = cub->map.north;
-	if (cub->side == 1 && cub->step.y > 0)
-		cub->chosen_texture = cub->map.south;
-}
-
-/**
- * Where exactly the wall was hit
- */
-
 void	measure_tape(t_cub *cub)
 {
 	if (cub->side == 0)
@@ -79,11 +45,6 @@ void	measure_tape(t_cub *cub)
 	if (cub->side == 1 && cub->ray.y < 0)
 		cub->tex.x = cub->chosen_texture->width - cub->tex.x - 1;
 }
-
-/**
- * Calculate distance of perpendicular ray.
- * Calculate lowest and highest pixel to fill in current stripe
- */
 
 void	this_wall_is_high(t_cub *cub)
 {
@@ -99,15 +60,6 @@ void	this_wall_is_high(t_cub *cub)
 	if (cub->draw_end >= cub->mlx->height)
 		cub->draw_end = cub->mlx->height - 1;
 }
-
-/**
- * The DDA algorithm will always jump exactly one square each loop,
- * either a square in the x-direction, or a square in the y-direction.
- * If it has to go in the negative or positive x-direction,
- * and the negative or positive y-direction will depend on the direction
- * of the ray, and this fact will be stored in stepX and stepY.
- * Those variables are always either -1 or +1.
- * */
 
 void	welcome_to_the_dda(t_cub *cub)
 {
@@ -129,54 +81,6 @@ void	welcome_to_the_dda(t_cub *cub)
 			cub->hit = 1;
 	}
 }
-
-void	calc_step(t_cub *cub)
-{
-	if (cub->ray.x < 0)
-	{
-		cub->step.x = -1;
-		cub->side_dist.x = (cub->player.pos.x - cub->map.pos.x) * \
-							cub->delta_dist.x;
-	}
-	else
-	{
-		cub->step.x = 1;
-		cub->side_dist.x = (cub->map.pos.x + 1.0 - cub->player.pos.x) * \
-							cub->delta_dist.x;
-	}
-	if (cub->ray.y < 0)
-	{
-		cub->step.y = -1;
-		cub->side_dist.y = (cub->player.pos.y - cub->map.pos.y) * \
-							cub->delta_dist.y;
-	}
-	else
-	{
-		cub->step.y = 1;
-		cub->side_dist.y = (cub->map.pos.y + 1.0 - cub->player.pos.y) * \
-							cub->delta_dist.y;
-	}
-}
-
-/**
- * Delta is the distance
- * the ray has to travel to go from 1 x-side to the next x-side,
- * or from 1 y-side to the next y-side.
- */
-
-void	set_delta_dist(t_cub *cub)
-{
-	if (cub->ray.x == 0)
-		cub->delta_dist.x = 1e30;
-	else
-		cub->delta_dist.x = fabs(1 / cub->ray.x);
-	if (cub->ray.y == 0)
-		cub->delta_dist.y = 1e30;
-	else
-		cub->delta_dist.y = fabs(1 / cub->ray.y);
-}
-
-// https://www.youtube.com/watch?v=Pb-dJFnFSrc
 
 void	ft_catjam(void *param)
 {

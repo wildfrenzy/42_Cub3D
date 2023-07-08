@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/07 16:55:34 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:28:03 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_init_map(t_cub *cub)
 	cub->map.pos.y = 0;
 	cub->map.pos.x = 0;
 	cub->map.pos.dir = 127;
-	cub->blockS = 64;
 	return (0);
 }
 
