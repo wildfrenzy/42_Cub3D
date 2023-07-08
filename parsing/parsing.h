@@ -25,16 +25,17 @@
 typedef struct s_cub		t_cub;
 typedef struct mlx_image	mlx_image_t;
 
-//check if we need typedef for norm ?
-enum position
+enum e_position
 {
-	first, middle, last
+	first,
+	middle,
+	last
 };
 
 typedef struct s_p
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	char	dir;
 }				t_p;
 
@@ -43,25 +44,25 @@ typedef struct s_colour
 	int	r;
 	int	g;
 	int	b;
-	int a;
+	int	a;
 }				t_colour;
 
 typedef struct s_map
 {
-	int *map;
-	int mapX;
-	int mapY;
-	int mapsize;
+	int				*map;
+	int				mapX;
+	int				mapY;
+	int				mapsize;
 
-	int all_info;
-	char *no;
-	char *so;
-	char *we;
-	char *ea;
+	int				all_info;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
 
-	t_colour	floor;
-	t_colour	ceiling;
-	t_p		pos;
+	t_colour		floor;
+	t_colour		ceiling;
+	t_p				pos;
 
 	mlx_image_t		*north;
 	mlx_image_t		*south;
