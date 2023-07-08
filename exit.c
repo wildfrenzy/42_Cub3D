@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:15:52 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/08 14:59:54 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:46:39 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ int	ft_clean_exit(int stat, t_cub *cub)
 	}
 	if (stat >= 0)
 		free_map(&cub->map);
-	// if (stat > 2)
-	exit (stat);
+	exit (0);
 }
