@@ -1,10 +1,10 @@
-NO textures/marble-blue.xpm42
-SO textures/marble-mint.xpm42
-WE textures/fog.xpm42
-EA textures/sea.xpm42
+NO textures/6.xpm42
+SO textures/7.xpm42
+WE textures/8.xpm42
+EA textures/9.xpm42
 
-F 33,7,73
-C 191,189,193
+F 172,156,152
+C 179,185,188
 
 1111111111111111
 1010001001000101
