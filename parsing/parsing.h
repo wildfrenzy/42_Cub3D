@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:31:50 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 18:00:13 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:09:06 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int		check_if_texture_exists(t_map *map, char texture);
 
 /*	add utils	*/
 
-int		check_file(char *file);
 int		skip_spaces(char *buf, int i);
 int		scroll_to_map(int fd, int how_long);
 int		mapline(char *buf);

@@ -6,13 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/08 11:28:03 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:25:53 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_nullfloorceiling(t_colour *floor, t_colour *ceiling)
+static void	ft_initmap(t_colour *floor, t_colour *ceiling, t_cub *cub)
 {
 	floor->r = 0;
 	floor->g = 0;
@@ -22,16 +22,8 @@ static void	ft_nullfloorceiling(t_colour *floor, t_colour *ceiling)
 	ceiling->g = 0;
 	ceiling->b = 0;
 	ceiling->a = 0;
-}
-
-int	ft_init_map(t_cub *cub)
-{
-	t_colour	floor;
-	t_colour	ceiling;
-
-	ft_nullfloorceiling(&floor, &ceiling);
-	cub->map.floor = floor;
-	cub->map.ceiling = ceiling;
+	cub->map.floor = *floor;
+	cub->map.ceiling = *ceiling;
 	cub->map.map = NULL;
 	cub->map.no = NULL;
 	cub->map.so = NULL;
@@ -44,6 +36,21 @@ int	ft_init_map(t_cub *cub)
 	cub->map.pos.y = 0;
 	cub->map.pos.x = 0;
 	cub->map.pos.dir = 127;
+}
+
+int	ft_map(t_cub *cub, char *file, int *how_long_till_map)
+{
+	t_colour	floor;
+	t_colour	ceiling;
+
+	ft_initmap(&floor, &ceiling, cub);
+	if (!gather_data(&(cub->map), file, how_long_till_map) \
+		|| !create_int_map(&(cub->map)) || !fill_that_map(cub, file, \
+		*how_long_till_map) || !validate_walls(&(cub->map)))
+	{
+		free_map(&(cub->map));
+		return (ft_print_error("Map error\n"));
+	}
 	return (0);
 }
 

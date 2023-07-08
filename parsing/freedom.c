@@ -6,11 +6,12 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:23:13 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 17:09:20 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:22:05 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "../cub3d.h"
 
 int	freebuf_closefd(char *buf, int fd)
 {
