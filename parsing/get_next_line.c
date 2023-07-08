@@ -79,4 +79,3 @@ char	*get_next_line(int fd)
 	content[fd] = ft_new_content(content[fd]);
 	return (line);
 }
-
