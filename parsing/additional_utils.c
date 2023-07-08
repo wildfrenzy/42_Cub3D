@@ -74,7 +74,7 @@ int	mapline(char *buf)
 		else
 			return (0);
 	}
-	if (all_spaces == strlen(buf))
+	if (all_spaces == ft_strlen(buf))
 		return (printf("Error\nInvalid map: all spaces in a row\n") & 0);
 	return (1);
 }

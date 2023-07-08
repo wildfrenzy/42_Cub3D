@@ -31,7 +31,7 @@ int	get_width_height(int fd, t_map *map, char *buf)
 	while (buf)
 	{
 		map->mapY += 1;
-		len = strlen(buf) - 1;
+		len = ft_strlen(buf) - 1;
 		if (len <= 1)
 		{
 			freebuf_closefd(buf, fd);

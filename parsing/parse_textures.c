@@ -22,13 +22,13 @@ int	get_texture(t_map *map, char texture, char *buf)
 	if (buf[0] == ' ')
 		i = skip_spaces(buf, i - 1);
 	if (texture == 'N')
-		map->no = strdup(&(buf[i]));
+		map->no = ft_strdup(&(buf[i]));
 	else if (texture == 'S')
-		map->so = strdup(&(buf[i]));
+		map->so = ft_strdup(&(buf[i]));
 	else if (texture == 'W')
-		map->we = strdup(&(buf[i]));
+		map->we = ft_strdup(&(buf[i]));
 	else if (texture == 'E')
-		map->ea = strdup(&(buf[i]));
+		map->ea = ft_strdup(&(buf[i]));
 	if ((texture == 'N' && !map->no) || \
 		(texture == 'S' && !map->so) || \
 		(texture == 'W' && !map->we) || \
