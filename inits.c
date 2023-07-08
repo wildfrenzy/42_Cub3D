@@ -29,8 +29,8 @@ static void	ft_initmap(t_colour *floor, t_colour *ceiling, t_cub *cub)
 	cub->map.so = NULL;
 	cub->map.we = NULL;
 	cub->map.ea = NULL;
-	cub->map.mapX = 0;
-	cub->map.mapY = 0;
+	cub->map.map_x = 0;
+	cub->map.map_y = 0;
 	cub->map.mapsize = 0;
 	cub->map.all_info = 0;
 	cub->map.pos.y = 0;

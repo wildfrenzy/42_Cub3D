@@ -16,7 +16,7 @@ int	check_top(t_map *map, int i, int position)
 {
 	int	top;
 
-	top = i - map->mapX;
+	top = i - map->map_x;
 	if (map->map[top] == 0)
 		return (printf("Error\nInvalid map - no top wall\n") & 0);
 	if (position != first && map->map[top - 1] == 0)
@@ -30,7 +30,7 @@ int	check_bot(t_map *map, int i, int position)
 {
 	int	bot;
 
-	bot = i + map->mapX;
+	bot = i + map->map_x;
 	if (map->map[bot] == 0)
 		return (printf("Error\nInvalid map - no bot wall\n") & 0);
 	if (position != first && map->map[bot - 1] == 0)
@@ -47,7 +47,7 @@ int	check_first_row(t_map *map)
 
 	i = -1;
 	all_spaces = 0;
-	while (++i < map->mapX)
+	while (++i < map->map_x)
 	{
 		if (map->map[i] == 0)
 			return (printf("Error\nInvalid map\n") & 0);
@@ -56,13 +56,14 @@ int	check_first_row(t_map *map)
 			all_spaces += 1;
 			if (i == 0 && !check_bot(map, i, first))
 				return (0);
-			else if (i == map->mapX - 1 && !check_bot(map, i, last))
+			else if (i == map->map_x - 1 && !check_bot(map, i, last))
 				return (0);
-			else if (i != 0 && i != map->mapX - 1 && !check_bot(map, i, middle))
+			else if (i != 0 && i != map->map_x - 1 && \
+				!check_bot(map, i, middle))
 				return (0);
 		}
 	}
-	if (all_spaces == map->mapX)
+	if (all_spaces == map->map_x)
 		return (printf("Error\nInvalid map - first row all spaces\n") & 0);
 	return (1);
 }
@@ -74,8 +75,8 @@ int	check_last_row(t_map *map)
 	int	all_spaces;
 	int	tmp;
 
-	total = map->mapX * map->mapY;
-	i = (map->mapX * (map->mapY - 1)) - 1;
+	total = map->map_x * map->map_y;
+	i = (map->map_x * (map->map_y - 1)) - 1;
 	all_spaces = 0;
 	tmp = i;
 	while (++i < total)
@@ -86,12 +87,12 @@ int	check_last_row(t_map *map)
 		{
 			all_spaces += 1;
 			if ((i == tmp && !check_top(map, i, first)) || (i == tmp \
-				+ map->mapX - 1 && !check_top(map, i, last)) || (i != tmp \
-				&& i != tmp + map->mapX - 1 && !check_top(map, i, middle)))
+				+ map->map_x - 1 && !check_top(map, i, last)) || (i != tmp \
+				&& i != tmp + map->map_x - 1 && !check_top(map, i, middle)))
 				return (0);
 		}
 	}
-	if (all_spaces == map->mapX)
+	if (all_spaces == map->map_x)
 		return (printf("Error\nInvalid map - last row all spaces\n") & 0);
 	return (1);
 }
@@ -101,21 +102,21 @@ int	validate_walls(t_map *map)
 	int		i;
 	long	size;
 
-	i = map->mapX - 1;
-	size = map->mapX * (map->mapY - 1);
+	i = map->map_x - 1;
+	size = map->map_x * (map->map_y - 1);
 	if (!check_first_row(map))
 		return (0);
 	while (++i < size)
 	{
 		if (map->map[i] == -1)
 		{
-			if (i % map->mapX == 0 && (!check_top(map, i, first) || \
+			if (i % map->map_x == 0 && (!check_top(map, i, first) || \
 				!check_bot(map, i, first)))
 				return (0);
-			else if (i % map->mapX == map->mapX - 1 && \
+			else if (i % map->map_x == map->map_x - 1 && \
 				(!check_top(map, i, last) || !check_bot(map, i, last)))
 				return (0);
-			else if (i % map->mapX != 0 && i % map->mapX != map->mapX - 1 \
+			else if (i % map->map_x != 0 && i % map->map_x != map->map_x - 1 \
 				&& (!check_top(map, i, middle) || !check_bot(map, i, middle)))
 				return (0);
 		}

@@ -50,8 +50,8 @@ typedef struct s_colour
 typedef struct s_map
 {
 	int				*map;
-	int				mapX;
-	int				mapY;
+	int				map_x;
+	int				map_y;
 	int				mapsize;
 
 	int				all_info;
