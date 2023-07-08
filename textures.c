@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 23:48:41 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 17:00:45 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:27:53 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	load_texture(mlx_t	*mlx, mlx_image_t **img, char *file)
 
 void	resize_textures(t_cub *cub)
 {
-	mlx_resize_image(cub->map.north, cub->blockS, cub->blockS);
-	mlx_resize_image(cub->map.south, cub->blockS, cub->blockS);
-	mlx_resize_image(cub->map.east, cub->blockS, cub->blockS);
-	mlx_resize_image(cub->map.west, cub->blockS, cub->blockS);
+	mlx_resize_image(cub->map.north, 64, 64);
+	mlx_resize_image(cub->map.south, 64, 64);
+	mlx_resize_image(cub->map.east, 64, 64);
+	mlx_resize_image(cub->map.west, 64, 64);
 }
 
 int	prepare_textures(t_cub *cub)

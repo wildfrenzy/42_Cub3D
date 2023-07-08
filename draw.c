@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 15:51:49 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/05/24 00:11:58 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:35:05 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour)
 	dir.x = ft_dir(p1.x, p2.x);
 	dir.y = ft_dir(p1.y, p2.y);
 	error[0] = delta.x - delta.y;
-
 	while (!(p1.x == p2.x && p1.y == p2.y))
 	{
 		ft_safe_draw(img, p1.x, p1.y, colour);
@@ -93,11 +92,13 @@ void	ft_background(void *v_cub)
 	bottom_right.x = cub->mlx->width - 1;
 	bottom_right.y = cub->mlx->height / 2;
 	ft_filled_square(cub->img, top_left, bottom_right, \
-		ft_rgba_to_int(cub->map.ceiling.r, cub->map.ceiling.g, cub->map.ceiling.b, 255));
+		ft_rgba_to_int(cub->map.ceiling.r, cub->map.ceiling.g, \
+		cub->map.ceiling.b, 255));
 	top_left.x = 0;
 	top_left.y = cub->mlx->height / 2;
 	bottom_right.x = cub->mlx->width - 1;
 	bottom_right.y = cub->mlx->height - 1;
 	ft_filled_square(cub->img, top_left, bottom_right, \
-		ft_rgba_to_int(cub->map.floor.r, cub->map.floor.g, cub->map.floor.b, 255));
+		ft_rgba_to_int(cub->map.floor.r, cub->map.floor.g, \
+			cub->map.floor.b, 255));
 }
