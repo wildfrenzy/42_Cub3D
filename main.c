@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/08 14:26:50 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:03:23 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_main_loop(t_cub *cub)
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);
-	mlx_terminate(cub->mlx);
+	ft_clean_exit(10, cub);
 }
 
 int	main(int argc, char **argv)
@@ -48,13 +48,12 @@ int	main(int argc, char **argv)
 	if (ft_checkargs(argc, argv))
 		return (1);
 	if (ft_map(&cub, argv[1], &how_long_till_map))
-		return (1);
+		return (ft_clean_exit(0, &cub));
 	if (ft_init_cub(&cub, argc, argv))
 		return (ft_clean_exit(1, &cub));
 	if (!prepare_textures(&cub))
-		return (free_map(&(cub.map)));
+		return (ft_clean_exit(1, &cub));
 	ft_init_player(&cub);
 	ft_main_loop(&cub);
-	free_map(&(cub.map));
-	return (0);
+	return (ft_clean_exit(3, &cub));
 }

@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 13:19:18 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:47:03 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			ft_hook(void *param);
 int				ft_map(t_cub *cub, char *file, int *hltm);
 int				ft_init_rays(t_cub *cub);
 int				ft_init_cub(t_cub *cub, int argc, char **argv);
-int				ft_init_player(t_cub *cub);
+void			ft_init_player(t_cub *cub);
 
 // draw
 void			ft_line(mlx_image_t *img, t_point p1, t_point p2, int colour);

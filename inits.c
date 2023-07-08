@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:13:57 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/08 13:25:53 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:46:44 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,11 @@ int	ft_map(t_cub *cub, char *file, int *how_long_till_map)
 	if (!gather_data(&(cub->map), file, how_long_till_map) \
 		|| !create_int_map(&(cub->map)) || !fill_that_map(cub, file, \
 		*how_long_till_map) || !validate_walls(&(cub->map)))
-	{
-		free_map(&(cub->map));
 		return (ft_print_error("Map error\n"));
-	}
 	return (0);
 }
 
-int	ft_init_player(t_cub *cub)
+void	ft_init_player(t_cub *cub)
 {
 	cub->player.pos.x = cub->map.pos.x + 0.5;
 	cub->player.pos.y = cub->map.pos.y + 0.5;
@@ -68,7 +65,6 @@ int	ft_init_player(t_cub *cub)
 		rotate(cub, M_PI);
 	else if (cub->map.pos.dir == 'S')
 		rotate(cub, M_PI / 2);
-	return (0);
 }
 
 int	ft_init_cub(t_cub *cub, int argc, char **argv)

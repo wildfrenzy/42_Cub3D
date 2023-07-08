@@ -6,7 +6,7 @@
 #    By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 01:02:14 by nmaliare          #+#    #+#              #
-#    Updated: 2023/07/08 13:37:47 by bmacmaho         ###   ########.fr        #
+#    Updated: 2023/07/08 14:34:45 by bmacmaho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,5 +86,8 @@ re: fclean all
 
 exec: all clean
 	./$(NAME) ./parsing/0.cub
+
+val: all clean
+	valgrind ./$(NAME) ./parsing/0.cub
 
 .PHONY:	all clean fclean re
