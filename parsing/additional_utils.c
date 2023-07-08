@@ -37,7 +37,7 @@ int	validate_map_line(char *line)
 
 int	check_file(char *file)
 {
-	if (strncmp(file + strlen(file) - 4, ".cub", 4) != 0)
+	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4) != 0)
 		return (printf("Error\nInvalid file extension\n") && 0);
 	return (1);
 }
@@ -81,7 +81,7 @@ int	mapline(char *buf)
 		else
 			return (0);
 	}
-	if (all_spaces == strlen(buf))
+	if (all_spaces == ft_strlen(buf))
 		return (printf("Error\nInvalid map: all spaces in a row\n") & 0);
 	return (1);
 }

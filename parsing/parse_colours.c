@@ -72,22 +72,22 @@ int	write_rgb(char *rgb, t_map *map, char where, int colour)
 	if (where == 'F')
 	{
 		if (colour == 1)
-			map->floor.r = atoi(rgb);
+			map->floor.r = ft_atoi(rgb);
 		else if (colour == 2)
-			map->floor.g = atoi(rgb);
+			map->floor.g = ft_atoi(rgb);
 		else if (colour == 3)
-			map->floor.b = atoi(rgb);
+			map->floor.b = ft_atoi(rgb);
 	}
 	else
 	{
 		if (colour == 1)
-			map->ceiling.r = atoi(rgb);
+			map->ceiling.r = ft_atoi(rgb);
 		else if (colour == 2)
-			map->ceiling.g = atoi(rgb);
+			map->ceiling.g = ft_atoi(rgb);
 		else if (colour == 3)
-			map->ceiling.b = atoi(rgb);
+			map->ceiling.b = ft_atoi(rgb);
 	}
-	rgb = strchr(rgb, ',');
+	rgb = ft_strchr(rgb, ',');
 	rgb += 1;
 	if (colour + 1 < 4 && !check_rgb(rgb, colour + 1))
 		return (0);
