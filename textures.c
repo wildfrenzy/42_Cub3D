@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 23:48:41 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 11:27:53 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:14:24 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	load_texture(mlx_t	*mlx, mlx_image_t **img, char *file)
 		return (0);
 	}
 	*img = mlx_texture_to_image(mlx, &(texture->texture));
-	printf("img: %dpx %dpx\n", (*img)->width, (*img)->height);
 	mlx_delete_xpm42(texture);
 	return (1);
 }
