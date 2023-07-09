@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:12:44 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/07/08 11:14:40 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:36:16 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void	put_textel(mlx_image_t *img, int x, int y, unsigned int colour)
 {
 	unsigned int	*pixel;
 
-	pixel = (unsigned int *)&img->pixels[(x + y * img->width) * 4];
-	*pixel = colour;
+	if (x < img->width && y < img->height)
+	{
+		pixel = (unsigned int *)&img->pixels[(x + y * img->width) * 4];
+		*pixel = colour;
+	}
 }
 
 /**
