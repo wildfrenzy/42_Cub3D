@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:36:21 by barramacmah       #+#    #+#             */
-/*   Updated: 2023/07/08 15:03:23 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:21:03 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	recised(void *param)
 void	ft_main_loop(t_cub *cub)
 {
 	mlx_loop_hook(cub->mlx, ft_background, cub);
-	mlx_loop_hook(cub->mlx, ft_catjam, cub);
+	mlx_loop_hook(cub->mlx, raycast_loop, cub);
 	mlx_loop_hook(cub->mlx, ft_hook, cub);
 	mlx_loop_hook(cub->mlx, recised, cub);
 	mlx_loop(cub->mlx);

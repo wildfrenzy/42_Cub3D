@@ -6,13 +6,13 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:07:04 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 11:14:29 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:32:16 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	tape_the_wall(t_cub *cub, int x)
+void	apply_texture(t_cub *cub, int x)
 {
 	double	step;
 	double	tex_pos;
@@ -36,7 +36,7 @@ void	tape_the_wall(t_cub *cub, int x)
  * Where exactly the wall was hit
  */
 
-void	measure_tape(t_cub *cub)
+void	measure_texture(t_cub *cub)
 {
 	if (cub->side == 0)
 		cub->wall_x = cub->player.pos.y + cub->perp_wall_dist * cub->ray.y;
@@ -55,7 +55,7 @@ void	measure_tape(t_cub *cub)
  * Calculate lowest and highest pixel to fill in current stripe
  */
 
-void	this_wall_is_high(t_cub *cub)
+void	dist_to_line_height(t_cub *cub)
 {
 	if (cub->side == 0)
 		cub->perp_wall_dist = cub->side_dist.x - cub->delta_dist.x;
@@ -79,7 +79,7 @@ void	this_wall_is_high(t_cub *cub)
  * Those variables are always either -1 or +1.
  * */
 
-void	welcome_to_the_dda(t_cub *cub)
+void	dda_loop(t_cub *cub)
 {
 	while (cub->hit == 0)
 	{
@@ -100,7 +100,7 @@ void	welcome_to_the_dda(t_cub *cub)
 	}
 }
 
-void	ft_catjam(void *param)
+void	raycast_loop(void *param)
 {
 	t_cub	*cub;
 	double	camera_x;
@@ -118,10 +118,10 @@ void	ft_catjam(void *param)
 		set_delta_dist(cub);
 		cub->hit = 0;
 		calc_step(cub);
-		welcome_to_the_dda(cub);
-		this_wall_is_high(cub);
-		choose_the_tape(cub);
-		measure_tape(cub);
-		tape_the_wall(cub, x);
+		dda_loop(cub);
+		dist_to_line_height(cub);
+		choose_texture(cub);
+		measure_texture(cub);
+		apply_texture(cub, x);
 	}
 }

@@ -79,7 +79,7 @@ void	calc_step(t_cub *cub)
 	}
 }
 
-void	choose_the_tape(t_cub *cub)
+void	choose_texture(t_cub *cub)
 {
 	if (cub->side == 0 && cub->step.x < 0)
 		cub->chosen_texture = cub->map.east;
