@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmaliare <nmaliare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:46:29 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/07 17:12:59 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/09 13:06:50 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int	create_int_map(t_map *map)
 
 int	get_width_height(int fd, t_map *map, char *buf)
 {
-	int	len;
+	int		len;
+	char	end;
 
 	while (buf)
 	{
 		map->map_y += 1;
 		len = ft_strlen(buf) - 1;
+		end = buf[len];
 		if (len <= 1)
 		{
 			freebuf_closefd(buf, fd);
@@ -43,8 +45,8 @@ int	get_width_height(int fd, t_map *map, char *buf)
 		buf = get_next_line(fd);
 	}
 	freebuf_closefd(buf, fd);
-	if (map->map_y < 3)
-		return (printf("Error\nInvalid map!<\n") & 0);
+	if (map->map_y < 3 || end == '\n')
+		return (printf("Error\nInvalid map!\n") & 0);
 	return (1);
 }
 

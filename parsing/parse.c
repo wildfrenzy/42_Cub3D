@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:37:26 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 11:42:19 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/09 12:38:42 by nmaliare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	first_read_till_map(t_map *map, char *buf)
 			return (0);
 	}
 	else if (buf[0] != '\0')
-		return (printf("Error\nExtra symbols in file\n") & 0);
+		return (printf("Error\nWrong data format\n") & 0);
 	return (1);
 }
 
