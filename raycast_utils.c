@@ -30,6 +30,12 @@ void	put_textel(mlx_image_t *img, int x, int y, unsigned int colour)
 	*pixel = colour;
 }
 
+/**
+ * Delta is the distance
+ * the ray has to travel to go from 1 x-side to the next x-side,
+ * or from 1 y-side to the next y-side.
+ */
+
 void	set_delta_dist(t_cub *cub)
 {
 	if (cub->ray.x == 0)

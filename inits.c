@@ -42,8 +42,13 @@ int	ft_map(t_cub *cub, char *file, int *how_long_till_map)
 {
 	t_colour	floor;
 	t_colour	ceiling;
+	int			fd;
 
 	ft_initmap(&floor, &ceiling, cub);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (!!printf("Error\nNo such file or directory\n"));
+	close(fd);
 	if (!gather_data(&(cub->map), file, how_long_till_map) \
 		|| !create_int_map(&(cub->map)) || !fill_that_map(cub, file, \
 		*how_long_till_map) || !validate_walls(&(cub->map)))

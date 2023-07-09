@@ -10,9 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra 
+FLAGS = -Wall -Wextra -Werror
 # -g3 -fsanitize=address
-#-Werror
 
 NAME = cub3D
 
@@ -41,9 +40,6 @@ else
 MLX_FLAGS = -I$(MLX_DIR) -ldl -lglfw -pthread -lm
 endif
 
-
-#HEADER_FLAGS = -I $(LIBFT_DIR)
-
 # COLORS
 NOC         = \033[0m
 GREEN       = \033[1;32m
@@ -56,8 +52,8 @@ $(NAME): $(LIBFT) $(OBJ) $(HEADER)
 	@cc $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(MLX) $(MLX_FLAGS)
 	@printf "$(GREEN)$(NAME) successfully compiled !$(NOC)\n"
 
-$(OBJ): %.o:%.c #$(HEADER)
-	@cc -g3 -c $< -o $@ #$(HEADER_FLAGS)
+$(OBJ): %.o:%.c
+	@cc -g3 -c $< -o $@
 	@printf "$(GREEN)[\342\234\205] $(notdir $@)\n";
 
 $(LIBFT):
@@ -90,4 +86,4 @@ exec: all clean
 val: all clean
 	valgrind ./$(NAME) ./maps/0.cub
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re exec val

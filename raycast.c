@@ -32,6 +32,10 @@ void	tape_the_wall(t_cub *cub, int x)
 	}
 }
 
+/**
+ * Where exactly the wall was hit
+ */
+
 void	measure_tape(t_cub *cub)
 {
 	if (cub->side == 0)
@@ -45,6 +49,11 @@ void	measure_tape(t_cub *cub)
 	if (cub->side == 1 && cub->ray.y < 0)
 		cub->tex.x = cub->chosen_texture->width - cub->tex.x - 1;
 }
+
+/**
+ * Calculate distance of perpendicular ray.
+ * Calculate lowest and highest pixel to fill in current stripe
+ */
 
 void	this_wall_is_high(t_cub *cub)
 {
@@ -60,6 +69,15 @@ void	this_wall_is_high(t_cub *cub)
 	if (cub->draw_end >= cub->mlx->height)
 		cub->draw_end = cub->mlx->height - 1;
 }
+
+/**
+ * The DDA algorithm will always jump exactly one square each loop,
+ * either a square in the x-direction, or a square in the y-direction.
+ * If it has to go in the negative or positive x-direction,
+ * and the negative or positive y-direction will depend on the direction
+ * of the ray, and this fact will be stored in stepX and stepY.
+ * Those variables are always either -1 or +1.
+ * */
 
 void	welcome_to_the_dda(t_cub *cub)
 {

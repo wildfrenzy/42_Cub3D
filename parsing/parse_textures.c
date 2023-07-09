@@ -12,6 +12,29 @@
 
 #include "parsing.h"
 
+int	knock_knock(t_map *map, char texture)
+{
+	int	fd;
+	int	err;
+
+	err = 0;
+	fd = -1;
+	if (texture == 'N')
+		fd = open(map->no, O_RDONLY);
+	else if (texture == 'S')
+		fd = open(map->so, O_RDONLY);
+	else if (texture == 'E')
+		fd = open(map->ea, O_RDONLY);
+	else if (texture == 'W')
+		fd = open(map->we, O_RDONLY);
+	if (fd == -1)
+		err = 1;
+	close(fd);
+	if (err)
+		return (0 & printf("Error\nNo such file or directory\n"));
+	return (1);
+}
+
 int	get_texture(t_map *map, char texture, char *buf)
 {
 	int	i;
@@ -35,7 +58,7 @@ int	get_texture(t_map *map, char texture, char *buf)
 		(texture == 'E' && !map->ea))
 		return (printf("Error\nTexture Error\n") & 0);
 	map->all_info += 1;
-	return (1);
+	return (knock_knock(map, texture));
 }
 
 int	check_if_texture_exists(t_map *map, char texture)
