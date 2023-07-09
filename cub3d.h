@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 22:02:45 by nmaliare          #+#    #+#             */
-/*   Updated: 2023/07/08 16:22:42 by nmaliare         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:29:28 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			ft_draw_player(void *v_cub);
 void			ft_background(void *v_cub);
 
 // raycasting
-void			choose_the_tape(t_cub *cub);
+void			choose_texture(t_cub *cub);
 void			calc_step(t_cub *cub);
 void			set_delta_dist(t_cub *cub);
 void			put_textel(mlx_image_t *img, int x, int y, unsigned int colour);
@@ -133,7 +133,7 @@ void			new_ft_line(mlx_image_t *img, t_point p1, \
 float			get_wall_height(float dist);
 
 //catjam
-void			ft_catjam(void *param);
+void			raycast_loop(void *param);
 void			rotate(t_cub *cub, double rot_speed);
 
 #endif

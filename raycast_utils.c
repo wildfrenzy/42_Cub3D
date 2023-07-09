@@ -6,7 +6,7 @@
 /*   By: bmacmaho <bmacmaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:12:44 by bmacmaho          #+#    #+#             */
-/*   Updated: 2023/07/08 11:14:40 by bmacmaho         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:29:11 by bmacmaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	calc_step(t_cub *cub)
 	}
 }
 
-void	choose_the_tape(t_cub *cub)
+void	choose_texture(t_cub *cub)
 {
 	if (cub->side == 0 && cub->step.x < 0)
 		cub->chosen_texture = cub->map.east;
